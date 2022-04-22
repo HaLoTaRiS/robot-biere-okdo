@@ -1,0 +1,16 @@
+C:\Users\Baptiste\Documents\ENSEA\3D\S10_011_Projet\IDE\LPC55S69_Robot_Biere\drivers/fsl_common_arm.h:579:24:DisableGlobalIRQ	16	static
+C:\Users\Baptiste\Documents\ENSEA\3D\S10_011_Projet\IDE\LPC55S69_Robot_Biere\drivers/fsl_common_arm.h:606:20:EnableGlobalIRQ	24	static
+../component/serial_manager/fsl_component_serial_manager.c:378:32:SerialManager_StartWriting	32	static
+../component/serial_manager/fsl_component_serial_manager.c:433:32:SerialManager_StartReading	32	static
+../component/serial_manager/fsl_component_serial_manager.c:1161:32:SerialManager_Write	32	static
+../component/serial_manager/fsl_component_serial_manager.c:1178:32:SerialManager_Read	32	static
+../component/serial_manager/fsl_component_serial_manager.c:1196:25:SerialManager_Init	24	static
+../component/serial_manager/fsl_component_serial_manager.c:1409:25:SerialManager_Deinit	32	static
+../component/serial_manager/fsl_component_serial_manager.c:1487:25:SerialManager_OpenWriteHandle	32	static
+../component/serial_manager/fsl_component_serial_manager.c:1524:25:SerialManager_CloseWriteHandle	32	static
+../component/serial_manager/fsl_component_serial_manager.c:1555:25:SerialManager_OpenReadHandle	32	static
+../component/serial_manager/fsl_component_serial_manager.c:1595:25:SerialManager_CloseReadHandle	32	static
+../component/serial_manager/fsl_component_serial_manager.c:1624:25:SerialManager_WriteBlocking	24	static
+../component/serial_manager/fsl_component_serial_manager.c:1633:25:SerialManager_ReadBlocking	24	static
+../component/serial_manager/fsl_component_serial_manager.c:1876:25:SerialManager_EnterLowpower	24	static
+../component/serial_manager/fsl_component_serial_manager.c:1923:25:SerialManager_ExitLowpower	24	static
