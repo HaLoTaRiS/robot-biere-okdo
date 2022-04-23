@@ -1,7 +1,2 @@
-C:\Users\Baptiste\Documents\ENSEA\3D\S10_011_Projet\IDE\LPC55S69_Robot_Biere\drivers/fsl_gpio.h:186:20:GPIO_PortSet	24	static
-C:\Users\Baptiste\Documents\ENSEA\3D\S10_011_Projet\IDE\LPC55S69_Robot_Biere\drivers/fsl_gpio.h:198:20:GPIO_PortClear	24	static
-../source/device_motor.c:35:6:init_motor	4	static
-../source/device_motor.c:39:6:start_motor	8	static
-../source/device_motor.c:43:6:stop_motor	8	static
-../source/device_motor.c:47:6:run_motor_A	4	static
-../source/device_motor.c:51:6:run_motor_B	4	static
+../source/device_motor.c:93:6:run_motor_A	16	static
+../source/device_motor.c:122:6:run_motor_B	16	static

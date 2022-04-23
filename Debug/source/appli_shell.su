@@ -1,0 +1,7 @@
+../source/appli_shell.c:15:5:shHelp	48	static
+../source/appli_shell.c:29:9:isChar	16	static
+../source/appli_shell.c:38:9:isSpace	16	static
+../source/appli_shell.c:54:9:ShellInit	24	static
+../source/appli_shell.c:74:9:ShellAdd	24	static
+../source/appli_shell.c:90:9:ShellExec	128	static
+../source/appli_shell.c:136:9:ShellProcess	16	static

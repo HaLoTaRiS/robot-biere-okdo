@@ -54,9 +54,12 @@ BOARD_InitDEBUG_UARTPins:
     mode: inactive, slew_rate: standard, invert: disabled, open_drain: disabled}
   - {pin_num: '94', peripheral: FLEXCOMM0, signal: TXD_SCL_MISO_WS, pin_signal: PIO0_30/FC0_TXD_SCL_MISO_WS/SD1_D3/CTIMER0_MAT0/SCT0_OUT9/SECURE_GPIO0_30, mode: inactive,
     slew_rate: standard, invert: disabled, open_drain: disabled}
-  - {pin_num: '1', peripheral: GPIO, signal: 'PIO1, 4', pin_signal: PIO1_4/FC0_SCK/SD0_D0/CTIMER2_MAT1/SCT0_OUT0/FREQME_GPIO_CLK_A, direction: OUTPUT, mode: pullUp}
-  - {pin_num: '9', peripheral: GPIO, signal: 'PIO1, 7', pin_signal: PIO1_7/FC0_RTS_SCL_SSEL1/SD0_D1/CTIMER2_MAT2/SCT_GPI4, direction: OUTPUT, mode: pullUp}
-  - {pin_num: '5', peripheral: GPIO, signal: 'PIO1, 6', pin_signal: PIO1_6/FC0_TXD_SCL_MISO_WS/SD0_D3/CTIMER2_MAT1/SCT_GPI3, direction: OUTPUT, mode: pullUp}
+  - {pin_num: '1', peripheral: GPIO, signal: 'PIO1, 4', pin_signal: PIO1_4/FC0_SCK/SD0_D0/CTIMER2_MAT1/SCT0_OUT0/FREQME_GPIO_CLK_A, direction: OUTPUT, gpio_init_state: 'true',
+    mode: pullUp}
+  - {pin_num: '9', peripheral: GPIO, signal: 'PIO1, 7', pin_signal: PIO1_7/FC0_RTS_SCL_SSEL1/SD0_D1/CTIMER2_MAT2/SCT_GPI4, direction: OUTPUT, gpio_init_state: 'true',
+    mode: pullUp}
+  - {pin_num: '5', peripheral: GPIO, signal: 'PIO1, 6', pin_signal: PIO1_6/FC0_TXD_SCL_MISO_WS/SD0_D3/CTIMER2_MAT1/SCT_GPI3, direction: OUTPUT, gpio_init_state: 'true',
+    mode: pullUp}
   - {pin_num: '20', peripheral: CTIMER1, signal: 'MATCH, 2', pin_signal: PIO0_23/MCLK/CTIMER1_MAT2/CTIMER3_MAT3/SCT0_OUT4/FC0_CTS_SDA_SSEL0/SD1_D1/SECURE_GPIO0_23/ADC0_0}
   - {pin_num: '14', peripheral: GPIO, signal: 'PIO0, 16', pin_signal: PIO0_16/FC4_TXD_SCL_MISO_WS/CLKOUT/CT_INP4/SECURE_GPIO0_16/ADC0_8, direction: OUTPUT}
   - {pin_num: '22', peripheral: GPIO, signal: 'PIO0, 15', pin_signal: PIO0_15/FC6_CTS_SDA_SSEL0/UTICK_CAP2/CT_INP16/SCT0_OUT2/SD0_WR_PRT/SECURE_GPIO0_15/ADC0_2, direction: OUTPUT}
@@ -109,21 +112,21 @@ void BOARD_InitDEBUG_UARTPins(void)
 
     gpio_pin_config_t LED_RED_config = {
         .pinDirection = kGPIO_DigitalOutput,
-        .outputLogic = 0U
+        .outputLogic = 1U
     };
     /* Initialize GPIO functionality on pin PIO1_4 (pin 1)  */
     GPIO_PinInit(BOARD_INITDEBUG_UARTPINS_LED_RED_GPIO, BOARD_INITDEBUG_UARTPINS_LED_RED_PORT, BOARD_INITDEBUG_UARTPINS_LED_RED_PIN, &LED_RED_config);
 
     gpio_pin_config_t LED_BLUE_config = {
         .pinDirection = kGPIO_DigitalOutput,
-        .outputLogic = 0U
+        .outputLogic = 1U
     };
     /* Initialize GPIO functionality on pin PIO1_6 (pin 5)  */
     GPIO_PinInit(BOARD_INITDEBUG_UARTPINS_LED_BLUE_GPIO, BOARD_INITDEBUG_UARTPINS_LED_BLUE_PORT, BOARD_INITDEBUG_UARTPINS_LED_BLUE_PIN, &LED_BLUE_config);
 
     gpio_pin_config_t LED_GREEN_config = {
         .pinDirection = kGPIO_DigitalOutput,
-        .outputLogic = 0U
+        .outputLogic = 1U
     };
     /* Initialize GPIO functionality on pin PIO1_7 (pin 9)  */
     GPIO_PinInit(BOARD_INITDEBUG_UARTPINS_LED_GREEN_GPIO, BOARD_INITDEBUG_UARTPINS_LED_GREEN_PORT, BOARD_INITDEBUG_UARTPINS_LED_GREEN_PIN, &LED_GREEN_config);

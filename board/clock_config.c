@@ -376,6 +376,7 @@ called_from_default_init: true
 outputs:
 - {id: CTIMER0_clock.outFreq, value: 1 MHz}
 - {id: CTIMER1_clock.outFreq, value: 1 MHz}
+- {id: FXCOM0_clock.outFreq, value: 12 MHz}
 - {id: System_clock.outFreq, value: 150 MHz}
 - {id: UTICK_clock.outFreq, value: 1 MHz}
 - {id: WDT_clock.outFreq, value: 1 MHz}
@@ -384,6 +385,7 @@ settings:
 - {id: ANALOG_CONTROL_FRO192M_CTRL_ENDI_FRO_96M_CFG, value: Enable}
 - {id: SYSCON.CTIMERCLKSEL0.sel, value: SYSCON.fro_1m}
 - {id: SYSCON.CTIMERCLKSEL1.sel, value: SYSCON.fro_1m}
+- {id: SYSCON.FCCLKSEL0.sel, value: ANACTRL.fro_12m_clk}
 - {id: SYSCON.MAINCLKSELB.sel, value: SYSCON.PLL0_BYPASS}
 - {id: SYSCON.PLL0CLKSEL.sel, value: ANACTRL.fro_12m_clk}
 - {id: SYSCON.PLL0M_MULT.scale, value: '200', locked: true}
@@ -437,12 +439,18 @@ void BOARD_Boot_Clock_ROBOT(void)
     CLOCK_SetPLL0Freq(&pll0Setup);                       /*!< Configure PLL0 to the desired values */
 
     /*!< Set up dividers */
+    #if FSL_CLOCK_DRIVER_VERSION >= MAKE_VERSION(2, 3, 4)
+      CLOCK_SetClkDiv(kCLOCK_DivFlexFrg0, 0U, false);         /*!< Set DIV to value 0xFF and MULT to value 0U in related FLEXFRGCTRL register */
+    #else
+      CLOCK_SetClkDiv(kCLOCK_DivFlexFrg0, 256U, false);         /*!< Set DIV to value 0xFF and MULT to value 0U in related FLEXFRGCTRL register */
+    #endif
     CLOCK_SetClkDiv(kCLOCK_DivAhbClk, 1U, false);         /*!< Set AHBCLKDIV divider to value 1 */
     CLOCK_SetClkDiv(kCLOCK_DivWdtClk, 0U, true);               /*!< Reset WDTCLKDIV divider counter and halt it */
     CLOCK_SetClkDiv(kCLOCK_DivWdtClk, 1U, false);         /*!< Set WDTCLKDIV divider to value 1 */
 
     /*!< Set up clock selectors - Attach clocks to the peripheries */
     CLOCK_AttachClk(kPLL0_to_MAIN_CLK);                 /*!< Switch MAIN_CLK to PLL0 */
+    CLOCK_AttachClk(kFRO12M_to_FLEXCOMM0);                 /*!< Switch FLEXCOMM0 to FRO12M */
     CLOCK_AttachClk(kFRO1M_to_CTIMER0);                 /*!< Switch CTIMER0 to FRO1M */
     CLOCK_AttachClk(kFRO1M_to_CTIMER1);                 /*!< Switch CTIMER1 to FRO1M */
 

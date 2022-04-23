@@ -5,16 +5,19 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../source/LPC55S69_Robot_Biere.c \
+../source/appli_shell.c \
 ../source/device_motor.c \
 ../source/semihost_hardfault.c 
 
 OBJS += \
 ./source/LPC55S69_Robot_Biere.o \
+./source/appli_shell.o \
 ./source/device_motor.o \
 ./source/semihost_hardfault.o 
 
 C_DEPS += \
 ./source/LPC55S69_Robot_Biere.d \
+./source/appli_shell.d \
 ./source/device_motor.d \
 ./source/semihost_hardfault.d 
 
