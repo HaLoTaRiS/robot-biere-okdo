@@ -63,10 +63,34 @@ void BOARD_InitBootPins(void);
 #define PIO0_23_FUNC_ALT2 0x02u
 /*!
  * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
+#define PIO0_31_DIGIMODE_DIGITAL 0x01u
+/*!
+ * @brief Selects pin function.: Alternative connection 0. */
+#define PIO0_31_FUNC_ALT0 0x00u
+/*!
+ * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
 #define PIO0_5_DIGIMODE_DIGITAL 0x01u
 /*!
  * @brief Selects pin function.: Alternative connection 0. */
 #define PIO0_5_FUNC_ALT0 0x00u
+/*!
+ * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
+#define PIO0_7_DIGIMODE_DIGITAL 0x01u
+/*!
+ * @brief Selects pin function.: Alternative connection 0. */
+#define PIO0_7_FUNC_ALT0 0x00u
+/*!
+ * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
+#define PIO1_0_DIGIMODE_DIGITAL 0x01u
+/*!
+ * @brief Selects pin function.: Alternative connection 0. */
+#define PIO1_0_FUNC_ALT0 0x00u
+/*!
+ * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
+#define PIO1_1_DIGIMODE_DIGITAL 0x01u
+/*!
+ * @brief Selects pin function.: Alternative connection 0. */
+#define PIO1_1_FUNC_ALT0 0x00u
 /*!
  * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
 #define PIO1_26_DIGIMODE_DIGITAL 0x01u
@@ -81,6 +105,18 @@ void BOARD_InitBootPins(void);
 #define PIO1_27_FUNC_ALT3 0x03u
 /*!
  * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
+#define PIO1_2_DIGIMODE_DIGITAL 0x01u
+/*!
+ * @brief Selects pin function.: Alternative connection 0. */
+#define PIO1_2_FUNC_ALT0 0x00u
+/*!
+ * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
+#define PIO1_3_DIGIMODE_DIGITAL 0x01u
+/*!
+ * @brief Selects pin function.: Alternative connection 0. */
+#define PIO1_3_FUNC_ALT0 0x00u
+/*!
+ * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
 #define PIO1_4_DIGIMODE_DIGITAL 0x01u
 /*!
  * @brief Selects pin function.: Alternative connection 0. */
@@ -88,6 +124,12 @@ void BOARD_InitBootPins(void);
 /*!
  * @brief Selects function mode (on-chip pull-up/pull-down resistor control).: Pull-up. Pull-up resistor enabled. */
 #define PIO1_4_MODE_PULL_UP 0x02u
+/*!
+ * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
+#define PIO1_5_DIGIMODE_DIGITAL 0x01u
+/*!
+ * @brief Selects pin function.: Alternative connection 0. */
+#define PIO1_5_FUNC_ALT0 0x00u
 /*!
  * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
 #define PIO1_6_DIGIMODE_DIGITAL 0x01u
@@ -106,6 +148,12 @@ void BOARD_InitBootPins(void);
 /*!
  * @brief Selects function mode (on-chip pull-up/pull-down resistor control).: Pull-up. Pull-up resistor enabled. */
 #define PIO1_7_MODE_PULL_UP 0x02u
+/*!
+ * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
+#define PIO1_8_DIGIMODE_DIGITAL 0x01u
+/*!
+ * @brief Selects pin function.: Alternative connection 0. */
+#define PIO1_8_FUNC_ALT0 0x00u
 /*!
  * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
 #define PIO1_9_DIGIMODE_DIGITAL 0x01u
@@ -302,6 +350,134 @@ void BOARD_InitBootPins(void);
  * @brief PORT pin mask */
 #define BOARD_INITDEBUG_UARTPINS_SWITCH_BOARD_2_PIN_MASK (1U << 9U)
 /* @} */
+
+/*! @name PIO0_7 (number 6), U20[4]/SD0_CLK
+  @{ */
+
+/* Symbols to be used with GPIO driver */
+/*!
+ * @brief GPIO peripheral base pointer */
+#define BOARD_INITDEBUG_UARTPINS_SENSOR_1_XSHUT_GPIO GPIO
+/*!
+ * @brief GPIO pin mask */
+#define BOARD_INITDEBUG_UARTPINS_SENSOR_1_XSHUT_GPIO_PIN_MASK (1U << 7U)
+/*!
+ * @brief PORT peripheral base pointer */
+#define BOARD_INITDEBUG_UARTPINS_SENSOR_1_XSHUT_PORT 0U
+/*!
+ * @brief PORT pin number */
+#define BOARD_INITDEBUG_UARTPINS_SENSOR_1_XSHUT_PIN 7U
+/*!
+ * @brief PORT pin mask */
+#define BOARD_INITDEBUG_UARTPINS_SENSOR_1_XSHUT_PIN_MASK (1U << 7U)
+/* @} */
+
+/*! @name PIO1_0 (number 11), U20[2]/SD0_D3
+  @{ */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_INITDEBUG_UARTPINS_SENSOR_1_INT_GPIO GPIO                /*!<@brief GPIO peripheral base pointer */
+#define BOARD_INITDEBUG_UARTPINS_SENSOR_1_INT_GPIO_PIN_MASK (1U << 0U) /*!<@brief GPIO pin mask */
+#define BOARD_INITDEBUG_UARTPINS_SENSOR_1_INT_PORT 1U                  /*!<@brief PORT peripheral base pointer */
+#define BOARD_INITDEBUG_UARTPINS_SENSOR_1_INT_PIN 0U                   /*!<@brief PORT pin number */
+#define BOARD_INITDEBUG_UARTPINS_SENSOR_1_INT_PIN_MASK (1U << 0U)      /*!<@brief PORT pin mask */
+                                                                       /* @} */
+
+/*! @name PIO0_31 (number 23), U20[1]/SD0_D2
+  @{ */
+
+/* Symbols to be used with GPIO driver */
+/*!
+ * @brief GPIO peripheral base pointer */
+#define BOARD_INITDEBUG_UARTPINS_SENSOR_2_XSHUT_GPIO GPIO
+/*!
+ * @brief GPIO pin mask */
+#define BOARD_INITDEBUG_UARTPINS_SENSOR_2_XSHUT_GPIO_PIN_MASK (1U << 31U)
+/*!
+ * @brief PORT peripheral base pointer */
+#define BOARD_INITDEBUG_UARTPINS_SENSOR_2_XSHUT_PORT 0U
+/*!
+ * @brief PORT pin number */
+#define BOARD_INITDEBUG_UARTPINS_SENSOR_2_XSHUT_PIN 31U
+/*!
+ * @brief PORT pin mask */
+#define BOARD_INITDEBUG_UARTPINS_SENSOR_2_XSHUT_PIN_MASK (1U << 31U)
+/* @} */
+
+/*! @name PIO1_1 (number 59), P17[15]/P23[3]/LSPI_HS_SSEL1
+  @{ */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_INITDEBUG_UARTPINS_SENSOR_2_INT_GPIO GPIO                /*!<@brief GPIO peripheral base pointer */
+#define BOARD_INITDEBUG_UARTPINS_SENSOR_2_INT_GPIO_PIN_MASK (1U << 1U) /*!<@brief GPIO pin mask */
+#define BOARD_INITDEBUG_UARTPINS_SENSOR_2_INT_PORT 1U                  /*!<@brief PORT peripheral base pointer */
+#define BOARD_INITDEBUG_UARTPINS_SENSOR_2_INT_PIN 1U                   /*!<@brief PORT pin number */
+#define BOARD_INITDEBUG_UARTPINS_SENSOR_2_INT_PIN_MASK (1U << 1U)      /*!<@brief PORT pin mask */
+                                                                       /* @} */
+
+/*! @name PIO1_2 (number 61), P17[9]/P23[4]/LSPI_HS_SCK
+  @{ */
+
+/* Symbols to be used with GPIO driver */
+/*!
+ * @brief GPIO peripheral base pointer */
+#define BOARD_INITDEBUG_UARTPINS_SENSOR_3_XSHUT_GPIO GPIO
+/*!
+ * @brief GPIO pin mask */
+#define BOARD_INITDEBUG_UARTPINS_SENSOR_3_XSHUT_GPIO_PIN_MASK (1U << 2U)
+/*!
+ * @brief PORT peripheral base pointer */
+#define BOARD_INITDEBUG_UARTPINS_SENSOR_3_XSHUT_PORT 1U
+/*!
+ * @brief PORT pin number */
+#define BOARD_INITDEBUG_UARTPINS_SENSOR_3_XSHUT_PIN 2U
+/*!
+ * @brief PORT pin mask */
+#define BOARD_INITDEBUG_UARTPINS_SENSOR_3_XSHUT_PIN_MASK (1U << 2U)
+/* @} */
+
+/*! @name PIO1_3 (number 62), P17[11]/P23[5]/LSPI_HS_MISO
+  @{ */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_INITDEBUG_UARTPINS_SENSOR_3_INT_GPIO GPIO                /*!<@brief GPIO peripheral base pointer */
+#define BOARD_INITDEBUG_UARTPINS_SENSOR_3_INT_GPIO_PIN_MASK (1U << 3U) /*!<@brief GPIO pin mask */
+#define BOARD_INITDEBUG_UARTPINS_SENSOR_3_INT_PORT 1U                  /*!<@brief PORT peripheral base pointer */
+#define BOARD_INITDEBUG_UARTPINS_SENSOR_3_INT_PIN 3U                   /*!<@brief PORT pin number */
+#define BOARD_INITDEBUG_UARTPINS_SENSOR_3_INT_PIN_MASK (1U << 3U)      /*!<@brief PORT pin mask */
+                                                                       /* @} */
+
+/*! @name PIO1_5 (number 31), P17[17]/P24[1]/PIO1_5_GPIO_ARD
+  @{ */
+
+/* Symbols to be used with GPIO driver */
+/*!
+ * @brief GPIO peripheral base pointer */
+#define BOARD_INITDEBUG_UARTPINS_SENSOR_4_XSHUT_GPIO GPIO
+/*!
+ * @brief GPIO pin mask */
+#define BOARD_INITDEBUG_UARTPINS_SENSOR_4_XSHUT_GPIO_PIN_MASK (1U << 5U)
+/*!
+ * @brief PORT peripheral base pointer */
+#define BOARD_INITDEBUG_UARTPINS_SENSOR_4_XSHUT_PORT 1U
+/*!
+ * @brief PORT pin number */
+#define BOARD_INITDEBUG_UARTPINS_SENSOR_4_XSHUT_PIN 5U
+/*!
+ * @brief PORT pin mask */
+#define BOARD_INITDEBUG_UARTPINS_SENSOR_4_XSHUT_PIN_MASK (1U << 5U)
+/* @} */
+
+/*! @name PIO1_8 (number 24), P17[19]/PIO1_8_GPIO_ARD
+  @{ */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_INITDEBUG_UARTPINS_SENSOR_4_INT_GPIO GPIO                /*!<@brief GPIO peripheral base pointer */
+#define BOARD_INITDEBUG_UARTPINS_SENSOR_4_INT_GPIO_PIN_MASK (1U << 8U) /*!<@brief GPIO pin mask */
+#define BOARD_INITDEBUG_UARTPINS_SENSOR_4_INT_PORT 1U                  /*!<@brief PORT peripheral base pointer */
+#define BOARD_INITDEBUG_UARTPINS_SENSOR_4_INT_PIN 8U                   /*!<@brief PORT pin number */
+#define BOARD_INITDEBUG_UARTPINS_SENSOR_4_INT_PIN_MASK (1U << 8U)      /*!<@brief PORT pin mask */
+                                                                       /* @} */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

@@ -12,6 +12,7 @@
 #include "fsl_common.h"
 #include "fsl_ctimer.h"
 #include "fsl_clock.h"
+#include "fsl_gint.h"
 
 #if defined(__cplusplus)
 extern "C" {
@@ -41,6 +42,16 @@ extern "C" {
 #define CTIMER0_MOTOR_B_PWM_PERIOD_CH kCTIMER_Match_0
 /* Definition of channel 3 ID */
 #define CTIMER0_MOTOR_B_MATCH_0_CHANNEL kCTIMER_Match_3
+/* Definition of peripheral ID */
+#define GINT0_PERIPHERAL GINT0
+/* Definition of enabled pins of the PIO0 */
+#define GINT0_PIO0_ENABLED_PINS_MASK 0x0UL
+/* Definition of polarity pins of the PIO0 */
+#define GINT0_PIO0_POLARITY_MASK 0x0UL
+/* Definition of enabled pins of the PIO1 */
+#define GINT0_PIO1_ENABLED_PINS_MASK 0x0UL
+/* Definition of polarity pins of the PIO1 */
+#define GINT0_PIO1_POLARITY_MASK 0x0UL
 
 /***********************************************************************************************************************
  * Global variables

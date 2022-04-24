@@ -126,3 +126,5 @@ void run_motor_B(uint32_t step){
 
 }
 
+
+// Notion de vitesse à prendre en compte

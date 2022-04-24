@@ -972,7 +972,7 @@ shell_status_t SHELL_Init(shell_handle_t shellHandle, serial_handle_t serialHand
     (void)SHELL_RegisterCommand(shellContextHandle, SHELL_COMMAND(help));
     (void)SHELL_RegisterCommand(shellContextHandle, SHELL_COMMAND(exit));
     SHELL_MUTEX_CREATE();
-    (void)SHELL_Write(shellContextHandle, "\r\nCopyright  2022  SHELL-Robot-Biere\r\n", strlen("\r\nCopyright  2022  Shell-Robot-Biere\r\n"));
+    (void)SHELL_Write(shellContextHandle, "\r\nCopyright  2020  NXP\r\n", strlen("\r\nCopyright  2020  NXP\r\n"));
     SHELL_PrintPrompt(shellContextHandle);
 
     return kStatus_SHELL_Success;

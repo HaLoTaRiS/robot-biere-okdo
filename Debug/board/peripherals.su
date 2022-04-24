@@ -1,4 +1,6 @@
+C:\Users\Baptiste\Documents\ENSEA\3D\S10_011_Projet\IDE\LPC55S69_Robot_Biere\drivers/fsl_ctimer.h:497:20:CTIMER_StartTimer	16	static
 ../board/peripherals.c:137:13:CTIMER1_MOTOR_A_init	8	static
-../board/peripherals.c:198:13:CTIMER0_MOTOR_B_init	8	static
-../board/peripherals.c:208:6:BOARD_InitPeripherals_cm33_core0	8	static
-../board/peripherals.c:218:6:BOARD_InitBootPeripherals	8	static
+../board/peripherals.c:200:13:CTIMER0_MOTOR_B_init	8	static
+../board/peripherals.c:375:13:GINT0_init	8	static
+../board/peripherals.c:387:6:BOARD_InitPeripherals_cm33_core0	8	static
+../board/peripherals.c:402:6:BOARD_InitBootPeripherals	8	static

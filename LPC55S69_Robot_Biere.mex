@@ -28,11 +28,19 @@
             <processor_version>11.0.1</processor_version>
             <pin_labels>
                <pin_label pin_num="88" pin_signal="PIO0_5/FC4_RXD_SDA_MOSI_DATA/CTIMER3_MAT0/SCT_GPI5/FC3_RTS_SCL_SSEL1/MCLK/SECURE_GPIO0_5" label="S1/J10[1]/U3[12]/P17[8]/P7[7]/U11[4]/P0_5-ISP1" identifier="SWITCH_BOARD_1"/>
+               <pin_label pin_num="6" pin_signal="PIO0_7/FC3_RTS_SCL_SSEL1/SD0_CLK/FC5_SCK/FC1_SCK/SECURE_GPIO0_7" label="U20[4]/SD0_CLK" identifier="SENSOR_1_XSHUT"/>
                <pin_label pin_num="22" pin_signal="PIO0_15/FC6_CTS_SDA_SSEL0/UTICK_CAP2/CT_INP16/SCT0_OUT2/SD0_WR_PRT/SECURE_GPIO0_15/ADC0_2" label="P18[11]/PIO0_15_GPIO_ARD" identifier="MOTOR_A_DIRECTION"/>
                <pin_label pin_num="14" pin_signal="PIO0_16/FC4_TXD_SCL_MISO_WS/CLKOUT/CT_INP4/SECURE_GPIO0_16/ADC0_8" label="P19[2]/P23[1]/ADC0_N" identifier="MOTOR_ENABLE"/>
                <pin_label pin_num="20" pin_signal="PIO0_23/MCLK/CTIMER1_MAT2/CTIMER3_MAT3/SCT0_OUT4/FC0_CTS_SDA_SSEL0/SD1_D1/SECURE_GPIO0_23/ADC0_0" label="P19[4]/ADC0_P" identifier="MOTOR_A_STEP"/>
+               <pin_label pin_num="23" pin_signal="PIO0_31/FC0_CTS_SDA_SSEL0/SD0_D2/CTIMER0_MAT1/SCT0_OUT3/SECURE_GPIO0_31/ADC0_3" label="U20[1]/SD0_D2" identifier="SENSOR_2_XSHUT"/>
+               <pin_label pin_num="11" pin_signal="PIO1_0/FC0_RTS_SCL_SSEL1/SD0_D3/CT_INP2/SCT_GPI4/PLU_OUT3/ADC0_11" label="U20[2]/SD0_D3" identifier="SENSOR_1_INT"/>
+               <pin_label pin_num="59" pin_signal="PIO1_1/FC3_RXD_SDA_MOSI_DATA/CT_INP3/SCT_GPI5/HS_SPI_SSEL1/USB1_OVERCURRENTN/PLU_OUT4" label="P17[15]/P23[3]/LSPI_HS_SSEL1" identifier="SENSOR_2_INT"/>
+               <pin_label pin_num="61" pin_signal="PIO1_2/CTIMER0_MAT3/SCT_GPI6/HS_SPI_SCK/USB1_PORTPWRN/PLU_OUT5" label="P17[9]/P23[4]/LSPI_HS_SCK" identifier="SENSOR_3_XSHUT"/>
+               <pin_label pin_num="62" pin_signal="PIO1_3/SCT0_OUT4/HS_SPI_MISO/USB0_PORTPWRN/PLU_OUT6" label="P17[11]/P23[5]/LSPI_HS_MISO" identifier="SENSOR_3_INT"/>
                <pin_label pin_num="1" pin_signal="PIO1_4/FC0_SCK/SD0_D0/CTIMER2_MAT1/SCT0_OUT0/FREQME_GPIO_CLK_A" label="R78/P18[5]/LEDR/PWM_ARD" identifier="LED_RED"/>
+               <pin_label pin_num="31" pin_signal="PIO1_5/FC0_RXD_SDA_MOSI_DATA/SD0_D2/CTIMER2_MAT0/SCT_GPI0" label="P17[17]/P24[1]/PIO1_5_GPIO_ARD" identifier="SENSOR_4_XSHUT"/>
                <pin_label pin_num="5" pin_signal="PIO1_6/FC0_TXD_SCL_MISO_WS/SD0_D3/CTIMER2_MAT1/SCT_GPI3" label="R80/P18[9]/LEDB/PWM_ARD" identifier="LED_BLUE"/>
+               <pin_label pin_num="24" pin_signal="PIO1_8/FC0_CTS_SDA_SSEL0/SD0_CLK/SCT0_OUT1/FC4_SSEL2/ADC0_4" label="P17[19]/PIO1_8_GPIO_ARD" identifier="SENSOR_4_INT"/>
                <pin_label pin_num="10" pin_signal="PIO1_9/FC1_SCK/CT_INP4/SCT0_OUT2/FC4_CTS_SDA_SSEL0/ADC0_12" label="S3/P18[1]/PIO1_9_GPIO_ARD" identifier="SWITCH_BOARD_2"/>
                <pin_label pin_num="68" pin_signal="PIO1_26/FC2_CTS_SDA_SSEL0/SCT0_OUT3/CT_INP3/UTICK_CAP1/HS_SPI_SSEL3/PLU_IN5" label="P18[18]/PLU_IN5/GPIO/SD1_WP" identifier="MOTOR_B_DIRECTION"/>
                <pin_label pin_num="85" pin_signal="PIO1_27/FC2_RTS_SCL_SSEL1/SD0_D4/CTIMER0_MAT3/CLKOUT/PLU_IN4" label="P17[16]/PLU_IN4/GPIO" identifier="MOTOR_B_STEP"/>
@@ -120,6 +128,7 @@
                   <pin peripheral="GPIO" signal="PIO0, 16" pin_num="14" pin_signal="PIO0_16/FC4_TXD_SCL_MISO_WS/CLKOUT/CT_INP4/SECURE_GPIO0_16/ADC0_8">
                      <pin_features>
                         <pin_feature name="direction" value="OUTPUT"/>
+                        <pin_feature name="gpio_init_state" value="true"/>
                      </pin_features>
                   </pin>
                   <pin peripheral="GPIO" signal="PIO0, 15" pin_num="22" pin_signal="PIO0_15/FC6_CTS_SDA_SSEL0/UTICK_CAP2/CT_INP16/SCT0_OUT2/SD0_WR_PRT/SECURE_GPIO0_15/ADC0_2">
@@ -143,6 +152,34 @@
                         <pin_feature name="direction" value="INPUT"/>
                      </pin_features>
                   </pin>
+                  <pin peripheral="GPIO" signal="PIO0, 7" pin_num="6" pin_signal="PIO0_7/FC3_RTS_SCL_SSEL1/SD0_CLK/FC5_SCK/FC1_SCK/SECURE_GPIO0_7">
+                     <pin_features>
+                        <pin_feature name="direction" value="OUTPUT"/>
+                     </pin_features>
+                  </pin>
+                  <pin peripheral="GPIO" signal="PIO1, 0" pin_num="11" pin_signal="PIO1_0/FC0_RTS_SCL_SSEL1/SD0_D3/CT_INP2/SCT_GPI4/PLU_OUT3/ADC0_11">
+                     <pin_features>
+                        <pin_feature name="direction" value="INPUT"/>
+                     </pin_features>
+                  </pin>
+                  <pin peripheral="GPIO" signal="PIO0, 31" pin_num="23" pin_signal="PIO0_31/FC0_CTS_SDA_SSEL0/SD0_D2/CTIMER0_MAT1/SCT0_OUT3/SECURE_GPIO0_31/ADC0_3">
+                     <pin_features>
+                        <pin_feature name="direction" value="OUTPUT"/>
+                     </pin_features>
+                  </pin>
+                  <pin peripheral="GPIO" signal="PIO1, 1" pin_num="59" pin_signal="PIO1_1/FC3_RXD_SDA_MOSI_DATA/CT_INP3/SCT_GPI5/HS_SPI_SSEL1/USB1_OVERCURRENTN/PLU_OUT4"/>
+                  <pin peripheral="GPIO" signal="PIO1, 2" pin_num="61" pin_signal="PIO1_2/CTIMER0_MAT3/SCT_GPI6/HS_SPI_SCK/USB1_PORTPWRN/PLU_OUT5">
+                     <pin_features>
+                        <pin_feature name="direction" value="OUTPUT"/>
+                     </pin_features>
+                  </pin>
+                  <pin peripheral="GPIO" signal="PIO1, 3" pin_num="62" pin_signal="PIO1_3/SCT0_OUT4/HS_SPI_MISO/USB0_PORTPWRN/PLU_OUT6"/>
+                  <pin peripheral="GPIO" signal="PIO1, 5" pin_num="31" pin_signal="PIO1_5/FC0_RXD_SDA_MOSI_DATA/SD0_D2/CTIMER2_MAT0/SCT_GPI0">
+                     <pin_features>
+                        <pin_feature name="direction" value="OUTPUT"/>
+                     </pin_features>
+                  </pin>
+                  <pin peripheral="GPIO" signal="PIO1, 8" pin_num="24" pin_signal="PIO1_8/FC0_CTS_SDA_SSEL0/SD0_CLK/SCT0_OUT1/FC4_SSEL2/ADC0_4"/>
                </pins>
             </function>
             <function name="BOARD_InitSWD_DEBUGPins">
@@ -918,6 +955,16 @@
                   <data type="Version">2.2.0</data>
                </feature>
             </dependency>
+            <dependency resourceType="SWComponent" resourceId="platform.drivers.gint" description="GINT Driver not found in the toolchain/IDE project. Project will not compile!" problem_level="2" source="Peripherals">
+               <feature name="enabled" evaluation="equal">
+                  <data type="Boolean">true</data>
+               </feature>
+            </dependency>
+            <dependency resourceType="SWComponent" resourceId="platform.drivers.gint" description="Unsupported version of the GINT Driver in the toolchain/IDE project. Required: ${required_value}, actual: ${actual_value}. Project might not compile correctly." problem_level="1" source="Peripherals">
+               <feature name="version" evaluation="equivalent">
+                  <data type="Version">2.0.1</data>
+               </feature>
+            </dependency>
          </dependencies>
          <generated_project_files>
             <file path="board/peripherals.c" update_enabled="true"/>
@@ -967,12 +1014,12 @@
                            <setting name="clockSourceFreq" value="BOARD_Boot_Clock_ROBOT"/>
                            <setting name="timerPrescaler" value="1"/>
                         </struct>
-                        <setting name="EnableTimerInInit" value="false"/>
+                        <setting name="EnableTimerInInit" value="true"/>
                         <array name="matchChannels">
                            <struct name="0">
                               <setting name="matchChannelPrefixId" value="Match_0"/>
                               <setting name="matchChannel" value="kCTIMER_Match_2"/>
-                              <setting name="matchValueStr" value="2000/1"/>
+                              <setting name="matchValueStr" value="400/1"/>
                               <setting name="enableCounterReset" value="true"/>
                               <setting name="enableCounterStop" value="false"/>
                               <setting name="outControl" value="kCTIMER_Output_Toggle"/>
@@ -1051,6 +1098,175 @@
                               </struct>
                            </struct>
                         </array>
+                     </config_set>
+                  </instance>
+                  <instance name="GINT0" uuid="70092a6f-d60a-4197-8acb-2f6dedd8b5bc" type="gint" type_id="gint_f9751e057606760f4d52cb811c360fa8" mode="general" peripheral="GINT0" enabled="true" comment="" custom_name_enabled="false" editing_lock="false">
+                     <config_set name="fsl_gint" quick_selection="QuickSelection1">
+                        <struct name="commonCfg">
+                           <setting name="gint_comb" value="kGINT_CombineOr"/>
+                           <setting name="gint_trig" value="kGINT_TrigEdge"/>
+                        </struct>
+                        <struct name="callbackCfg">
+                           <setting name="callback_name" value=""/>
+                           <setting name="isCallbackEnabled" value="false"/>
+                           <setting name="enable_priority" value="false"/>
+                        </struct>
+                        <struct name="pins_port0">
+                           <struct name="enable">
+                              <array name="enable_low">
+                                 <setting name="0" value="no"/>
+                                 <setting name="1" value="no"/>
+                                 <setting name="2" value="no"/>
+                                 <setting name="3" value="no"/>
+                                 <setting name="4" value="no"/>
+                                 <setting name="5" value="no"/>
+                                 <setting name="6" value="no"/>
+                                 <setting name="7" value="no"/>
+                                 <setting name="8" value="no"/>
+                                 <setting name="9" value="no"/>
+                                 <setting name="10" value="no"/>
+                                 <setting name="11" value="no"/>
+                                 <setting name="12" value="no"/>
+                                 <setting name="13" value="no"/>
+                                 <setting name="14" value="no"/>
+                                 <setting name="15" value="no"/>
+                              </array>
+                              <array name="enable_high">
+                                 <setting name="0" value="no"/>
+                                 <setting name="1" value="no"/>
+                                 <setting name="2" value="no"/>
+                                 <setting name="3" value="no"/>
+                                 <setting name="4" value="no"/>
+                                 <setting name="5" value="no"/>
+                                 <setting name="6" value="no"/>
+                                 <setting name="7" value="no"/>
+                                 <setting name="8" value="no"/>
+                                 <setting name="9" value="no"/>
+                                 <setting name="10" value="no"/>
+                                 <setting name="11" value="no"/>
+                                 <setting name="12" value="no"/>
+                                 <setting name="13" value="no"/>
+                                 <setting name="14" value="no"/>
+                                 <setting name="15" value="no"/>
+                              </array>
+                           </struct>
+                           <struct name="polarity">
+                              <array name="polarity_low">
+                                 <setting name="0" value="low"/>
+                                 <setting name="1" value="low"/>
+                                 <setting name="2" value="low"/>
+                                 <setting name="3" value="low"/>
+                                 <setting name="4" value="low"/>
+                                 <setting name="5" value="low"/>
+                                 <setting name="6" value="low"/>
+                                 <setting name="7" value="low"/>
+                                 <setting name="8" value="low"/>
+                                 <setting name="9" value="low"/>
+                                 <setting name="10" value="low"/>
+                                 <setting name="11" value="low"/>
+                                 <setting name="12" value="low"/>
+                                 <setting name="13" value="low"/>
+                                 <setting name="14" value="low"/>
+                                 <setting name="15" value="low"/>
+                              </array>
+                              <array name="polarity_high">
+                                 <setting name="0" value="low"/>
+                                 <setting name="1" value="low"/>
+                                 <setting name="2" value="low"/>
+                                 <setting name="3" value="low"/>
+                                 <setting name="4" value="low"/>
+                                 <setting name="5" value="low"/>
+                                 <setting name="6" value="low"/>
+                                 <setting name="7" value="low"/>
+                                 <setting name="8" value="low"/>
+                                 <setting name="9" value="low"/>
+                                 <setting name="10" value="low"/>
+                                 <setting name="11" value="low"/>
+                                 <setting name="12" value="low"/>
+                                 <setting name="13" value="low"/>
+                                 <setting name="14" value="low"/>
+                                 <setting name="15" value="low"/>
+                              </array>
+                           </struct>
+                        </struct>
+                        <struct name="pins_port1">
+                           <struct name="enable">
+                              <array name="enable_low">
+                                 <setting name="0" value="no"/>
+                                 <setting name="1" value="no"/>
+                                 <setting name="2" value="no"/>
+                                 <setting name="3" value="no"/>
+                                 <setting name="4" value="no"/>
+                                 <setting name="5" value="no"/>
+                                 <setting name="6" value="no"/>
+                                 <setting name="7" value="no"/>
+                                 <setting name="8" value="no"/>
+                                 <setting name="9" value="no"/>
+                                 <setting name="10" value="no"/>
+                                 <setting name="11" value="no"/>
+                                 <setting name="12" value="no"/>
+                                 <setting name="13" value="no"/>
+                                 <setting name="14" value="no"/>
+                                 <setting name="15" value="no"/>
+                              </array>
+                              <array name="enable_high">
+                                 <setting name="0" value="no"/>
+                                 <setting name="1" value="no"/>
+                                 <setting name="2" value="no"/>
+                                 <setting name="3" value="no"/>
+                                 <setting name="4" value="no"/>
+                                 <setting name="5" value="no"/>
+                                 <setting name="6" value="no"/>
+                                 <setting name="7" value="no"/>
+                                 <setting name="8" value="no"/>
+                                 <setting name="9" value="no"/>
+                                 <setting name="10" value="no"/>
+                                 <setting name="11" value="no"/>
+                                 <setting name="12" value="no"/>
+                                 <setting name="13" value="no"/>
+                                 <setting name="14" value="no"/>
+                                 <setting name="15" value="no"/>
+                              </array>
+                           </struct>
+                           <struct name="polarity">
+                              <array name="polarity_low">
+                                 <setting name="0" value="low"/>
+                                 <setting name="1" value="low"/>
+                                 <setting name="2" value="low"/>
+                                 <setting name="3" value="low"/>
+                                 <setting name="4" value="low"/>
+                                 <setting name="5" value="low"/>
+                                 <setting name="6" value="low"/>
+                                 <setting name="7" value="low"/>
+                                 <setting name="8" value="low"/>
+                                 <setting name="9" value="low"/>
+                                 <setting name="10" value="low"/>
+                                 <setting name="11" value="low"/>
+                                 <setting name="12" value="low"/>
+                                 <setting name="13" value="low"/>
+                                 <setting name="14" value="low"/>
+                                 <setting name="15" value="low"/>
+                              </array>
+                              <array name="polarity_high">
+                                 <setting name="0" value="low"/>
+                                 <setting name="1" value="low"/>
+                                 <setting name="2" value="low"/>
+                                 <setting name="3" value="low"/>
+                                 <setting name="4" value="low"/>
+                                 <setting name="5" value="low"/>
+                                 <setting name="6" value="low"/>
+                                 <setting name="7" value="low"/>
+                                 <setting name="8" value="low"/>
+                                 <setting name="9" value="low"/>
+                                 <setting name="10" value="low"/>
+                                 <setting name="11" value="low"/>
+                                 <setting name="12" value="low"/>
+                                 <setting name="13" value="low"/>
+                                 <setting name="14" value="low"/>
+                                 <setting name="15" value="low"/>
+                              </array>
+                           </struct>
+                        </struct>
                      </config_set>
                   </instance>
                </instances>

@@ -100,12 +100,12 @@ instance:
       - clockSource: 'FunctionClock'
       - clockSourceFreq: 'BOARD_Boot_Clock_ROBOT'
       - timerPrescaler: '1'
-    - EnableTimerInInit: 'false'
+    - EnableTimerInInit: 'true'
     - matchChannels:
       - 0:
         - matchChannelPrefixId: 'Match_0'
         - matchChannel: 'kCTIMER_Match_2'
-        - matchValueStr: '2000/1'
+        - matchValueStr: '400/1'
         - enableCounterReset: 'true'
         - enableCounterStop: 'false'
         - outControl: 'kCTIMER_Output_Toggle'
@@ -126,7 +126,7 @@ const ctimer_config_t CTIMER1_MOTOR_A_config = {
   .prescale = 0
 };
 const ctimer_match_config_t CTIMER1_MOTOR_A_Match_0_config = {
-  .matchValue = 499,
+  .matchValue = 2499,
   .enableCounterReset = true,
   .enableCounterStop = false,
   .outControl = kCTIMER_Output_Toggle,
@@ -139,6 +139,8 @@ static void CTIMER1_MOTOR_A_init(void) {
   CTIMER_Init(CTIMER1_MOTOR_A_PERIPHERAL, &CTIMER1_MOTOR_A_config);
   /* Match channel 2 of CTIMER1 peripheral initialization */
   CTIMER_SetupMatch(CTIMER1_MOTOR_A_PERIPHERAL, CTIMER1_MOTOR_A_MATCH_0_CHANNEL, &CTIMER1_MOTOR_A_Match_0_config);
+  /* Start the timer */
+  CTIMER_StartTimer(CTIMER1_MOTOR_A_PERIPHERAL);
 }
 
 /***********************************************************************************************************************
@@ -203,13 +205,195 @@ static void CTIMER0_MOTOR_B_init(void) {
 }
 
 /***********************************************************************************************************************
+ * GINT0 initialization code
+ **********************************************************************************************************************/
+/* clang-format off */
+/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+instance:
+- name: 'GINT0'
+- type: 'gint'
+- mode: 'general'
+- custom_name_enabled: 'false'
+- type_id: 'gint_f9751e057606760f4d52cb811c360fa8'
+- functional_group: 'BOARD_InitPeripherals_cm33_core0'
+- peripheral: 'GINT0'
+- config_sets:
+  - fsl_gint:
+    - commonCfg:
+      - gint_comb: 'kGINT_CombineOr'
+      - gint_trig: 'kGINT_TrigEdge'
+    - callbackCfg:
+      - callback_name: ''
+      - isCallbackEnabled: 'false'
+      - enable_priority: 'false'
+    - pins_port0:
+      - enable:
+        - enable_low:
+          - 0: 'no'
+          - 1: 'no'
+          - 2: 'no'
+          - 3: 'no'
+          - 4: 'no'
+          - 5: 'no'
+          - 6: 'no'
+          - 7: 'no'
+          - 8: 'no'
+          - 9: 'no'
+          - 10: 'no'
+          - 11: 'no'
+          - 12: 'no'
+          - 13: 'no'
+          - 14: 'no'
+          - 15: 'no'
+        - enable_high:
+          - 0: 'no'
+          - 1: 'no'
+          - 2: 'no'
+          - 3: 'no'
+          - 4: 'no'
+          - 5: 'no'
+          - 6: 'no'
+          - 7: 'no'
+          - 8: 'no'
+          - 9: 'no'
+          - 10: 'no'
+          - 11: 'no'
+          - 12: 'no'
+          - 13: 'no'
+          - 14: 'no'
+          - 15: 'no'
+      - polarity:
+        - polarity_low:
+          - 0: 'low'
+          - 1: 'low'
+          - 2: 'low'
+          - 3: 'low'
+          - 4: 'low'
+          - 5: 'low'
+          - 6: 'low'
+          - 7: 'low'
+          - 8: 'low'
+          - 9: 'low'
+          - 10: 'low'
+          - 11: 'low'
+          - 12: 'low'
+          - 13: 'low'
+          - 14: 'low'
+          - 15: 'low'
+        - polarity_high:
+          - 0: 'low'
+          - 1: 'low'
+          - 2: 'low'
+          - 3: 'low'
+          - 4: 'low'
+          - 5: 'low'
+          - 6: 'low'
+          - 7: 'low'
+          - 8: 'low'
+          - 9: 'low'
+          - 10: 'low'
+          - 11: 'low'
+          - 12: 'low'
+          - 13: 'low'
+          - 14: 'low'
+          - 15: 'low'
+    - pins_port1:
+      - enable:
+        - enable_low:
+          - 0: 'no'
+          - 1: 'no'
+          - 2: 'no'
+          - 3: 'no'
+          - 4: 'no'
+          - 5: 'no'
+          - 6: 'no'
+          - 7: 'no'
+          - 8: 'no'
+          - 9: 'no'
+          - 10: 'no'
+          - 11: 'no'
+          - 12: 'no'
+          - 13: 'no'
+          - 14: 'no'
+          - 15: 'no'
+        - enable_high:
+          - 0: 'no'
+          - 1: 'no'
+          - 2: 'no'
+          - 3: 'no'
+          - 4: 'no'
+          - 5: 'no'
+          - 6: 'no'
+          - 7: 'no'
+          - 8: 'no'
+          - 9: 'no'
+          - 10: 'no'
+          - 11: 'no'
+          - 12: 'no'
+          - 13: 'no'
+          - 14: 'no'
+          - 15: 'no'
+      - polarity:
+        - polarity_low:
+          - 0: 'low'
+          - 1: 'low'
+          - 2: 'low'
+          - 3: 'low'
+          - 4: 'low'
+          - 5: 'low'
+          - 6: 'low'
+          - 7: 'low'
+          - 8: 'low'
+          - 9: 'low'
+          - 10: 'low'
+          - 11: 'low'
+          - 12: 'low'
+          - 13: 'low'
+          - 14: 'low'
+          - 15: 'low'
+        - polarity_high:
+          - 0: 'low'
+          - 1: 'low'
+          - 2: 'low'
+          - 3: 'low'
+          - 4: 'low'
+          - 5: 'low'
+          - 6: 'low'
+          - 7: 'low'
+          - 8: 'low'
+          - 9: 'low'
+          - 10: 'low'
+          - 11: 'low'
+          - 12: 'low'
+          - 13: 'low'
+          - 14: 'low'
+          - 15: 'low'
+    - quick_selection: 'QuickSelection1'
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
+/* clang-format on */
+
+static void GINT0_init(void) {
+  /* Set GINT control registers and the name of callback function */
+  GINT_SetCtrl(GINT0_PERIPHERAL, kGINT_CombineOr, kGINT_TrigEdge, NULL);
+  /* Select pins and polarity for GINT - PIO0 */
+  GINT_ConfigPins(GINT0_PERIPHERAL, kGINT_Port0, GINT0_PIO0_POLARITY_MASK, GINT0_PIO0_ENABLED_PINS_MASK);
+  /* Select pins and polarity for GINT - PIO1 */
+  GINT_ConfigPins(GINT0_PERIPHERAL, kGINT_Port1, GINT0_PIO1_POLARITY_MASK, GINT0_PIO1_ENABLED_PINS_MASK);
+}
+
+/***********************************************************************************************************************
  * Initialization functions
  **********************************************************************************************************************/
 void BOARD_InitPeripherals_cm33_core0(void)
 {
+  /* Global initialization */
+  /* GINT initialization */
+  GINT_Init(GINT0_PERIPHERAL);
+
   /* Initialize components */
   CTIMER1_MOTOR_A_init();
   CTIMER0_MOTOR_B_init();
+  GINT0_init();
 }
 
 /***********************************************************************************************************************
