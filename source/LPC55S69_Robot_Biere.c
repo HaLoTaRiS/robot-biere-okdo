@@ -15,6 +15,21 @@
  * @file    LPC55S69_Robot_Biere.c
  * @brief   Application entry point.
  */
+
+// Pour corriger le code dans Board.h : Inversion led Blue et RED
+//#define BOARD_LED_RED_GPIO GPIO
+//#define BOARD_LED_RED_GPIO_PORT 1U
+//#define BOARD_LED_RED_GPIO_PIN 4U // 4 à la place de 6
+//
+//#define BOARD_LED_BLUE_GPIO GPIO
+//#define BOARD_LED_BLUE_GPIO_PORT 1U
+//#define BOARD_LED_BLUE_GPIO_PIN 6U // 6 à la place de 4
+//
+//#define BOARD_LED_GREEN_GPIO GPIO
+//#define BOARD_LED_GREEN_GPIO_PORT 1U
+//#define BOARD_LED_GREEN_GPIO_PIN 7U
+
+
 #include <robot_shell.h> // Shell
 #include <stdio.h>
 #include "board.h"
@@ -32,6 +47,7 @@
 
 #include "fsl_shell.h"
 #include "robot_motor.h"
+#include "device_motor.h"
 
 /* TODO: insert other definitions and declarations here. */
 
@@ -59,6 +75,9 @@ TaskHandle_t xHandleHello = NULL;
 /*
  * @brief   Application entry point.
  */
+
+
+
 int main(void) {
 
 	/* Init board hardware. */
@@ -78,6 +97,8 @@ int main(void) {
 	BOARD_InitDebugConsole();
 #endif
 
+	MOTEUR_TIMER_init();
+
 	UTICK_Init(UTICK0); //Initialise Utick
 
 	SHELL_Printf("\r\nINFO >> Initialisation ...\r\n");
@@ -86,7 +107,7 @@ int main(void) {
 
 	SHELL_Printf("INFO >> OS FreeRTOS Starting ... V1.0\r\n");
 	SHELL_Printf("SYSTEM >> Robot Biere\r\n");
-	SHELL_Printf("SYSTEM >> Version BETA 1.1\r\n\r\n");
+	SHELL_Printf("SYSTEM >> Version BETA 1.2\r\n\r\n");
 
 	// Task hello initialisation
 	vTaskResume(xHandleHello); // active une task Hello

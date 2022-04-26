@@ -2,10 +2,10 @@ C:\Users\Baptiste\Documents\ENSEA\3D\S10_011_Projet\IDE\LPC55S69_Robot_Biere\dev
 C:\Users\Baptiste\Documents\ENSEA\3D\S10_011_Projet\IDE\LPC55S69_Robot_Biere\drivers/fsl_clock.h:983:20:CLOCK_EnableClock	24	static
 C:\Users\Baptiste\Documents\ENSEA\3D\S10_011_Projet\IDE\LPC55S69_Robot_Biere\drivers/fsl_iocon.h:182:22:IOCON_PinMuxSet	24	static
 ../board/pin_mux.c:50:6:BOARD_InitBootPins	8	static
-../board/pin_mux.c:97:6:BOARD_InitDEBUG_UARTPins	72	static
-../board/pin_mux.c:574:6:BOARD_InitSWD_DEBUGPins	32	static
-../board/pin_mux.c:707:6:BOARD_InitUSBPins	32	static
-../board/pin_mux.c:811:6:BOARD_InitLEDsPins	32	static
-../board/pin_mux.c:910:6:BOARD_InitBUTTONsPins	40	static
-../board/pin_mux.c:1047:6:BOARD_InitI2SPins	48	static
-../board/pin_mux.c:1213:6:BOARD_InitACCELPins	24	static
+../board/pin_mux.c:97:6:BOARD_InitDEBUG_UARTPins	64	static
+../board/pin_mux.c:567:6:BOARD_InitSWD_DEBUGPins	32	static
+../board/pin_mux.c:700:6:BOARD_InitUSBPins	32	static
+../board/pin_mux.c:804:6:BOARD_InitLEDsPins	32	static
+../board/pin_mux.c:903:6:BOARD_InitBUTTONsPins	40	static
+../board/pin_mux.c:1040:6:BOARD_InitI2SPins	48	static
+../board/pin_mux.c:1206:6:BOARD_InitACCELPins	24	static

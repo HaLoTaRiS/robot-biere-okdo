@@ -1,0 +1,2 @@
+../board/sensor_vl53l0x.c:31:6:gint0_callback	8	static
+../board/sensor_vl53l0x.c:37:6:init_GINT_SENSOR	8	static

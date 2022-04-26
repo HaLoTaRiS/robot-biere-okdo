@@ -81,130 +81,6 @@ static void NVIC_init(void) {
 } */
 
 /***********************************************************************************************************************
- * CTIMER1_MOTOR_A initialization code
- **********************************************************************************************************************/
-/* clang-format off */
-/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
-instance:
-- name: 'CTIMER1_MOTOR_A'
-- type: 'ctimer'
-- mode: 'Capture_Match'
-- custom_name_enabled: 'true'
-- type_id: 'ctimer_72ecb1f82fe6700da71dde4e8bc60e39'
-- functional_group: 'BOARD_InitPeripherals_cm33_core0'
-- peripheral: 'CTIMER1'
-- config_sets:
-  - fsl_ctimer:
-    - ctimerConfig:
-      - mode: 'kCTIMER_TimerMode'
-      - clockSource: 'FunctionClock'
-      - clockSourceFreq: 'BOARD_Boot_Clock_ROBOT'
-      - timerPrescaler: '1'
-    - EnableTimerInInit: 'true'
-    - matchChannels:
-      - 0:
-        - matchChannelPrefixId: 'Match_0'
-        - matchChannel: 'kCTIMER_Match_2'
-        - matchValueStr: '400/1'
-        - enableCounterReset: 'true'
-        - enableCounterStop: 'false'
-        - outControl: 'kCTIMER_Output_Toggle'
-        - outPinInitValue: 'low'
-        - enableInterrupt: 'false'
-    - captureChannels: []
-    - interruptCallbackConfig:
-      - interrupt:
-        - IRQn: 'CTIMER1_IRQn'
-        - enable_priority: 'false'
-        - priority: '0'
-      - callback: 'kCTIMER_NoCallback'
- * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
-/* clang-format on */
-const ctimer_config_t CTIMER1_MOTOR_A_config = {
-  .mode = kCTIMER_TimerMode,
-  .input = kCTIMER_Capture_0,
-  .prescale = 0
-};
-const ctimer_match_config_t CTIMER1_MOTOR_A_Match_0_config = {
-  .matchValue = 2499,
-  .enableCounterReset = true,
-  .enableCounterStop = false,
-  .outControl = kCTIMER_Output_Toggle,
-  .outPinInitState = false,
-  .enableInterrupt = false
-};
-
-static void CTIMER1_MOTOR_A_init(void) {
-  /* CTIMER1 peripheral initialization */
-  CTIMER_Init(CTIMER1_MOTOR_A_PERIPHERAL, &CTIMER1_MOTOR_A_config);
-  /* Match channel 2 of CTIMER1 peripheral initialization */
-  CTIMER_SetupMatch(CTIMER1_MOTOR_A_PERIPHERAL, CTIMER1_MOTOR_A_MATCH_0_CHANNEL, &CTIMER1_MOTOR_A_Match_0_config);
-  /* Start the timer */
-  CTIMER_StartTimer(CTIMER1_MOTOR_A_PERIPHERAL);
-}
-
-/***********************************************************************************************************************
- * CTIMER0_MOTOR_B initialization code
- **********************************************************************************************************************/
-/* clang-format off */
-/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
-instance:
-- name: 'CTIMER0_MOTOR_B'
-- type: 'ctimer'
-- mode: 'Capture_Match'
-- custom_name_enabled: 'true'
-- type_id: 'ctimer_72ecb1f82fe6700da71dde4e8bc60e39'
-- functional_group: 'BOARD_InitPeripherals_cm33_core0'
-- peripheral: 'CTIMER0'
-- config_sets:
-  - fsl_ctimer:
-    - ctimerConfig:
-      - mode: 'kCTIMER_TimerMode'
-      - clockSource: 'FunctionClock'
-      - clockSourceFreq: 'BOARD_Boot_Clock_ROBOT'
-      - timerPrescaler: '1'
-    - EnableTimerInInit: 'false'
-    - matchChannels:
-      - 0:
-        - matchChannelPrefixId: 'Match_0'
-        - matchChannel: 'kCTIMER_Match_3'
-        - matchValueStr: '2000/1'
-        - enableCounterReset: 'true'
-        - enableCounterStop: 'false'
-        - outControl: 'kCTIMER_Output_Toggle'
-        - outPinInitValue: 'low'
-        - enableInterrupt: 'false'
-    - captureChannels: []
-    - interruptCallbackConfig:
-      - interrupt:
-        - IRQn: 'CTIMER0_IRQn'
-        - enable_priority: 'false'
-        - priority: '0'
-      - callback: 'kCTIMER_NoCallback'
- * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
-/* clang-format on */
-const ctimer_config_t CTIMER0_MOTOR_B_config = {
-  .mode = kCTIMER_TimerMode,
-  .input = kCTIMER_Capture_0,
-  .prescale = 0
-};
-const ctimer_match_config_t CTIMER0_MOTOR_B_Match_0_config = {
-  .matchValue = 499,
-  .enableCounterReset = true,
-  .enableCounterStop = false,
-  .outControl = kCTIMER_Output_Toggle,
-  .outPinInitState = false,
-  .enableInterrupt = false
-};
-
-static void CTIMER0_MOTOR_B_init(void) {
-  /* CTIMER0 peripheral initialization */
-  CTIMER_Init(CTIMER0_MOTOR_B_PERIPHERAL, &CTIMER0_MOTOR_B_config);
-  /* Match channel 3 of CTIMER0 peripheral initialization */
-  CTIMER_SetupMatch(CTIMER0_MOTOR_B_PERIPHERAL, CTIMER0_MOTOR_B_MATCH_0_CHANNEL, &CTIMER0_MOTOR_B_Match_0_config);
-}
-
-/***********************************************************************************************************************
  * GINT0 initialization code
  **********************************************************************************************************************/
 /* clang-format off */
@@ -223,8 +99,8 @@ instance:
       - gint_comb: 'kGINT_CombineOr'
       - gint_trig: 'kGINT_TrigEdge'
     - callbackCfg:
-      - callback_name: ''
-      - isCallbackEnabled: 'false'
+      - callback_name: 'gint0_callback'
+      - isCallbackEnabled: 'true'
       - enable_priority: 'false'
     - pins_port0:
       - enable:
@@ -368,17 +244,18 @@ instance:
           - 13: 'low'
           - 14: 'low'
           - 15: 'low'
-    - quick_selection: 'QuickSelection1'
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
 /* clang-format on */
 
 static void GINT0_init(void) {
   /* Set GINT control registers and the name of callback function */
-  GINT_SetCtrl(GINT0_PERIPHERAL, kGINT_CombineOr, kGINT_TrigEdge, NULL);
+  GINT_SetCtrl(GINT0_PERIPHERAL, kGINT_CombineOr, kGINT_TrigEdge, gint0_callback);
   /* Select pins and polarity for GINT - PIO0 */
   GINT_ConfigPins(GINT0_PERIPHERAL, kGINT_Port0, GINT0_PIO0_POLARITY_MASK, GINT0_PIO0_ENABLED_PINS_MASK);
   /* Select pins and polarity for GINT - PIO1 */
   GINT_ConfigPins(GINT0_PERIPHERAL, kGINT_Port1, GINT0_PIO1_POLARITY_MASK, GINT0_PIO1_ENABLED_PINS_MASK);
+  /* Enable callback for GINT */
+  GINT_EnableCallback(GINT0_PERIPHERAL);
 }
 
 /***********************************************************************************************************************
@@ -391,8 +268,6 @@ void BOARD_InitPeripherals_cm33_core0(void)
   GINT_Init(GINT0_PERIPHERAL);
 
   /* Initialize components */
-  CTIMER1_MOTOR_A_init();
-  CTIMER0_MOTOR_B_init();
   GINT0_init();
 }
 

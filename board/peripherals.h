@@ -10,8 +10,6 @@
  * Included files
  **********************************************************************************************************************/
 #include "fsl_common.h"
-#include "fsl_ctimer.h"
-#include "fsl_clock.h"
 #include "fsl_gint.h"
 
 #if defined(__cplusplus)
@@ -22,26 +20,6 @@ extern "C" {
  * Definitions
  **********************************************************************************************************************/
 /* Definitions for BOARD_InitPeripherals_cm33_core0 functional group */
-/* Definition of peripheral ID */
-#define CTIMER1_MOTOR_A_PERIPHERAL CTIMER1
-/* Timer tick frequency in Hz (input frequency of the timer) */
-#define CTIMER1_MOTOR_A_TICK_FREQ 1000000UL
-/* Timer tick period in ns (input period of the timer) */
-#define CTIMER1_MOTOR_A_TICK_PERIOD 1000UL
-/* Definition of PWM period channel. */
-#define CTIMER1_MOTOR_A_PWM_PERIOD_CH kCTIMER_Match_0
-/* Definition of channel 2 ID */
-#define CTIMER1_MOTOR_A_MATCH_0_CHANNEL kCTIMER_Match_2
-/* Definition of peripheral ID */
-#define CTIMER0_MOTOR_B_PERIPHERAL CTIMER0
-/* Timer tick frequency in Hz (input frequency of the timer) */
-#define CTIMER0_MOTOR_B_TICK_FREQ 1000000UL
-/* Timer tick period in ns (input period of the timer) */
-#define CTIMER0_MOTOR_B_TICK_PERIOD 1000UL
-/* Definition of PWM period channel. */
-#define CTIMER0_MOTOR_B_PWM_PERIOD_CH kCTIMER_Match_0
-/* Definition of channel 3 ID */
-#define CTIMER0_MOTOR_B_MATCH_0_CHANNEL kCTIMER_Match_3
 /* Definition of peripheral ID */
 #define GINT0_PERIPHERAL GINT0
 /* Definition of enabled pins of the PIO0 */
@@ -54,12 +32,10 @@ extern "C" {
 #define GINT0_PIO1_POLARITY_MASK 0x0UL
 
 /***********************************************************************************************************************
- * Global variables
+ * Callback functions
  **********************************************************************************************************************/
-extern const ctimer_config_t CTIMER1_MOTOR_A_config;
-extern const ctimer_match_config_t CTIMER1_MOTOR_A_Match_0_config;
-extern const ctimer_config_t CTIMER0_MOTOR_B_config;
-extern const ctimer_match_config_t CTIMER0_MOTOR_B_Match_0_config;
+/* GINT callback function for the GINT0 component (init. function BOARD_InitPeripherals_cm33_core0)*/
+extern void gint0_callback(void);
 
 /***********************************************************************************************************************
  * Initialization functions

@@ -73,7 +73,6 @@ BOARD_InitDEBUG_UARTPins:
   - {pin_num: '22', peripheral: GPIO, signal: 'PIO0, 15', pin_signal: PIO0_15/FC6_CTS_SDA_SSEL0/UTICK_CAP2/CT_INP16/SCT0_OUT2/SD0_WR_PRT/SECURE_GPIO0_15/ADC0_2, direction: OUTPUT}
   - {pin_num: '85', peripheral: CTIMER0, signal: 'MATCH, 3', pin_signal: PIO1_27/FC2_RTS_SCL_SSEL1/SD0_D4/CTIMER0_MAT3/CLKOUT/PLU_IN4}
   - {pin_num: '68', peripheral: GPIO, signal: 'PIO1, 26', pin_signal: PIO1_26/FC2_CTS_SDA_SSEL0/SCT0_OUT3/CT_INP3/UTICK_CAP1/HS_SPI_SSEL3/PLU_IN5, direction: OUTPUT}
-  - {pin_num: '88', peripheral: GPIO, signal: 'PIO0, 5', pin_signal: PIO0_5/FC4_RXD_SDA_MOSI_DATA/CTIMER3_MAT0/SCT_GPI5/FC3_RTS_SCL_SSEL1/MCLK/SECURE_GPIO0_5, direction: INPUT}
   - {pin_num: '10', peripheral: GPIO, signal: 'PIO1, 9', pin_signal: PIO1_9/FC1_SCK/CT_INP4/SCT0_OUT2/FC4_CTS_SDA_SSEL0/ADC0_12, direction: INPUT}
   - {pin_num: '6', peripheral: GPIO, signal: 'PIO0, 7', pin_signal: PIO0_7/FC3_RTS_SCL_SSEL1/SD0_CLK/FC5_SCK/FC1_SCK/SECURE_GPIO0_7, direction: OUTPUT}
   - {pin_num: '11', peripheral: GPIO, signal: 'PIO1, 0', pin_signal: PIO1_0/FC0_RTS_SCL_SSEL1/SD0_D3/CT_INP2/SCT_GPI4/PLU_OUT3/ADC0_11, direction: INPUT}
@@ -83,6 +82,7 @@ BOARD_InitDEBUG_UARTPins:
   - {pin_num: '62', peripheral: GPIO, signal: 'PIO1, 3', pin_signal: PIO1_3/SCT0_OUT4/HS_SPI_MISO/USB0_PORTPWRN/PLU_OUT6}
   - {pin_num: '31', peripheral: GPIO, signal: 'PIO1, 5', pin_signal: PIO1_5/FC0_RXD_SDA_MOSI_DATA/SD0_D2/CTIMER2_MAT0/SCT_GPI0, direction: OUTPUT}
   - {pin_num: '24', peripheral: GPIO, signal: 'PIO1, 8', pin_signal: PIO1_8/FC0_CTS_SDA_SSEL0/SD0_CLK/SCT0_OUT1/FC4_SSEL2/ADC0_4}
+  - {pin_num: '88', peripheral: GPIO, signal: 'PIO0, 5', pin_signal: PIO0_5/FC4_RXD_SDA_MOSI_DATA/CTIMER3_MAT0/SCT_GPI5/FC3_RTS_SCL_SSEL1/MCLK/SECURE_GPIO0_5}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -104,13 +104,6 @@ void BOARD_InitDEBUG_UARTPins(void)
 
     /* Enables the clock for the GPIO1 module */
     CLOCK_EnableClock(kCLOCK_Gpio1);
-
-    gpio_pin_config_t SWITCH_BOARD_1_config = {
-        .pinDirection = kGPIO_DigitalInput,
-        .outputLogic = 0U
-    };
-    /* Initialize GPIO functionality on pin PIO0_5 (pin 88)  */
-    GPIO_PinInit(BOARD_INITDEBUG_UARTPINS_SWITCH_BOARD_1_GPIO, BOARD_INITDEBUG_UARTPINS_SWITCH_BOARD_1_PORT, BOARD_INITDEBUG_UARTPINS_SWITCH_BOARD_1_PIN, &SWITCH_BOARD_1_config);
 
     gpio_pin_config_t SENSOR_1_XSHUT_config = {
         .pinDirection = kGPIO_DigitalOutput,

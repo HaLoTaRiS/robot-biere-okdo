@@ -309,27 +309,6 @@ void BOARD_InitBootPins(void);
 #define BOARD_INITDEBUG_UARTPINS_MOTOR_B_DIRECTION_PIN_MASK (1U << 26U)
 /* @} */
 
-/*! @name PIO0_5 (number 88), S1/J10[1]/U3[12]/P17[8]/P7[7]/U11[4]/P0_5-ISP1
-  @{ */
-
-/* Symbols to be used with GPIO driver */
-/*!
- * @brief GPIO peripheral base pointer */
-#define BOARD_INITDEBUG_UARTPINS_SWITCH_BOARD_1_GPIO GPIO
-/*!
- * @brief GPIO pin mask */
-#define BOARD_INITDEBUG_UARTPINS_SWITCH_BOARD_1_GPIO_PIN_MASK (1U << 5U)
-/*!
- * @brief PORT peripheral base pointer */
-#define BOARD_INITDEBUG_UARTPINS_SWITCH_BOARD_1_PORT 0U
-/*!
- * @brief PORT pin number */
-#define BOARD_INITDEBUG_UARTPINS_SWITCH_BOARD_1_PIN 5U
-/*!
- * @brief PORT pin mask */
-#define BOARD_INITDEBUG_UARTPINS_SWITCH_BOARD_1_PIN_MASK (1U << 5U)
-/* @} */
-
 /*! @name PIO1_9 (number 10), S3/P18[1]/PIO1_9_GPIO_ARD
   @{ */
 
@@ -478,6 +457,27 @@ void BOARD_InitBootPins(void);
 #define BOARD_INITDEBUG_UARTPINS_SENSOR_4_INT_PIN 8U                   /*!<@brief PORT pin number */
 #define BOARD_INITDEBUG_UARTPINS_SENSOR_4_INT_PIN_MASK (1U << 8U)      /*!<@brief PORT pin mask */
                                                                        /* @} */
+
+/*! @name PIO0_5 (number 88), S1/J10[1]/U3[12]/P17[8]/P7[7]/U11[4]/P0_5-ISP1
+  @{ */
+
+/* Symbols to be used with GPIO driver */
+/*!
+ * @brief GPIO peripheral base pointer */
+#define BOARD_INITDEBUG_UARTPINS_SWITCH_BOARD_1_GPIO GPIO
+/*!
+ * @brief GPIO pin mask */
+#define BOARD_INITDEBUG_UARTPINS_SWITCH_BOARD_1_GPIO_PIN_MASK (1U << 5U)
+/*!
+ * @brief PORT peripheral base pointer */
+#define BOARD_INITDEBUG_UARTPINS_SWITCH_BOARD_1_PORT 0U
+/*!
+ * @brief PORT pin number */
+#define BOARD_INITDEBUG_UARTPINS_SWITCH_BOARD_1_PIN 5U
+/*!
+ * @brief PORT pin mask */
+#define BOARD_INITDEBUG_UARTPINS_SWITCH_BOARD_1_PIN_MASK (1U << 5U)
+/* @} */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.
