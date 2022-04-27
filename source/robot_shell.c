@@ -28,6 +28,9 @@ TaskHandle_t xHandleMotorLeft = NULL;
 TaskHandle_t xHandleMotorRight = NULL;
 TaskHandle_t xHandleMotorStop = NULL;
 
+int32_t angle;
+int32_t distance;
+
 shell_status_t LedControl(shell_handle_t shellHandle, int32_t argc, char **argv)
 {
 	int32_t kLedIndex = ((int32_t)atoi(argv[1]));
@@ -111,11 +114,8 @@ shell_status_t LedControl(shell_handle_t shellHandle, int32_t argc, char **argv)
 
 shell_status_t MotorRun(shell_handle_t shellHandle, int32_t argc, char **argv) {
 
-
 	int32_t sens = ((int32_t)atoi(argv[1]));
-	int32_t vitesse = ((int32_t)atoi(argv[2]));
-	SHELL_Printf("vitesse : %d \r\n",vitesse);
-	run_motor_A(vitesse);
+	distance = ((int32_t)atoi(argv[2]));
 
 	if (sens == 1)
 	{
@@ -134,77 +134,36 @@ shell_status_t MotorRun(shell_handle_t shellHandle, int32_t argc, char **argv) {
 		LED_BLUE_ON();
 	}
 
-//	SHELL_Printf("memoire après %d\r\n",xPortGetFreeHeapSize());
+	//	SHELL_Printf("memoire après %d\r\n",xPortGetFreeHeapSize());
 
 	return kStatus_SHELL_Success;
-
 }
 
 shell_status_t MotorLeft(shell_handle_t shellHandle, int32_t argc, char **argv) {
 
-	BaseType_t xReturned;
-	// task MotorRun
-	xReturned = xTaskCreate(
-			vTaskMotorLeft,
-			"Tache Motor Left",
-			STACK_SIZE_MOTOR_RUN,
-			(void *) NULL,
-			task_MOTOR_LEFT_PRIORITY,
-			&xHandleMotorLeft );
+	angle = ((int32_t)atoi(argv[1]));
 
-	if( xReturned == errCOULD_NOT_ALLOCATE_REQUIRED_MEMORY ) {
-		LED_RED_ON();
-		SHELL_Printf("ERROR >> Task MotorLeft creation : Could not allocate required memory\r\n");
-	}
-
+	MOTOR_left();
 	vTaskResume(xHandleMotorLeft);
 
 	return kStatus_SHELL_Success;
 }
 
 shell_status_t MotorRight(shell_handle_t shellHandle, int32_t argc, char **argv) {
-	BaseType_t xReturned;
-	// task MotorRun
-	xReturned = xTaskCreate(
-			vTaskMotorRight,
-			"Tache Motor Right",
-			STACK_SIZE_MOTOR_RIGHT,
-			(void *) NULL,
-			task_MOTOR_RIGHT_PRIORITY,
-			&xHandleMotorRight );
+	angle = ((int32_t)atoi(argv[1]));
 
-	if( xReturned == errCOULD_NOT_ALLOCATE_REQUIRED_MEMORY ) {
-		LED_RED_ON();
-		SHELL_Printf("ERROR >> Task MotorRight creation : Could not allocate required memory\r\n");
-	}
-	return kStatus_SHELL_Success;
+	MOTOR_right();
 
 	vTaskResume(xHandleMotorRight);
+
+	return kStatus_SHELL_Success;
+
+
 
 }
 
 shell_status_t MotorStop(shell_handle_t shellHandle, int32_t argc, char **argv) {
-
-//	vTaskSuspend( xHandleMotorRun );
-
-//	BaseType_t xReturned;
-//	// task MotorRun
-//	xReturned = xTaskCreate(
-//			vTaskMotorStop,
-//			"Tache Motor STOP",
-//			STACK_SIZE_MOTOR_STOP,
-//			(void *) NULL,
-//			task_MOTOR_STOP_PRIORITY,
-//			&xHandleMotorStop );
-//
-//	if( xReturned == errCOULD_NOT_ALLOCATE_REQUIRED_MEMORY ) {
-//		LED_RED_ON();
-//		SHELL_Printf("ERROR >> Task MotorStop creation : Could not allocate required memory\r\n");
-//	}
-//
-//	vTaskResume(xHandleMotorStop);
-	SHELL_Printf("INFO >> Task Run doit s'arreter\r\n");
-	vTaskSuspend(xHandleMotorRun);
+	MOTOR_A_B_stop();
 	return kStatus_SHELL_Success;
 }
 
@@ -219,22 +178,22 @@ SHELL_COMMAND_DEFINE(led,
 		2);
 
 SHELL_COMMAND_DEFINE(run,
-		" \"run\"   | arg1 : distance       | Robot Run\r\n",
+		" \"run\"   | arg1 : sens  +  arg2 : distance     | Robot Run\r\n",
 		MotorRun,
 		2);
 
 SHELL_COMMAND_DEFINE(left,
-		" \"left\"  | arg1 : degree         | Robot turn left\r\n",
+		" \"left\"  | arg1 : degree                       | Robot turn left\r\n",
 		MotorLeft,
 		1);
 
 SHELL_COMMAND_DEFINE(right,
-		" \"right\" | arg1 : degree         | Robot turn right\r\n",
+		" \"right\" | arg1 : degree                       | Robot turn right\r\n",
 		MotorRight,
 		1);
 
 SHELL_COMMAND_DEFINE(stop,
-		" \"stop\"  | nothing               | Robot stop\r\n",
+		" \"stop\"  | nothing                             | Robot stop\r\n",
 		MotorStop,
 		0);
 
@@ -294,6 +253,36 @@ void init_shell(void) {
 		SHELL_Printf("ERROR >> Task MotorRun creation : Could not allocate required memory\r\n");
 	}
 	vTaskSuspend(xHandleMotorRun);
+
+	/**************** Task Motor Left ****************/
+	xReturned = xTaskCreate(
+			vTaskMotorLeft,
+			"Tache Motor Left",
+			STACK_SIZE_MOTOR_RUN,
+			(void *) NULL,
+			task_MOTOR_LEFT_PRIORITY,
+			&xHandleMotorLeft );
+
+	if( xReturned == errCOULD_NOT_ALLOCATE_REQUIRED_MEMORY ) {
+		LED_RED_ON();
+		SHELL_Printf("ERROR >> Task MotorLeft creation : Could not allocate required memory\r\n");
+	}
+	vTaskSuspend(xHandleMotorLeft);
+
+	/**************** Task Motor Right ****************/
+	xReturned = xTaskCreate(
+			vTaskMotorRight,
+			"Tache Motor Right",
+			STACK_SIZE_MOTOR_RIGHT,
+			(void *) NULL,
+			task_MOTOR_RIGHT_PRIORITY,
+			&xHandleMotorRight );
+
+	if( xReturned == errCOULD_NOT_ALLOCATE_REQUIRED_MEMORY ) {
+		LED_RED_ON();
+		SHELL_Printf("ERROR >> Task MotorRight creation : Could not allocate required memory\r\n");
+	}
+	vTaskSuspend(xHandleMotorRight);
 }
 
 /*******************************************************************************/
@@ -354,36 +343,46 @@ void vTaskHello(void *pvParameters)
 	}
 }
 
+
+
+
 /******************************************************************************/
 /* Task MotorRun                                                              */
 /******************************************************************************/
 void vTaskMotorRun(void *pvParameters)
 {
+	const uint32_t min_speed = 200;
+	const uint32_t max_speed = 1500;
+	uint32_t var_speed= 200 ;
 
 	while(1){
 
-
-		SHELL_Printf("INFO >> Motor Run\r\n");
-//		SHELL_Printf("freq : %d \r\n ",CLOCK_GetCTimerClkFreq(1U));
+		SHELL_Printf("INFO >> Motor Démarrage\r\n");
 		MOTOR_A_B_start();
+		while (var_speed<max_speed){
+			MOTOR_A_run(MOTOR_CALCUL_match_value_motor (var_speed));
+			MOTOR_B_run(MOTOR_CALCUL_match_value_motor (var_speed));
+			SHELL_Printf("boucle + frequence speed :  %d \r\n", var_speed);
+			vTaskDelay(20/portTICK_PERIOD_MS);
+			var_speed = var_speed + 20;
+		}
+		SHELL_Printf("INFO >> Motor Fin Démarrage\r\n");
 
-		vTaskDelay(2000/portTICK_PERIOD_MS);
-		SHELL_Printf("INFO >> Fin Motor Run\r\n");
+		vTaskDelay(5000/portTICK_PERIOD_MS);
+
+		SHELL_Printf("INFO >> Début Motor arret \r\n");
+		while (var_speed>min_speed){
+			MOTOR_A_run(MOTOR_CALCUL_match_value_motor (var_speed));
+			MOTOR_B_run(MOTOR_CALCUL_match_value_motor (var_speed));
+			SHELL_Printf("boucle - frequence speed :  %d \r\n", var_speed);
+			vTaskDelay(20/portTICK_PERIOD_MS);
+			var_speed = var_speed - 20;
+		}
+		SHELL_Printf("INFO >> Fin Motor arret \r\n");
 		MOTOR_A_B_stop();
 
 		vTaskSuspend(xHandleMotorRun);
 	}
-	// Ne fonctionne pas comme STM32
-	//	SHELL_Printf("memoire après delete %d\r\n",xPortGetFreeHeapSize());
-	//	char buf [1024];
-	//	vTaskList(buf);
-	//	SHELL_Printf("**************************************************\r\n");
-	//	SHELL_Printf("TACHE           ETAT    PRIO    PILE    NUMERO\r\n");
-	//	SHELL_Printf("**************************************************\r\n");
-	//	SHELL_Printf("%s",buf);
-	//	SHELL_Printf("**************************************************\r\n\r\n");
-	//	SHELL_Printf("B : Blocked | R : Ready | D : Deleted | S : Suspended\r\n\r\n");
-
 }
 
 /******************************************************************************/
@@ -391,11 +390,17 @@ void vTaskMotorRun(void *pvParameters)
 /******************************************************************************/
 void vTaskMotorLeft(void *pvParameters)
 {
-	SHELL_Printf("INFO >> Je suis dans Task Motor Left\r\n");
-	vTaskDelay(4000/portTICK_PERIOD_MS);
-	SHELL_Printf("INFO >> Fin Task Motor Left\r\n");
+	int var_angle;
 
-	vTaskDelete(xHandleMotorLeft);
+	while(1){
+		// Code a continuer pour rotation de X degre
+
+		SHELL_Printf("INFO >> Je suis dans Task Motor Left\r\n");
+		vTaskDelay(2000/portTICK_PERIOD_MS);
+		SHELL_Printf("INFO >> Fin Task Motor Left\r\n");
+		MOTOR_A_B_stop();
+		vTaskSuspend(xHandleMotorLeft);
+	}
 }
 
 /******************************************************************************/
@@ -403,36 +408,15 @@ void vTaskMotorLeft(void *pvParameters)
 /******************************************************************************/
 void vTaskMotorRight(void *pvParameters)
 {
-	SHELL_Printf("INFO >> Je suis dans Task Motor Right\r\n");
-	vTaskDelay(4000/portTICK_PERIOD_MS);
-	SHELL_Printf("INFO >> Fin Task Motor Right\r\n");
-
-	vTaskSuspend(xHandleMotorRight);
-}
-
-/******************************************************************************/
-/* Task MotorStop	                                                          */
-/******************************************************************************/
-void vTaskMotorStop(void *pvParameters)
-{
-
-	SHELL_Printf("INFO >> Je suis dans Task Motor STOP\r\n");
-	vTaskDelay(4000/portTICK_PERIOD_MS);
-	SHELL_Printf("INFO >> Fin Task Motor Right\r\n");
-//	vTaskDelete(xHandleMotorStop);
-
-
-	vTaskSuspend( xHandleMotorRun );
-
-
-//	if(xHandleMotorLeft != NULL ) {
-//		vTaskDelete( xHandleMotorLeft );
-//	}
-//
-//	if(xHandleMotorRight != NULL ) {
-//		vTaskDelete( xHandleMotorRight );
-//	}
-	vTaskDelay(10/portTICK_PERIOD_MS);
+	int var_angle;
+	while(1){
+		// Code a continuer pour rotation de X degre
+		SHELL_Printf("INFO >> Je suis dans Task Motor Right\r\n");
+		vTaskDelay(4000/portTICK_PERIOD_MS);
+		SHELL_Printf("INFO >> Fin Task Motor Right\r\n");
+		MOTOR_A_B_stop();
+		vTaskSuspend(xHandleMotorRight);
+	}
 }
 
 

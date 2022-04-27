@@ -29,21 +29,21 @@ extern serial_handle_t g_serialHandle;
 /*******************************************************************************/
 #define task_HELLO_PRIORITY (configMAX_PRIORITIES - 1)
 #define task_MOTOR_RUN_PRIORITY (configMAX_PRIORITIES - 11)
-#define task_MOTOR_LEFT_PRIORITY (configMAX_PRIORITIES - 11)
-#define task_MOTOR_RIGHT_PRIORITY (configMAX_PRIORITIES - 11)
-#define task_MOTOR_STOP_PRIORITY (configMAX_PRIORITIES -  12)
-
+#define task_MOTOR_LEFT_PRIORITY (configMAX_PRIORITIES - 12)
+#define task_MOTOR_RIGHT_PRIORITY (configMAX_PRIORITIES - 12)
 
 /*******************************************************************************/
 /* Prototypes */
 /******************************************************************************/
 
-#define STACK_SIZE_HELLO 500
+#define STACK_SIZE_HELLO 200
 #define STACK_SIZE_SHELL 500
-#define STACK_SIZE_MOTOR_RUN 500
-#define STACK_SIZE_MOTOR_LEFT 500
-#define STACK_SIZE_MOTOR_RIGHT 500
-#define STACK_SIZE_MOTOR_STOP 500
+#define STACK_SIZE_MOTOR_RUN 400
+#define STACK_SIZE_MOTOR_LEFT 400
+#define STACK_SIZE_MOTOR_RIGHT 400
+
+
+
 
 /*******************************************************************************
  * Prototypes SHELL
@@ -69,6 +69,6 @@ void vTaskHello(void *pvParameters);
 void vTaskMotorRun(void *pvParameters);
 void vTaskMotorLeft(void *pvParameters);
 void vTaskMotorRight(void *pvParameters);
-void vTaskMotorStop(void *pvParameters);
+
 
 #endif

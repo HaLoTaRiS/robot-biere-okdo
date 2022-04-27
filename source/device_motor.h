@@ -17,6 +17,7 @@
 #include "fsl_ctimer.h"
 #include "fsl_clock.h"
 
+
 /*******************************************************************************/
 /* definitions & declarations */
 /*******************************************************************************/
@@ -80,7 +81,7 @@
 		GPIO_PortSet(BOARD_MOTOR_B_DIRECTION_GPIO, BOARD_MOTOR_B_DIRECTION_GPIO_PORT, \
 				1U << BOARD_MOTOR_B_DIRECTION_GPIO_PIN)
 
-
+/******************************* TIMER *******************************/
 #define CTIMER1_MOTOR_A_PERIPHERAL CTIMER1
 /* Timer tick frequency in Hz (input frequency of the timer) */
 #define CTIMER1_MOTOR_A_TICK_FREQ 1000000UL
@@ -110,22 +111,27 @@ extern ctimer_match_config_t CTIMER1_MOTOR_A_Match_0_config;
 extern ctimer_config_t CTIMER0_MOTOR_B_config;
 extern ctimer_match_config_t CTIMER0_MOTOR_B_Match_0_config;
 
+/*******************************************************************************/
+/* Fonctions */
+/*******************************************************************************/
 
 void MOTEUR_TIMER_init(void);
 
 void CTIMER1_MOTOR_A_init(void);
-
 void CTIMER0_MOTOR_B_init(void);
 
 void MOTOR_A_B_start(void);
-
 void MOTOR_A_B_stop(void);
 
-void run_motor_A(uint32_t step);
-void run_motor_B(uint32_t step);
+int MOTOR_CALCUL_match_value_motor (int Motor_Frequence);
+int MOTOR_CALCUL_angle(int degree);
 
-void left_motor ( uint16_t type, uint32_t angle);
-void right_motor ( uint16_t type, uint32_t angle);
+void MOTOR_A_run (uint32_t Motor_matchvalue);
+void MOTOR_B_run (uint32_t Motor_matchvalue);
+
+void MOTOR_left (void);
+void MOTOR_right (void);
+
 void stop_motor (void);
 
 #endif
