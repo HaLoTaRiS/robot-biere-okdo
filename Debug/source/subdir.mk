@@ -7,28 +7,31 @@ C_SRCS += \
 ../source/LPC55S69_Robot_Biere.c \
 ../source/device_motor.c \
 ../source/device_pince.c \
+../source/device_vl53l0x.c \
+../source/driver_tm1637.c \
 ../source/robot_motor.c \
 ../source/robot_shell.c \
-../source/semihost_hardfault.c \
-../source/sensor_vl53l0x.c 
+../source/semihost_hardfault.c 
 
 OBJS += \
 ./source/LPC55S69_Robot_Biere.o \
 ./source/device_motor.o \
 ./source/device_pince.o \
+./source/device_vl53l0x.o \
+./source/driver_tm1637.o \
 ./source/robot_motor.o \
 ./source/robot_shell.o \
-./source/semihost_hardfault.o \
-./source/sensor_vl53l0x.o 
+./source/semihost_hardfault.o 
 
 C_DEPS += \
 ./source/LPC55S69_Robot_Biere.d \
 ./source/device_motor.d \
 ./source/device_pince.d \
+./source/device_vl53l0x.d \
+./source/driver_tm1637.d \
 ./source/robot_motor.d \
 ./source/robot_shell.d \
-./source/semihost_hardfault.d \
-./source/sensor_vl53l0x.d 
+./source/semihost_hardfault.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

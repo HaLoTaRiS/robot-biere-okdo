@@ -48,6 +48,7 @@
 #include "fsl_shell.h"
 #include "robot_motor.h"
 #include "device_motor.h"
+#include "driver_tm1637.h"
 
 /* TODO: insert other definitions and declarations here. */
 
@@ -98,6 +99,7 @@ int main(void) {
 #endif
 
 	MOTEUR_TIMER_init();
+	TM1637_brightness(3);
 
 	UTICK_Init(UTICK0); //Initialise Utick
 

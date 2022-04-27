@@ -17,6 +17,10 @@ pin_labels:
 - {pin_num: '88', pin_signal: PIO0_5/FC4_RXD_SDA_MOSI_DATA/CTIMER3_MAT0/SCT_GPI5/FC3_RTS_SCL_SSEL1/MCLK/SECURE_GPIO0_5, label: 'S1/J10[1]/U3[12]/P17[8]/P7[7]/U11[4]/P0_5-ISP1',
   identifier: SWITCH_BOARD_1}
 - {pin_num: '6', pin_signal: PIO0_7/FC3_RTS_SCL_SSEL1/SD0_CLK/FC5_SCK/FC1_SCK/SECURE_GPIO0_7, label: 'U20[4]/SD0_CLK', identifier: SENSOR_1_XSHUT}
+- {pin_num: '71', pin_signal: PIO0_13/FC1_CTS_SDA_SSEL0/UTICK_CAP0/CT_INP0/SCT_GPI0/FC1_RXD_SDA_MOSI_DATA/PLU_IN0/SECURE_GPIO0_13, label: 'P19[9]/P19[10]/U2[E6]/P20[8]/FC1_I2C_SDA',
+  identifier: AFF_SDA;AFF_DIO}
+- {pin_num: '72', pin_signal: PIO0_14/FC1_RTS_SCL_SSEL1/UTICK_CAP1/CT_INP1/SCT_GPI1/FC1_TXD_SCL_MISO_WS/PLU_IN1/SECURE_GPIO0_14, label: 'P19[11]/P19[12]/U2[D6]/P20[6]/FC1_I2C_SCL',
+  identifier: AFF_SCL}
 - {pin_num: '22', pin_signal: PIO0_15/FC6_CTS_SDA_SSEL0/UTICK_CAP2/CT_INP16/SCT0_OUT2/SD0_WR_PRT/SECURE_GPIO0_15/ADC0_2, label: 'P18[11]/PIO0_15_GPIO_ARD', identifier: MOTOR_A_DIRECTION}
 - {pin_num: '14', pin_signal: PIO0_16/FC4_TXD_SCL_MISO_WS/CLKOUT/CT_INP4/SECURE_GPIO0_16/ADC0_8, label: 'P19[2]/P23[1]/ADC0_N', identifier: MOTOR_ENABLE}
 - {pin_num: '20', pin_signal: PIO0_23/MCLK/CTIMER1_MAT2/CTIMER3_MAT3/SCT0_OUT4/FC0_CTS_SDA_SSEL0/SD1_D1/SECURE_GPIO0_23/ADC0_0, label: 'P19[4]/ADC0_P', identifier: MOTOR_A_STEP}
@@ -32,6 +36,7 @@ pin_labels:
 - {pin_num: '10', pin_signal: PIO1_9/FC1_SCK/CT_INP4/SCT0_OUT2/FC4_CTS_SDA_SSEL0/ADC0_12, label: 'S3/P18[1]/PIO1_9_GPIO_ARD', identifier: SWITCH_BOARD_2}
 - {pin_num: '68', pin_signal: PIO1_26/FC2_CTS_SDA_SSEL0/SCT0_OUT3/CT_INP3/UTICK_CAP1/HS_SPI_SSEL3/PLU_IN5, label: 'P18[18]/PLU_IN5/GPIO/SD1_WP', identifier: MOTOR_B_DIRECTION}
 - {pin_num: '85', pin_signal: PIO1_27/FC2_RTS_SCL_SSEL1/SD0_D4/CTIMER0_MAT3/CLKOUT/PLU_IN4, label: 'P17[16]/PLU_IN4/GPIO', identifier: MOTOR_B_STEP}
+- {pin_num: '91', pin_signal: PIO1_31/MCLK/SD1_CLK/CTIMER0_MAT2/SCT0_OUT6/PLU_IN0, label: 'P19[7]/P19[8]/PLU_IN0/GPIO', identifier: UART_TX_Enable}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -83,6 +88,11 @@ BOARD_InitDEBUG_UARTPins:
   - {pin_num: '31', peripheral: GPIO, signal: 'PIO1, 5', pin_signal: PIO1_5/FC0_RXD_SDA_MOSI_DATA/SD0_D2/CTIMER2_MAT0/SCT_GPI0, direction: OUTPUT}
   - {pin_num: '24', peripheral: GPIO, signal: 'PIO1, 8', pin_signal: PIO1_8/FC0_CTS_SDA_SSEL0/SD0_CLK/SCT0_OUT1/FC4_SSEL2/ADC0_4}
   - {pin_num: '88', peripheral: GPIO, signal: 'PIO0, 5', pin_signal: PIO0_5/FC4_RXD_SDA_MOSI_DATA/CTIMER3_MAT0/SCT_GPI5/FC3_RTS_SCL_SSEL1/MCLK/SECURE_GPIO0_5}
+  - {pin_num: '91', peripheral: GPIO, signal: 'PIO1, 31', pin_signal: PIO1_31/MCLK/SD1_CLK/CTIMER0_MAT2/SCT0_OUT6/PLU_IN0}
+  - {pin_num: '72', peripheral: GPIO, signal: 'PIO0, 14', pin_signal: PIO0_14/FC1_RTS_SCL_SSEL1/UTICK_CAP1/CT_INP1/SCT_GPI1/FC1_TXD_SCL_MISO_WS/PLU_IN1/SECURE_GPIO0_14,
+    direction: OUTPUT}
+  - {pin_num: '71', peripheral: GPIO, signal: 'PIO0, 13', pin_signal: PIO0_13/FC1_CTS_SDA_SSEL0/UTICK_CAP0/CT_INP0/SCT_GPI0/FC1_RXD_SDA_MOSI_DATA/PLU_IN0/SECURE_GPIO0_13,
+    identifier: AFF_DIO, direction: OUTPUT}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -111,6 +121,20 @@ void BOARD_InitDEBUG_UARTPins(void)
     };
     /* Initialize GPIO functionality on pin PIO0_7 (pin 6)  */
     GPIO_PinInit(BOARD_INITDEBUG_UARTPINS_SENSOR_1_XSHUT_GPIO, BOARD_INITDEBUG_UARTPINS_SENSOR_1_XSHUT_PORT, BOARD_INITDEBUG_UARTPINS_SENSOR_1_XSHUT_PIN, &SENSOR_1_XSHUT_config);
+
+    gpio_pin_config_t AFF_DIO_config = {
+        .pinDirection = kGPIO_DigitalOutput,
+        .outputLogic = 0U
+    };
+    /* Initialize GPIO functionality on pin PIO0_13 (pin 71)  */
+    GPIO_PinInit(BOARD_INITDEBUG_UARTPINS_AFF_DIO_GPIO, BOARD_INITDEBUG_UARTPINS_AFF_DIO_PORT, BOARD_INITDEBUG_UARTPINS_AFF_DIO_PIN, &AFF_DIO_config);
+
+    gpio_pin_config_t AFF_SCL_config = {
+        .pinDirection = kGPIO_DigitalOutput,
+        .outputLogic = 0U
+    };
+    /* Initialize GPIO functionality on pin PIO0_14 (pin 72)  */
+    GPIO_PinInit(BOARD_INITDEBUG_UARTPINS_AFF_SCL_GPIO, BOARD_INITDEBUG_UARTPINS_AFF_SCL_PORT, BOARD_INITDEBUG_UARTPINS_AFF_SCL_PIN, &AFF_SCL_config);
 
     gpio_pin_config_t MOTOR_A_DIRECTION_config = {
         .pinDirection = kGPIO_DigitalOutput,
@@ -188,6 +212,32 @@ void BOARD_InitDEBUG_UARTPins(void)
     };
     /* Initialize GPIO functionality on pin PIO1_26 (pin 68)  */
     GPIO_PinInit(BOARD_INITDEBUG_UARTPINS_MOTOR_B_DIRECTION_GPIO, BOARD_INITDEBUG_UARTPINS_MOTOR_B_DIRECTION_PORT, BOARD_INITDEBUG_UARTPINS_MOTOR_B_DIRECTION_PIN, &MOTOR_B_DIRECTION_config);
+
+    IOCON->PIO[0][13] = ((IOCON->PIO[0][13] &
+                          /* Mask bits to zero which are setting */
+                          (~(IOCON_PIO_FUNC_MASK | IOCON_PIO_DIGIMODE_MASK)))
+
+                         /* Selects pin function.
+                          * : PORT013 (pin 71) is configured as PIO0_13. */
+                         | IOCON_PIO_FUNC(PIO0_13_FUNC_ALT0)
+
+                         /* Select Digital mode.
+                          * : Enable Digital mode.
+                          * Digital input is enabled. */
+                         | IOCON_PIO_DIGIMODE(PIO0_13_DIGIMODE_DIGITAL));
+
+    IOCON->PIO[0][14] = ((IOCON->PIO[0][14] &
+                          /* Mask bits to zero which are setting */
+                          (~(IOCON_PIO_FUNC_MASK | IOCON_PIO_DIGIMODE_MASK)))
+
+                         /* Selects pin function.
+                          * : PORT014 (pin 72) is configured as PIO0_14. */
+                         | IOCON_PIO_FUNC(PIO0_14_FUNC_ALT0)
+
+                         /* Select Digital mode.
+                          * : Enable Digital mode.
+                          * Digital input is enabled. */
+                         | IOCON_PIO_DIGIMODE(PIO0_14_DIGIMODE_DIGITAL));
 
     if (Chip_GetVersion()==1)
     {
@@ -428,6 +478,19 @@ void BOARD_InitDEBUG_UARTPins(void)
                          * : Enable Digital mode.
                          * Digital input is enabled. */
                         | IOCON_PIO_DIGIMODE(PIO1_3_DIGIMODE_DIGITAL));
+
+    IOCON->PIO[1][31] = ((IOCON->PIO[1][31] &
+                          /* Mask bits to zero which are setting */
+                          (~(IOCON_PIO_FUNC_MASK | IOCON_PIO_DIGIMODE_MASK)))
+
+                         /* Selects pin function.
+                          * : PORT131 (pin 91) is configured as PIO1_31. */
+                         | IOCON_PIO_FUNC(PIO1_31_FUNC_ALT0)
+
+                         /* Select Digital mode.
+                          * : Enable Digital mode.
+                          * Digital input is enabled. */
+                         | IOCON_PIO_DIGIMODE(PIO1_31_DIGIMODE_DIGITAL));
 
     IOCON->PIO[1][4] = ((IOCON->PIO[1][4] &
                          /* Mask bits to zero which are setting */
@@ -1164,20 +1227,20 @@ void BOARD_InitI2SPins(void)
     /* PORT1 PIN21 (coords: 30) is configured as FC4_RXD_SDA_MOSI_DATA */
     IOCON_PinMuxSet(IOCON, BOARD_INITI2SPINS_FC4_I2C_SDA_PORT, BOARD_INITI2SPINS_FC4_I2C_SDA_PIN, FC4_I2C_SDA);
 
-    const uint32_t MCLK = (/* Pin is configured as MCLK */
-                           IOCON_PIO_FUNC1 |
-                           /* No addition pin function */
-                           IOCON_PIO_MODE_INACT |
-                           /* Standard mode, output slew rate control is enabled */
-                           IOCON_PIO_SLEW_STANDARD |
-                           /* Input function is not inverted */
-                           IOCON_PIO_INV_DI |
-                           /* Enables digital function */
-                           IOCON_PIO_DIGITAL_EN |
-                           /* Open drain is disabled */
-                           IOCON_PIO_OPENDRAIN_DI);
+    const uint32_t UART_TX_Enable = (/* Pin is configured as MCLK */
+                                     IOCON_PIO_FUNC1 |
+                                     /* No addition pin function */
+                                     IOCON_PIO_MODE_INACT |
+                                     /* Standard mode, output slew rate control is enabled */
+                                     IOCON_PIO_SLEW_STANDARD |
+                                     /* Input function is not inverted */
+                                     IOCON_PIO_INV_DI |
+                                     /* Enables digital function */
+                                     IOCON_PIO_DIGITAL_EN |
+                                     /* Open drain is disabled */
+                                     IOCON_PIO_OPENDRAIN_DI);
     /* PORT1 PIN31 (coords: 91) is configured as MCLK */
-    IOCON_PinMuxSet(IOCON, BOARD_INITI2SPINS_MCLK_PORT, BOARD_INITI2SPINS_MCLK_PIN, MCLK);
+    IOCON_PinMuxSet(IOCON, BOARD_INITI2SPINS_UART_TX_Enable_PORT, BOARD_INITI2SPINS_UART_TX_Enable_PIN, UART_TX_Enable);
 }
 
 /* clang-format off */

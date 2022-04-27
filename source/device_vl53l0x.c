@@ -1,4 +1,17 @@
+/*************************************************************
+ * 		PROJET ROBOT BIERE
+ *************************************************************
+ * file : device_vl53l0x.c
+ * Auteurs :
+ *   - Baptiste FRITOT
+ *   - Leo BOSLAND
+ *   - Jeremy VICENTE
+ *   - Fabien BILHAUT
+ *
+ * All rights reserved.
+ */
 
+#include <device_vl53l0x.h>
 #include "fsl_debug_console.h"
 #include "pin_mux.h"
 #include "board.h"
@@ -10,7 +23,6 @@
 #include "fsl_debug_console.h"
 #include "fsl_shell.h"
 
-#include "sensor_vl53l0x.h"
 
 /*******************************************************************************
  * Definitions

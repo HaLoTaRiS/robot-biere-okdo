@@ -17,6 +17,8 @@
 
 #include "device_motor.h"
 
+#include "driver_tm1637.h" // Afficheur
+
 //#include "FreeRTOS.h"  // OS FreeRTOS
 //#include "task.h"	   // Task OS
 
@@ -355,30 +357,34 @@ void vTaskMotorRun(void *pvParameters)
 	const uint32_t max_speed = 1500;
 	uint32_t var_speed= 200 ;
 
+
 	while(1){
 
-		SHELL_Printf("INFO >> Motor Démarrage\r\n");
+		SHELL_Printf("ROBOT-BIERE >> Motor A/B : START\r\n");
 		MOTOR_A_B_start();
-		while (var_speed<max_speed){
+		while (var_speed<=max_speed){
+
 			MOTOR_A_run(MOTOR_CALCUL_match_value_motor (var_speed));
 			MOTOR_B_run(MOTOR_CALCUL_match_value_motor (var_speed));
-			SHELL_Printf("boucle + frequence speed :  %d \r\n", var_speed);
+
+			SHELL_Printf("ROBOT-BIERE >> MOTOR A/B : %d Hz\r\n", var_speed);
 			vTaskDelay(20/portTICK_PERIOD_MS);
 			var_speed = var_speed + 20;
 		}
-		SHELL_Printf("INFO >> Motor Fin Démarrage\r\n");
 
 		vTaskDelay(5000/portTICK_PERIOD_MS);
 
-		SHELL_Printf("INFO >> Début Motor arret \r\n");
-		while (var_speed>min_speed){
+
+		while (var_speed>=min_speed){
+
 			MOTOR_A_run(MOTOR_CALCUL_match_value_motor (var_speed));
 			MOTOR_B_run(MOTOR_CALCUL_match_value_motor (var_speed));
-			SHELL_Printf("boucle - frequence speed :  %d \r\n", var_speed);
+
+			SHELL_Printf("ROBOT-BIERE >> MOTOR A/B : %d Hz\r\n", var_speed);
 			vTaskDelay(20/portTICK_PERIOD_MS);
 			var_speed = var_speed - 20;
 		}
-		SHELL_Printf("INFO >> Fin Motor arret \r\n");
+		SHELL_Printf("ROBOT-BIERE >> Motor A/B : STOP\r\n");
 		MOTOR_A_B_stop();
 
 		vTaskSuspend(xHandleMotorRun);
@@ -390,14 +396,19 @@ void vTaskMotorRun(void *pvParameters)
 /******************************************************************************/
 void vTaskMotorLeft(void *pvParameters)
 {
-	int var_angle;
+	float var_angle;
 
 	while(1){
 		// Code a continuer pour rotation de X degre
-
-		SHELL_Printf("INFO >> Je suis dans Task Motor Left\r\n");
-		vTaskDelay(2000/portTICK_PERIOD_MS);
-		SHELL_Printf("INFO >> Fin Task Motor Left\r\n");
+		var_angle = 0;
+		SHELL_Printf("ROBOT-BIERE >> Début Rotation Gauche\r\n");
+		while (var_angle < angle){
+			TM1637_display_all(var_angle);
+			vTaskDelay(10/portTICK_PERIOD_MS);
+			SHELL_Printf("ROBOT-BIERE >> Rotation Gauche %2.5f \r\n",var_angle);
+			var_angle = var_angle + 0.315; //changer la valeur selon distance des roues
+		}
+		SHELL_Printf("ROBOT-BIERE >> Fin Rotation Gauche\r\n");
 		MOTOR_A_B_stop();
 		vTaskSuspend(xHandleMotorLeft);
 	}
@@ -408,12 +419,18 @@ void vTaskMotorLeft(void *pvParameters)
 /******************************************************************************/
 void vTaskMotorRight(void *pvParameters)
 {
-	int var_angle;
+	float var_angle;
 	while(1){
 		// Code a continuer pour rotation de X degre
-		SHELL_Printf("INFO >> Je suis dans Task Motor Right\r\n");
-		vTaskDelay(4000/portTICK_PERIOD_MS);
-		SHELL_Printf("INFO >> Fin Task Motor Right\r\n");
+		var_angle = 0;
+		SHELL_Printf("ROBOT-BIERE >> Début Rotation Droit \r\n");
+		while (var_angle < angle){
+			TM1637_display_all(var_angle);
+			vTaskDelay(10/portTICK_PERIOD_MS);
+			SHELL_Printf("ROBOT-BIERE >> Rotation Droit %2.5f \r\n",var_angle);
+			var_angle = var_angle + 0.315; //changer la valeur selon distance des roues
+		}
+		SHELL_Printf("ROBOT-BIERE >> Fin Rotation Droit \r\n");
 		MOTOR_A_B_stop();
 		vTaskSuspend(xHandleMotorRight);
 	}
@@ -426,5 +443,10 @@ void vTaskMotorRight(void *pvParameters)
  * Memory :
  * vPortFree()
  * The vPortGetHeapStats() API function provides additional information on the heap status.
+ *
+ * Exemple Bouton GPIO :
+ *		if (GPIO_PinRead(GPIO, BOARD_SW1_PORT,BOARD_SW1_PIN ) == 0x0){
+ *		Fontion();
+ *		}
  *
  */
