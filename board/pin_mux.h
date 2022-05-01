@@ -75,6 +75,12 @@ void BOARD_InitBootPins(void);
 #define PIO0_23_FUNC_ALT2 0x02u
 /*!
  * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
+#define PIO0_27_DIGIMODE_DIGITAL 0x01u
+/*!
+ * @brief Selects pin function.: Alternative connection 1. */
+#define PIO0_27_FUNC_ALT1 0x01u
+/*!
+ * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
 #define PIO0_31_DIGIMODE_DIGITAL 0x01u
 /*!
  * @brief Selects pin function.: Alternative connection 0. */
@@ -103,6 +109,24 @@ void BOARD_InitBootPins(void);
 /*!
  * @brief Selects pin function.: Alternative connection 0. */
 #define PIO1_1_FUNC_ALT0 0x00u
+/*!
+ * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
+#define PIO1_20_DIGIMODE_DIGITAL 0x01u
+/*!
+ * @brief Selects pin function.: Alternative connection 5. */
+#define PIO1_20_FUNC_ALT5 0x05u
+/*!
+ * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
+#define PIO1_21_DIGIMODE_DIGITAL 0x01u
+/*!
+ * @brief Selects pin function.: Alternative connection 5. */
+#define PIO1_21_FUNC_ALT5 0x05u
+/*!
+ * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
+#define PIO1_24_DIGIMODE_DIGITAL 0x01u
+/*!
+ * @brief Selects pin function.: Alternative connection 1. */
+#define PIO1_24_FUNC_ALT1 0x01u
 /*!
  * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
 #define PIO1_26_DIGIMODE_DIGITAL 0x01u
@@ -503,19 +527,19 @@ void BOARD_InitBootPins(void);
 /* Symbols to be used with GPIO driver */
 /*!
  * @brief GPIO peripheral base pointer */
-#define BOARD_INITDEBUG_UARTPINS_UART_TX_Enable_GPIO GPIO
+#define BOARD_INITDEBUG_UARTPINS_PINCE_TX_Enable_GPIO GPIO
 /*!
  * @brief GPIO pin mask */
-#define BOARD_INITDEBUG_UARTPINS_UART_TX_Enable_GPIO_PIN_MASK (1U << 31U)
+#define BOARD_INITDEBUG_UARTPINS_PINCE_TX_Enable_GPIO_PIN_MASK (1U << 31U)
 /*!
  * @brief PORT peripheral base pointer */
-#define BOARD_INITDEBUG_UARTPINS_UART_TX_Enable_PORT 1U
+#define BOARD_INITDEBUG_UARTPINS_PINCE_TX_Enable_PORT 1U
 /*!
  * @brief PORT pin number */
-#define BOARD_INITDEBUG_UARTPINS_UART_TX_Enable_PIN 31U
+#define BOARD_INITDEBUG_UARTPINS_PINCE_TX_Enable_PIN 31U
 /*!
  * @brief PORT pin mask */
-#define BOARD_INITDEBUG_UARTPINS_UART_TX_Enable_PIN_MASK (1U << 31U)
+#define BOARD_INITDEBUG_UARTPINS_PINCE_TX_Enable_PIN_MASK (1U << 31U)
 /* @} */
 
 /*! @name PIO0_14 (number 72), P19[11]/P19[12]/U2[D6]/P20[6]/FC1_I2C_SCL
@@ -539,6 +563,34 @@ void BOARD_InitBootPins(void);
 #define BOARD_INITDEBUG_UARTPINS_AFF_DIO_PIN 13U                   /*!<@brief PORT pin number */
 #define BOARD_INITDEBUG_UARTPINS_AFF_DIO_PIN_MASK (1U << 13U)      /*!<@brief PORT pin mask */
                                                                    /* @} */
+
+/*! @name PIO0_27 (number 27), P18[13]/P24[4]/FC2_USART_TXD_ARD
+  @{ */
+#define BOARD_INITDEBUG_UARTPINS_PINCE_TX_PORT 0U                   /*!<@brief PORT peripheral base pointer */
+#define BOARD_INITDEBUG_UARTPINS_PINCE_TX_PIN 27U                   /*!<@brief PORT pin number */
+#define BOARD_INITDEBUG_UARTPINS_PINCE_TX_PIN_MASK (1U << 27U)      /*!<@brief PORT pin mask */
+                                                                    /* @} */
+
+/*! @name PIO1_24 (number 3), P18[15]/P18[10]/P24[3]/PLU_OUT6/GPIO/FC2_USART_RXD_ARD/SD1_D1
+  @{ */
+#define BOARD_INITDEBUG_UARTPINS_PINCE_RX_PORT 1U                   /*!<@brief PORT peripheral base pointer */
+#define BOARD_INITDEBUG_UARTPINS_PINCE_RX_PIN 24U                   /*!<@brief PORT pin number */
+#define BOARD_INITDEBUG_UARTPINS_PINCE_RX_PIN_MASK (1U << 24U)      /*!<@brief PORT pin mask */
+                                                                    /* @} */
+
+/*! @name PIO1_20 (number 4), P17[1]/P24[5]/FC4_I2C_SCL_ARD
+  @{ */
+#define BOARD_INITDEBUG_UARTPINS_FC4_I2C_SCL_PORT 1U                   /*!<@brief PORT peripheral base pointer */
+#define BOARD_INITDEBUG_UARTPINS_FC4_I2C_SCL_PIN 20U                   /*!<@brief PORT pin number */
+#define BOARD_INITDEBUG_UARTPINS_FC4_I2C_SCL_PIN_MASK (1U << 20U)      /*!<@brief PORT pin mask */
+                                                                       /* @} */
+
+/*! @name PIO1_21 (number 30), P17[3]/P24[6]/FC4_I2C_SDA_ARD
+  @{ */
+#define BOARD_INITDEBUG_UARTPINS_FC4_I2C_SDA_PORT 1U                   /*!<@brief PORT peripheral base pointer */
+#define BOARD_INITDEBUG_UARTPINS_FC4_I2C_SDA_PIN 21U                   /*!<@brief PORT pin number */
+#define BOARD_INITDEBUG_UARTPINS_FC4_I2C_SDA_PIN_MASK (1U << 21U)      /*!<@brief PORT pin mask */
+                                                                       /* @} */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

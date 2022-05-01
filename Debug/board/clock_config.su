@@ -5,4 +5,4 @@ C:\Users\Baptiste\Documents\ENSEA\3D\S10_011_Projet\IDE\LPC55S69_Robot_Biere\dri
 ../board/clock_config.c:177:6:BOARD_BootClockPLL100M	40	static
 ../board/clock_config.c:252:6:BOARD_BootClockPLL150M	40	static
 ../board/clock_config.c:325:6:BOARD_BootClockPLL1_150M	40	static
-../board/clock_config.c:408:6:BOARD_Boot_Clock_ROBOT	40	static
+../board/clock_config.c:410:6:BOARD_Boot_Clock_ROBOT	40	static

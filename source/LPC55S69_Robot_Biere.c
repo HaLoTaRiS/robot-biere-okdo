@@ -83,6 +83,9 @@ int main(void) {
 
 	/* Init board hardware. */
 	/* Paramètrage IO / Ctimer / Channel */
+
+	RESET_PeripheralReset(kFC4_RST_SHIFT_RSTn);
+
 	BOARD_InitBootPins();
 
 	/* Clock name : BOARD_Boot_Clock_ROBOT() :
@@ -110,6 +113,10 @@ int main(void) {
 	SHELL_Printf("INFO >> OS FreeRTOS Starting ... V1.0\r\n");
 	SHELL_Printf("SYSTEM >> Robot Biere\r\n");
 	SHELL_Printf("SYSTEM >> Version BETA 1.2\r\n\r\n");
+
+	// Initialisation I2C
+
+
 
 	// Task hello initialisation
 	vTaskResume(xHandleHello); // active une task Hello

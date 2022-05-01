@@ -18,6 +18,8 @@
 #include "device_motor.h"
 
 #include "driver_tm1637.h" // Afficheur
+#include "driver_vl53l0x.h"
+#include "middleware_ic2.h"
 
 //#include "FreeRTOS.h"  // OS FreeRTOS
 //#include "task.h"	   // Task OS
@@ -29,9 +31,13 @@ TaskHandle_t xHandleMotorRun = NULL;
 TaskHandle_t xHandleMotorLeft = NULL;
 TaskHandle_t xHandleMotorRight = NULL;
 TaskHandle_t xHandleMotorStop = NULL;
+TaskHandle_t xHandleVL53L0X = NULL;
 
 int32_t angle;
-int32_t distance;
+int32_t vitesse;
+uint8_t flag_run_stop = 0;
+
+extern i2c_master_handle_t i2c_fc4_handle;
 
 shell_status_t LedControl(shell_handle_t shellHandle, int32_t argc, char **argv)
 {
@@ -117,7 +123,9 @@ shell_status_t LedControl(shell_handle_t shellHandle, int32_t argc, char **argv)
 shell_status_t MotorRun(shell_handle_t shellHandle, int32_t argc, char **argv) {
 
 	int32_t sens = ((int32_t)atoi(argv[1]));
-	distance = ((int32_t)atoi(argv[2]));
+	vitesse = ((int32_t)atoi(argv[2]));
+
+	flag_run_stop=1;
 
 	if (sens == 1)
 	{
@@ -160,12 +168,24 @@ shell_status_t MotorRight(shell_handle_t shellHandle, int32_t argc, char **argv)
 
 	return kStatus_SHELL_Success;
 
-
-
 }
 
 shell_status_t MotorStop(shell_handle_t shellHandle, int32_t argc, char **argv) {
-	MOTOR_A_B_stop();
+	if (flag_run_stop == 1) {
+		flag_run_stop = 0;
+	}
+	return kStatus_SHELL_Success;
+}
+
+shell_status_t VL53L0X(shell_handle_t shellHandle, int32_t argc, char **argv){
+	static int on=0;
+	if (on) {
+		vTaskSuspend (xHandleVL53L0X);
+	}
+	else {
+		vTaskResume (xHandleVL53L0X);
+	}
+	on = !on;
 	return kStatus_SHELL_Success;
 }
 
@@ -199,6 +219,11 @@ SHELL_COMMAND_DEFINE(stop,
 		MotorStop,
 		0);
 
+SHELL_COMMAND_DEFINE(sensor,
+		" \"sensor\"| nothing                             | Read Value I2C VL53L0X\r\n",
+		VL53L0X,
+		0);
+
 
 /*******************************************************************************
  * Variables SHELL
@@ -230,7 +255,7 @@ void init_shell(void) {
 
 	xReturned = xTaskCreate(
 			vTaskHello,
-			"Tache Hello",
+			"Task Hello",
 			STACK_SIZE_HELLO,
 			(void *) DELAY_TASK_HELLO,
 			task_HELLO_PRIORITY,
@@ -244,7 +269,7 @@ void init_shell(void) {
 	/**************** Task Motor Run ****************/
 	xReturned = xTaskCreate(
 			vTaskMotorRun,
-			"Tache Motor Run",
+			"Task Motor Run",
 			STACK_SIZE_MOTOR_RUN,
 			(void *) NULL,
 			task_MOTOR_RUN_PRIORITY,
@@ -259,7 +284,7 @@ void init_shell(void) {
 	/**************** Task Motor Left ****************/
 	xReturned = xTaskCreate(
 			vTaskMotorLeft,
-			"Tache Motor Left",
+			"Task Motor Left",
 			STACK_SIZE_MOTOR_RUN,
 			(void *) NULL,
 			task_MOTOR_LEFT_PRIORITY,
@@ -274,7 +299,7 @@ void init_shell(void) {
 	/**************** Task Motor Right ****************/
 	xReturned = xTaskCreate(
 			vTaskMotorRight,
-			"Tache Motor Right",
+			"Task Motor Right",
 			STACK_SIZE_MOTOR_RIGHT,
 			(void *) NULL,
 			task_MOTOR_RIGHT_PRIORITY,
@@ -285,6 +310,23 @@ void init_shell(void) {
 		SHELL_Printf("ERROR >> Task MotorRight creation : Could not allocate required memory\r\n");
 	}
 	vTaskSuspend(xHandleMotorRight);
+
+
+	/**************** Task Motor Right ****************/
+	xReturned = xTaskCreate(
+			vTaskVL53L0X,
+			"Task I2C VL53L0X",
+			STACK_SIZE_VL53L0X,
+			(void *) NULL,
+			task_VL53L0X_PRIORITY,
+			&xHandleVL53L0X);
+
+	if( xReturned == errCOULD_NOT_ALLOCATE_REQUIRED_MEMORY ) {
+		LED_RED_ON();
+		SHELL_Printf("ERROR >> Task VL53L0X creation : Could not allocate required memory\r\n");
+	}
+	vTaskSuspend(xHandleVL53L0X);
+
 }
 
 /*******************************************************************************/
@@ -309,9 +351,11 @@ void vTaskShell(void * p) {
 	SHELL_RegisterCommand(s_shellHandle, SHELL_COMMAND(right));
 	SHELL_RegisterCommand(s_shellHandle, SHELL_COMMAND(stop));
 
+
 	//Commande dans le shell : bras
 
 	//Commande dans le shell : I2C
+	SHELL_RegisterCommand(s_shellHandle, SHELL_COMMAND(sensor));
 
 #if !(defined(SHELL_NON_BLOCKING_MODE) && (SHELL_NON_BLOCKING_MODE > 0U))
 	SHELL_Task(s_shellHandle);
@@ -357,12 +401,18 @@ void vTaskMotorRun(void *pvParameters)
 	const uint32_t max_speed = 1500;
 	uint32_t var_speed= 200 ;
 
+	if (vitesse < 200){
+		vitesse = 200;
+	}
+	else if (vitesse > 1500 ){
+		vitesse = 1500;
+	}
 
 	while(1){
 
 		SHELL_Printf("ROBOT-BIERE >> Motor A/B : START\r\n");
 		MOTOR_A_B_start();
-		while (var_speed<=max_speed){
+		while (var_speed<=vitesse){
 
 			MOTOR_A_run(MOTOR_CALCUL_match_value_motor (var_speed));
 			MOTOR_B_run(MOTOR_CALCUL_match_value_motor (var_speed));
@@ -371,9 +421,9 @@ void vTaskMotorRun(void *pvParameters)
 			vTaskDelay(20/portTICK_PERIOD_MS);
 			var_speed = var_speed + 20;
 		}
-
-		vTaskDelay(5000/portTICK_PERIOD_MS);
-
+		while (flag_run_stop){
+			vTaskDelay(10/portTICK_PERIOD_MS);
+		}
 
 		while (var_speed>=min_speed){
 
@@ -437,6 +487,43 @@ void vTaskMotorRight(void *pvParameters)
 }
 
 
+/******************************************************************************/
+/* Task VL53L0X	                                                          */
+/******************************************************************************/
+void vTaskVL53L0X(void *pvParameters)
+{
+
+	uint16_t range = 0;
+	I2C_MasterTransferCreateHandle(I2C_FC4_PERIPHERAL, &i2c_fc4_handle,
+			i2c_master_callback, NULL);
+
+	SENSOR_1_XSHUT_ON();
+	vTaskDelay(10/portTICK_PERIOD_MS);
+	// Initialisation du bus I2C
+	I2C_InitModule();
+
+	// Initialisaton du capteur
+	if (!vl53l0x_init()){
+		PRINTF ("Error initialisation\r\n");
+	}
+	else {
+		PRINTF ("Initialisation VL53L0X : OK \r\n");
+	}
+	vTaskDelay(1000/portTICK_PERIOD_MS);
+
+	while (1) {
+
+		if (!vl53l0x_read_range_single(&range)){
+			PRINTF ("Error Read VL53L0X\r\n");
+		}
+		else {
+			PRINTF("range : %d\r", range);
+		}
+		vTaskDelay(1000/portTICK_PERIOD_MS);
+
+	}
+
+}
 /*
  *
  * Problème de mémoire HEAP a analyser

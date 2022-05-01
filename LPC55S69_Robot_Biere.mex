@@ -34,6 +34,7 @@
                <pin_label pin_num="22" pin_signal="PIO0_15/FC6_CTS_SDA_SSEL0/UTICK_CAP2/CT_INP16/SCT0_OUT2/SD0_WR_PRT/SECURE_GPIO0_15/ADC0_2" label="P18[11]/PIO0_15_GPIO_ARD" identifier="MOTOR_A_DIRECTION"/>
                <pin_label pin_num="14" pin_signal="PIO0_16/FC4_TXD_SCL_MISO_WS/CLKOUT/CT_INP4/SECURE_GPIO0_16/ADC0_8" label="P19[2]/P23[1]/ADC0_N" identifier="MOTOR_ENABLE"/>
                <pin_label pin_num="20" pin_signal="PIO0_23/MCLK/CTIMER1_MAT2/CTIMER3_MAT3/SCT0_OUT4/FC0_CTS_SDA_SSEL0/SD1_D1/SECURE_GPIO0_23/ADC0_0" label="P19[4]/ADC0_P" identifier="MOTOR_A_STEP"/>
+               <pin_label pin_num="27" pin_signal="PIO0_27/FC2_TXD_SCL_MISO_WS/CTIMER3_MAT2/SCT0_OUT6/FC7_RXD_SDA_MOSI_DATA/PLU_OUT0/SECURE_GPIO0_27" label="P18[13]/P24[4]/FC2_USART_TXD_ARD" identifier="PINCE_TX"/>
                <pin_label pin_num="23" pin_signal="PIO0_31/FC0_CTS_SDA_SSEL0/SD0_D2/CTIMER0_MAT1/SCT0_OUT3/SECURE_GPIO0_31/ADC0_3" label="U20[1]/SD0_D2" identifier="SENSOR_2_XSHUT"/>
                <pin_label pin_num="11" pin_signal="PIO1_0/FC0_RTS_SCL_SSEL1/SD0_D3/CT_INP2/SCT_GPI4/PLU_OUT3/ADC0_11" label="U20[2]/SD0_D3" identifier="SENSOR_1_INT"/>
                <pin_label pin_num="59" pin_signal="PIO1_1/FC3_RXD_SDA_MOSI_DATA/CT_INP3/SCT_GPI5/HS_SPI_SSEL1/USB1_OVERCURRENTN/PLU_OUT4" label="P17[15]/P23[3]/LSPI_HS_SSEL1" identifier="SENSOR_2_INT"/>
@@ -44,9 +45,10 @@
                <pin_label pin_num="5" pin_signal="PIO1_6/FC0_TXD_SCL_MISO_WS/SD0_D3/CTIMER2_MAT1/SCT_GPI3" label="R80/P18[9]/LEDB/PWM_ARD" identifier="LED_BLUE"/>
                <pin_label pin_num="24" pin_signal="PIO1_8/FC0_CTS_SDA_SSEL0/SD0_CLK/SCT0_OUT1/FC4_SSEL2/ADC0_4" label="P17[19]/PIO1_8_GPIO_ARD" identifier="SENSOR_4_INT"/>
                <pin_label pin_num="10" pin_signal="PIO1_9/FC1_SCK/CT_INP4/SCT0_OUT2/FC4_CTS_SDA_SSEL0/ADC0_12" label="S3/P18[1]/PIO1_9_GPIO_ARD" identifier="SWITCH_BOARD_2"/>
+               <pin_label pin_num="3" pin_signal="PIO1_24/FC2_RXD_SDA_MOSI_DATA/SCT0_OUT1/SD1_D1/FC3_SSEL3/PLU_OUT6" label="P18[15]/P18[10]/P24[3]/PLU_OUT6/GPIO/FC2_USART_RXD_ARD/SD1_D1" identifier="PINCE_RX"/>
                <pin_label pin_num="68" pin_signal="PIO1_26/FC2_CTS_SDA_SSEL0/SCT0_OUT3/CT_INP3/UTICK_CAP1/HS_SPI_SSEL3/PLU_IN5" label="P18[18]/PLU_IN5/GPIO/SD1_WP" identifier="MOTOR_B_DIRECTION"/>
                <pin_label pin_num="85" pin_signal="PIO1_27/FC2_RTS_SCL_SSEL1/SD0_D4/CTIMER0_MAT3/CLKOUT/PLU_IN4" label="P17[16]/PLU_IN4/GPIO" identifier="MOTOR_B_STEP"/>
-               <pin_label pin_num="91" pin_signal="PIO1_31/MCLK/SD1_CLK/CTIMER0_MAT2/SCT0_OUT6/PLU_IN0" label="P19[7]/P19[8]/PLU_IN0/GPIO" identifier="UART_TX_Enable"/>
+               <pin_label pin_num="91" pin_signal="PIO1_31/MCLK/SD1_CLK/CTIMER0_MAT2/SCT0_OUT6/PLU_IN0" label="P19[7]/P19[8]/PLU_IN0/GPIO" identifier="UART_TX_Enable;PINCE_TX_Enable"/>
             </pin_labels>
          </pins_profile>
          <functions_list>
@@ -69,6 +71,16 @@
                      </feature>
                   </dependency>
                   <dependency resourceType="Peripheral" resourceId="CTIMER0" description="Peripheral CTIMER0 is not initialized" problem_level="1" source="Pins:BOARD_InitDEBUG_UARTPins">
+                     <feature name="initialized" evaluation="equal">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="Peripheral" resourceId="FLEXCOMM2" description="Peripheral FLEXCOMM2 is not initialized" problem_level="1" source="Pins:BOARD_InitDEBUG_UARTPins">
+                     <feature name="initialized" evaluation="equal">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="Peripheral" resourceId="FLEXCOMM4" description="Peripheral FLEXCOMM4 is not initialized" problem_level="1" source="Pins:BOARD_InitDEBUG_UARTPins">
                      <feature name="initialized" evaluation="equal">
                         <data>true</data>
                      </feature>
@@ -179,7 +191,11 @@
                   </pin>
                   <pin peripheral="GPIO" signal="PIO1, 8" pin_num="24" pin_signal="PIO1_8/FC0_CTS_SDA_SSEL0/SD0_CLK/SCT0_OUT1/FC4_SSEL2/ADC0_4"/>
                   <pin peripheral="GPIO" signal="PIO0, 5" pin_num="88" pin_signal="PIO0_5/FC4_RXD_SDA_MOSI_DATA/CTIMER3_MAT0/SCT_GPI5/FC3_RTS_SCL_SSEL1/MCLK/SECURE_GPIO0_5"/>
-                  <pin peripheral="GPIO" signal="PIO1, 31" pin_num="91" pin_signal="PIO1_31/MCLK/SD1_CLK/CTIMER0_MAT2/SCT0_OUT6/PLU_IN0"/>
+                  <pin peripheral="GPIO" signal="PIO1, 31" pin_num="91" pin_signal="PIO1_31/MCLK/SD1_CLK/CTIMER0_MAT2/SCT0_OUT6/PLU_IN0">
+                     <pin_features>
+                        <pin_feature name="identifier" value="PINCE_TX_Enable"/>
+                     </pin_features>
+                  </pin>
                   <pin peripheral="GPIO" signal="PIO0, 14" pin_num="72" pin_signal="PIO0_14/FC1_RTS_SCL_SSEL1/UTICK_CAP1/CT_INP1/SCT_GPI1/FC1_TXD_SCL_MISO_WS/PLU_IN1/SECURE_GPIO0_14">
                      <pin_features>
                         <pin_feature name="direction" value="OUTPUT"/>
@@ -191,6 +207,10 @@
                         <pin_feature name="direction" value="OUTPUT"/>
                      </pin_features>
                   </pin>
+                  <pin peripheral="FLEXCOMM2" signal="TXD_SCL_MISO_WS" pin_num="27" pin_signal="PIO0_27/FC2_TXD_SCL_MISO_WS/CTIMER3_MAT2/SCT0_OUT6/FC7_RXD_SDA_MOSI_DATA/PLU_OUT0/SECURE_GPIO0_27"/>
+                  <pin peripheral="FLEXCOMM2" signal="RXD_SDA_MOSI_DATA" pin_num="3" pin_signal="PIO1_24/FC2_RXD_SDA_MOSI_DATA/SCT0_OUT1/SD1_D1/FC3_SSEL3/PLU_OUT6"/>
+                  <pin peripheral="FLEXCOMM4" signal="TXD_SCL_MISO_WS" pin_num="4" pin_signal="PIO1_20/FC7_RTS_SCL_SSEL1/CT_INP14/FC4_TXD_SCL_MISO_WS/PLU_OUT2"/>
+                  <pin peripheral="FLEXCOMM4" signal="RXD_SDA_MOSI_DATA" pin_num="30" pin_signal="PIO1_21/FC7_CTS_SDA_SSEL0/CTIMER3_MAT2/FC4_RXD_SDA_MOSI_DATA/PLU_OUT3"/>
                </pins>
             </function>
             <function name="BOARD_InitSWD_DEBUGPins">
@@ -501,6 +521,7 @@
                   </pin>
                   <pin peripheral="SYSCON" signal="MCLK" pin_num="91" pin_signal="PIO1_31/MCLK/SD1_CLK/CTIMER0_MAT2/SCT0_OUT6/PLU_IN0">
                      <pin_features>
+                        <pin_feature name="identifier" value="UART_TX_Enable"/>
                         <pin_feature name="mode" value="inactive"/>
                         <pin_feature name="slew_rate" value="standard"/>
                         <pin_feature name="invert" value="disabled"/>
@@ -925,6 +946,7 @@
                   <clock_output id="CTIMER0_clock.outFreq" value="1 MHz" locked="false" accuracy=""/>
                   <clock_output id="CTIMER1_clock.outFreq" value="1 MHz" locked="false" accuracy=""/>
                   <clock_output id="FXCOM0_clock.outFreq" value="12 MHz" locked="false" accuracy=""/>
+                  <clock_output id="FXCOM4_clock.outFreq" value="12 MHz" locked="false" accuracy=""/>
                   <clock_output id="System_clock.outFreq" value="150 MHz" locked="false" accuracy=""/>
                   <clock_output id="UTICK_clock.outFreq" value="1 MHz" locked="false" accuracy=""/>
                   <clock_output id="WDT_clock.outFreq" value="1 MHz" locked="false" accuracy=""/>
@@ -935,6 +957,7 @@
                   <setting id="SYSCON.CTIMERCLKSEL0.sel" value="SYSCON.fro_1m" locked="false"/>
                   <setting id="SYSCON.CTIMERCLKSEL1.sel" value="SYSCON.fro_1m" locked="false"/>
                   <setting id="SYSCON.FCCLKSEL0.sel" value="ANACTRL.fro_12m_clk" locked="false"/>
+                  <setting id="SYSCON.FCCLKSEL4.sel" value="ANACTRL.fro_12m_clk" locked="false"/>
                   <setting id="SYSCON.MAINCLKSELB.sel" value="SYSCON.PLL0_BYPASS" locked="false"/>
                   <setting id="SYSCON.PLL0CLKSEL.sel" value="ANACTRL.fro_12m_clk" locked="false"/>
                   <setting id="SYSCON.PLL0M_MULT.scale" value="200" locked="true"/>
