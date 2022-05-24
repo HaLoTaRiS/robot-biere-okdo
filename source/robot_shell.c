@@ -21,6 +21,8 @@
 #include "driver_vl53l0x.h"
 #include "middleware_ic2.h"
 
+#define VL53L0X_SINGLE
+
 //#include "FreeRTOS.h"  // OS FreeRTOS
 //#include "task.h"	   // Task OS
 
@@ -32,6 +34,7 @@ TaskHandle_t xHandleMotorLeft = NULL;
 TaskHandle_t xHandleMotorRight = NULL;
 TaskHandle_t xHandleMotorStop = NULL;
 TaskHandle_t xHandleVL53L0X = NULL;
+TaskHandle_t xHandleXL320 = NULL;
 
 int32_t angle;
 int32_t vitesse;
@@ -153,7 +156,7 @@ shell_status_t MotorLeft(shell_handle_t shellHandle, int32_t argc, char **argv) 
 
 	angle = ((int32_t)atoi(argv[1]));
 
-	MOTOR_left();
+	MOTOR_turn_left();
 	vTaskResume(xHandleMotorLeft);
 
 	return kStatus_SHELL_Success;
@@ -162,7 +165,7 @@ shell_status_t MotorLeft(shell_handle_t shellHandle, int32_t argc, char **argv) 
 shell_status_t MotorRight(shell_handle_t shellHandle, int32_t argc, char **argv) {
 	angle = ((int32_t)atoi(argv[1]));
 
-	MOTOR_right();
+	MOTOR_turn_right();
 
 	vTaskResume(xHandleMotorRight);
 
@@ -184,6 +187,18 @@ shell_status_t VL53L0X(shell_handle_t shellHandle, int32_t argc, char **argv){
 	}
 	else {
 		vTaskResume (xHandleVL53L0X);
+	}
+	on = !on;
+	return kStatus_SHELL_Success;
+}
+
+shell_status_t XL320(shell_handle_t shellHandle, int32_t argc, char **argv){
+	static int on=0;
+	if (on) {
+		vTaskSuspend (xHandleXL320);
+	}
+	else {
+		vTaskResume (xHandleXL320);
 	}
 	on = !on;
 	return kStatus_SHELL_Success;
@@ -224,6 +239,10 @@ SHELL_COMMAND_DEFINE(sensor,
 		VL53L0X,
 		0);
 
+SHELL_COMMAND_DEFINE(bras,
+		" \"bras\"  | nothing                             | Communication Uart XL320\r\n",
+		XL320,
+		0);
 
 /*******************************************************************************
  * Variables SHELL
@@ -311,8 +330,7 @@ void init_shell(void) {
 	}
 	vTaskSuspend(xHandleMotorRight);
 
-
-	/**************** Task Motor Right ****************/
+	/**************** Task VL53L0X ****************/
 	xReturned = xTaskCreate(
 			vTaskVL53L0X,
 			"Task I2C VL53L0X",
@@ -326,6 +344,21 @@ void init_shell(void) {
 		SHELL_Printf("ERROR >> Task VL53L0X creation : Could not allocate required memory\r\n");
 	}
 	vTaskSuspend(xHandleVL53L0X);
+
+	/**************** Task XL320 ****************/
+	xReturned = xTaskCreate(
+			vTaskXL320,
+			"Task Uart XL320",
+			STACK_SIZE_XL320,
+			(void *) NULL,
+			task_XL320_PRIORITY,
+			&xHandleXL320);
+
+	if( xReturned == errCOULD_NOT_ALLOCATE_REQUIRED_MEMORY ) {
+		LED_RED_ON();
+		SHELL_Printf("ERROR >> Task Uart XL320 creation : Could not allocate required memory\r\n");
+	}
+	vTaskSuspend(xHandleXL320);
 
 }
 
@@ -351,8 +384,8 @@ void vTaskShell(void * p) {
 	SHELL_RegisterCommand(s_shellHandle, SHELL_COMMAND(right));
 	SHELL_RegisterCommand(s_shellHandle, SHELL_COMMAND(stop));
 
-
 	//Commande dans le shell : bras
+	SHELL_RegisterCommand(s_shellHandle, SHELL_COMMAND(bras));
 
 	//Commande dans le shell : I2C
 	SHELL_RegisterCommand(s_shellHandle, SHELL_COMMAND(sensor));
@@ -493,37 +526,44 @@ void vTaskMotorRight(void *pvParameters)
 void vTaskVL53L0X(void *pvParameters)
 {
 
-	uint16_t range = 0;
 	I2C_MasterTransferCreateHandle(I2C_FC4_PERIPHERAL, &i2c_fc4_handle,
 			i2c_master_callback, NULL);
 
 	SENSOR_1_XSHUT_ON();
 	vTaskDelay(10/portTICK_PERIOD_MS);
 	// Initialisation du bus I2C
-	I2C_InitModule();
+	bool success = vl53l0x_init();
 
-	// Initialisaton du capteur
-	if (!vl53l0x_init()){
-		PRINTF ("Error initialisation\r\n");
-	}
-	else {
-		PRINTF ("Initialisation VL53L0X : OK \r\n");
-	}
-	vTaskDelay(1000/portTICK_PERIOD_MS);
-
-	while (1) {
-
-		if (!vl53l0x_read_range_single(&range)){
-			PRINTF ("Error Read VL53L0X\r\n");
-		}
-		else {
-			PRINTF("range : %d\r", range);
-		}
-		vTaskDelay(1000/portTICK_PERIOD_MS);
-
-	}
+    uint16_t range = 0;
+    while (success) {
+        success = vl53l0x_read_range_single(&range);
+        SHELL_Printf("range : %d\r",range);
+    }
 
 }
+
+/******************************************************************************/
+/* Task XL320                                                        */
+/******************************************************************************/
+void vTaskXL320(void *pvParameters)
+{
+
+
+//	  USART_Init(FLEXCOMM2_PERIPHERAL, &FLEXCOMM2_config, FLEXCOMM2_CLOCK_SOURCE);
+//	    USART_TransferCreateHandle(FLEXCOMM2_PERIPHERAL, &FLEXCOMM2_handle, NULL, NULL);
+
+
+    while (1) {
+    	vTaskDelay(30/portTICK_PERIOD_MS);
+		SHELL_Printf("ROBOT-BIERE >> Je suis dans la tache XL320\r\n");
+		vTaskSuspend(xHandleXL320);
+    }
+}
+
+//static void FLEXCOMM2_init(void) {
+//USART_Init(FLEXCOMM2_PERIPHERAL, &FLEXCOMM2_config, FLEXCOMM2_CLOCK_SOURCE);
+//USART_TransferCreateHandle(FLEXCOMM2_PERIPHERAL, &FLEXCOMM2_handle, NULL, NULL);
+//}
 /*
  *
  * Problème de mémoire HEAP a analyser

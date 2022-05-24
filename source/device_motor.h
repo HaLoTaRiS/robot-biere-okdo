@@ -129,8 +129,8 @@ int MOTOR_CALCUL_angle(int degree);
 void MOTOR_A_run (uint32_t Motor_matchvalue);
 void MOTOR_B_run (uint32_t Motor_matchvalue);
 
-void MOTOR_left (void);
-void MOTOR_right (void);
+void MOTOR_turn_left (void);
+void MOTOR_turn_right (void);
 
 void stop_motor (void);
 

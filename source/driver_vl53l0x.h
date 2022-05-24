@@ -153,6 +153,10 @@ bool vl53l0x_read_range_single(uint16_t *range);
 
 
 void init_GINT_SENSOR(void);
+void init_GINT_SENSOR(void);
+bool vl53l0x_init(void);
+#define VL53L0X_OUT_OF_RANGE (8190)
+bool vl53l0x_read_range_single(uint16_t *range);
 
 #endif
 

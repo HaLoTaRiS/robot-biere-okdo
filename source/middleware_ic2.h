@@ -1,3 +1,16 @@
+/*************************************************************
+ * 		PROJET ROBOT BIERE
+ *************************************************************
+ * file : middleware_i2c.h
+ * Auteurs :
+ *   - Baptiste FRITOT
+ *   - Leo BOSLAND
+ *   - Jeremy VICENTE
+ *   - Fabien BILHAUT
+ *
+ * All rights reserved.
+ */
+
 
 #ifndef _MIDDLEWARE_I2C_H
 #define _MIDDLEWARE_I2C_H

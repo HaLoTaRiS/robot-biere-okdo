@@ -11,7 +11,7 @@
  * All rights reserved.
  */
 
-#include <device_vl53l0x.h>
+
 #include "fsl_debug_console.h"
 #include "pin_mux.h"
 #include "board.h"

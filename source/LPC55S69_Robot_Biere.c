@@ -46,7 +46,6 @@
 #include "task.h"	   // Task OS
 
 #include "fsl_shell.h"
-#include "robot_motor.h"
 #include "device_motor.h"
 #include "driver_tm1637.h"
 

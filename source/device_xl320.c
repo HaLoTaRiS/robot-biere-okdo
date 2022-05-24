@@ -1,7 +1,7 @@
 /*************************************************************
  * 		PROJET ROBOT BIERE
  *************************************************************
- * file : robot_motor.h
+ * file : appli_shell.c
  * Auteurs :
  *   - Baptiste FRITOT
  *   - Leo BOSLAND
@@ -11,9 +11,5 @@
  * All rights reserved.
  */
 
-#ifndef INC_ROBOT_MOTOR_H
-#define INC_ROBOT_MOTOR_H
-
-
-
-#endif
+#include "device_xl320.h"
+#include "middleware_uart.h"

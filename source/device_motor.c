@@ -18,6 +18,7 @@
 #include "device_motor.h"
 
 #include <stdio.h>
+#include <stdbool.h>
 #include "board.h"
 #include "peripherals.h"
 #include "pin_mux.h"
@@ -130,20 +131,20 @@ void MOTOR_A_B_start(void){
 }
 
 
-void MOTOR_left (void){
+void MOTOR_turn_left (void){
 	MOTOR_ENABLE_ON();
 
-		MOTOR_A_DIRECTION_ARRIERE();
-		MOTOR_B_DIRECTION_AVANT();
-		CTIMER_StartTimer(CTIMER1_MOTOR_A_PERIPHERAL);
-		CTIMER_StartTimer(CTIMER0_MOTOR_B_PERIPHERAL);
-		MOTOR_A_run (MOTOR_CALCUL_match_value_motor(100));
-		MOTOR_B_run (MOTOR_CALCUL_match_value_motor(100));
+	MOTOR_A_DIRECTION_ARRIERE();
+	MOTOR_B_DIRECTION_AVANT();
+	CTIMER_StartTimer(CTIMER1_MOTOR_A_PERIPHERAL);
+	CTIMER_StartTimer(CTIMER0_MOTOR_B_PERIPHERAL);
+	MOTOR_A_run (MOTOR_CALCUL_match_value_motor(100));
+	MOTOR_B_run (MOTOR_CALCUL_match_value_motor(100));
 
 
 }
 
-void MOTOR_right (void){
+void MOTOR_turn_right (void){
 	MOTOR_ENABLE_ON();
 	MOTOR_A_DIRECTION_AVANT();
 	MOTOR_B_DIRECTION_ARRIERE();
@@ -226,6 +227,44 @@ void MOTOR_B_run (uint32_t Motor_matchvalue){
 	CTIMER_StartTimer(CTIMER0_MOTOR_B_PERIPHERAL);
 }
 
-// Angle
 
-// Rotation
+/**** Projet de code pour communication USB ****/
+
+int16_t percent_left = 0;
+int16_t percent_right = 0;
+bool usb_flag_stop = false;
+bool usb_flag_run = false;
+
+void USB_MOTOR(void){
+
+	// Si R0 ou L0 => les moteurs doivent être a l'arret
+	if ((percent_left == 0) | (percent_right == 0)) {
+		if (usb_flag_stop == false){
+			MOTOR_A_stop();
+			MOTOR_B_stop();
+			MOTOR_ENABLE_OFF();
+			usb_flag_stop = true;
+		}
+		usb_flag_run = false;
+	}
+
+	// Sinon on met en marche selon le %
+	else {
+		usb_flag_stop = false;
+		if (usb_flag_run == false) {
+			MOTOR_ENABLE_ON();
+			MOTOR_A_DIRECTION_AVANT();
+			MOTOR_B_DIRECTION_AVANT();
+			usb_flag_run = true;
+		}
+
+		MOTOR_A_run(MOTOR_CALCUL_match_value_motor (percent_left * 4 ));
+		MOTOR_B_run(MOTOR_CALCUL_match_value_motor (percent_right * 4 ));
+
+	}
+
+}
+
+
+
+
