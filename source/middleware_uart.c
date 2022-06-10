@@ -34,6 +34,7 @@
  ******************************************************************************/
 
 uint8_t g_rxBuffer[FC2_SIZE_FRAME ] = {0};
+uint8_t g_txBuffer[FC2_SIZE_FRAME ] = {0};
 
 volatile bool txComplete               = false;
 volatile bool rxComplete               = false;
@@ -69,8 +70,8 @@ void fc2_uart_init(void){
 
 	/*** Parameter uart ***/
 	//Fc2UartConfig.baudRate_Bps = 9600;
-	// Fc2UartConfig.baudRate_Bps = 1000000;
-	Fc2UartConfig.baudRate_Bps = 115200U;
+	 Fc2UartConfig.baudRate_Bps = 1000000U;	// Vitesse du TTL 2.0
+	//Fc2UartConfig.baudRate_Bps = 115200U;
 
 	//	Fc2UartConfig.enableRx     = true;
 	//	Fc2UartConfig.stopBitCount = kUSART_OneStopBit;
@@ -108,14 +109,40 @@ void uart_read_xl320(uint8_t *RxData, uint8_t size){
 }
 
 
+// Documentation :
+//    - https://emanual.robotis.com/docs/en/dxl/protocol2/
+// 	  - https://emanual.robotis.com/docs/en/dxl/x/xl320/#control-table
+void uart_write_xl320(uint8_t id, uint8_t xl320_addr, uint8_t xl320_data, uint8_t size){
+	uint16_t crc;
+	uint8_t g_txXL320[13] = {0};
 
-void uart_write_xl320(uint8_t *TxData, uint8_t size){
+	g_txXL320[0] = 0xFF; 			// Header 1
+	g_txXL320[1] = 0xFF; 			// Header 2
+	g_txXL320[2] = 0xFD; 			// Header 3
+	g_txXL320[3] = 0x00; 			// Reserve
+	g_txXL320[4] = id;	 			// ID
+	g_txXL320[5] = size+5;			// Size 1
+	g_txXL320[6] = 0x00;			// Size 2
+	g_txXL320[7] = UART_TTL_WRITE;
+	g_txXL320[8] = xl320_addr;  	// Adresse
+	g_txXL320[9] = 0x00;
 
-	usart_transfer_t FLEXCOMM2_txTransfer;
-	FLEXCOMM2_txTransfer.data     = TxData;
-	FLEXCOMM2_txTransfer.dataSize = size;
+//	for(int i=0;i<size;i++)
+//	{
+//		g_txXL320[10+i] = xl320_data[i];
+//	}
+	g_txXL320[10] = xl320_data;
 
-	USART_TransferSendNonBlocking(FC2_UART, &g_usartHandle, &FLEXCOMM2_txTransfer);
+	crc = update_crc(0,g_txXL320,10+size);
+
+	g_txXL320[10+size] = crc & 0xFF;
+	g_txXL320[11+size] = (crc>>8) & 0xFF;
+
+	usart_transfer_t g_transmit_uart;
+	g_transmit_uart.data     = g_txXL320;
+	g_transmit_uart.dataSize = 12+size;
+
+	USART_TransferSendNonBlocking(FC2_UART, &g_usartHandle, &g_transmit_uart);
 	/* Waiting for transfer completion. */
 	while (txComplete == false)
 	{

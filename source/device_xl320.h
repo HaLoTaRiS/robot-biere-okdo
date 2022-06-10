@@ -34,6 +34,7 @@
 				1U << BOARD_XL320_TX_ENABLE_GPIO_PIN)
 
 
+
 // XL320 ADDRESS
 #define XL320_ADDR_MODEL_NUMBER			0		// Sur deux bits
 #define XL320_ADDR_FIRMWARE				2

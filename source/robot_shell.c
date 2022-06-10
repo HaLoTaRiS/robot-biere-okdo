@@ -204,30 +204,36 @@ shell_status_t XL320(shell_handle_t shellHandle, int32_t argc, char **argv){
 //	}
 //	on = !on;
 
-	SHELL_Printf("Je suis dans la fonction XL320\r\n");
+	SHELL_Printf("Je transmets un message SUR L UART / \r\n");
 
 //	uart_write_xl320(XL320_ADDR_LED, 1);
 //	uart_write_xl320(XL320_DATA_LED_BLUE, 1);
 
-	uint8_t tx_msg[14] = {0};
+//	uint8_t tx_msg[14] = {0};
+//
+//	// Example code ascii : HELLO BAPTISTE
+//	tx_msg[0] = 0x48;	// H
+//	tx_msg[1] = 0x45;	// E
+//	tx_msg[2] = 0x4c;	// L
+//	tx_msg[3] = 0x4c;	// L
+//	tx_msg[4] = 0x4F;	// O
+//	tx_msg[5] = 0x20;	// Space
+//	tx_msg[6] = 0x42;	// B
+//	tx_msg[7] = 0x41;	// A
+//	tx_msg[8] = 0x50;	// P
+//	tx_msg[9] = 0x54;	// T
+//	tx_msg[10] = 0x49;	// I
+//	tx_msg[11] = 0x53;	// S
+//	tx_msg[12] = 0x54;	// T
+//	tx_msg[13] = 0x45;	// E
+//
+//	fc2_uart_transmit(&tx_msg, 14);
 
-	// Example code ascii : HELLO BAPTISTE
-	tx_msg[0] = 0x48;	// H
-	tx_msg[1] = 0x45;	// E
-	tx_msg[2] = 0x4c;	// L
-	tx_msg[3] = 0x4c;	// L
-	tx_msg[4] = 0x4F;	// O
-	tx_msg[5] = 0x20;	// Space
-	tx_msg[6] = 0x42;	// B
-	tx_msg[7] = 0x41;	// A
-	tx_msg[8] = 0x50;	// P
-	tx_msg[9] = 0x54;	// T
-	tx_msg[10] = 0x49;	// I
-	tx_msg[11] = 0x53;	// S
-	tx_msg[12] = 0x54;	// T
-	tx_msg[13] = 0x45;	// E
 
-	fc2_uart_transmit(&tx_msg, 14);
+	// Ecriture
+	//   - ID 0x01
+	//   - ADDR
+	uart_write_xl320(0x01, XL320_ADDR_LED, XL320_DATA_LED_BLUE, 1);
 
 	return kStatus_SHELL_Success;
 }
