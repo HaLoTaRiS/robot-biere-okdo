@@ -19,7 +19,9 @@
 
 #include "driver_tm1637.h" // Afficheur
 #include "driver_vl53l0x.h"
+#include "device_xl320.h"
 #include "middleware_ic2.h"
+#include "middleware_uart.h"
 
 #define VL53L0X_SINGLE
 
@@ -193,14 +195,40 @@ shell_status_t VL53L0X(shell_handle_t shellHandle, int32_t argc, char **argv){
 }
 
 shell_status_t XL320(shell_handle_t shellHandle, int32_t argc, char **argv){
-	static int on=0;
-	if (on) {
-		vTaskSuspend (xHandleXL320);
-	}
-	else {
-		vTaskResume (xHandleXL320);
-	}
-	on = !on;
+//	static int on=0;
+//	if (on) {
+//		//vTaskSuspend (xHandleXL320);
+//	}
+//	else {
+//		//vTaskResume (xHandleXL320);
+//	}
+//	on = !on;
+
+	SHELL_Printf("Je suis dans la fonction XL320\r\n");
+
+//	uart_write_xl320(XL320_ADDR_LED, 1);
+//	uart_write_xl320(XL320_DATA_LED_BLUE, 1);
+
+	uint8_t tx_msg[14] = {0};
+
+	// Example code ascii : HELLO BAPTISTE
+	tx_msg[0] = 0x48;	// H
+	tx_msg[1] = 0x45;	// E
+	tx_msg[2] = 0x4c;	// L
+	tx_msg[3] = 0x4c;	// L
+	tx_msg[4] = 0x4F;	// O
+	tx_msg[5] = 0x20;	// Space
+	tx_msg[6] = 0x42;	// B
+	tx_msg[7] = 0x41;	// A
+	tx_msg[8] = 0x50;	// P
+	tx_msg[9] = 0x54;	// T
+	tx_msg[10] = 0x49;	// I
+	tx_msg[11] = 0x53;	// S
+	tx_msg[12] = 0x54;	// T
+	tx_msg[13] = 0x45;	// E
+
+	fc2_uart_transmit(&tx_msg, 14);
+
 	return kStatus_SHELL_Success;
 }
 

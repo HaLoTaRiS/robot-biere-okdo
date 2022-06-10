@@ -45,9 +45,12 @@
 #include "FreeRTOS.h"  // OS FreeRTOS
 #include "task.h"	   // Task OS
 
+#include "middleware_uart.h"
+
 #include "fsl_shell.h"
 #include "device_motor.h"
 #include "driver_tm1637.h"
+
 
 /* TODO: insert other definitions and declarations here. */
 
@@ -108,6 +111,7 @@ int main(void) {
 	SHELL_Printf("\r\nINFO >> Initialisation ...\r\n");
 
 	init_shell(); // Initialise les tasks et fonction du shell
+	fc2_uart_init(); // Initialise l'Uart
 
 	SHELL_Printf("INFO >> OS FreeRTOS Starting ... V1.0\r\n");
 	SHELL_Printf("SYSTEM >> Robot Biere\r\n");
