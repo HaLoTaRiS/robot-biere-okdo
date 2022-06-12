@@ -13,7 +13,7 @@ C:\Users\Baptiste\Documents\ENSEA\3D\S10_011_Projet\IDE\LPC55S69_Robot_Biere\dri
 ../source/device_motor.c:166:6:MOTOR_A_stop	8	static
 ../source/device_motor.c:171:6:MOTOR_B_stop	8	static
 ../source/device_motor.c:176:5:MOTOR_CALCUL_match_value_motor	24	static
-../source/device_motor.c:197:5:MOTOR_CALCUL_angle	32	static
-../source/device_motor.c:208:6:MOTOR_A_run	16	static
-../source/device_motor.c:219:6:MOTOR_B_run	16	static
-../source/device_motor.c:238:6:USB_MOTOR	8	static
+../source/device_motor.c:196:5:MOTOR_CALCUL_angle	32	static
+../source/device_motor.c:207:6:MOTOR_A_run	16	static
+../source/device_motor.c:218:6:MOTOR_B_run	16	static
+../source/device_motor.c:237:6:USB_MOTOR	8	static

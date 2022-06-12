@@ -376,6 +376,7 @@ called_from_default_init: true
 outputs:
 - {id: CTIMER0_clock.outFreq, value: 1 MHz}
 - {id: CTIMER1_clock.outFreq, value: 1 MHz}
+- {id: CTIMER2_clock.outFreq, value: 1 MHz}
 - {id: FXCOM0_clock.outFreq, value: 12 MHz}
 - {id: FXCOM2_clock.outFreq, value: 12 MHz}
 - {id: FXCOM4_clock.outFreq, value: 12 MHz}
@@ -387,6 +388,7 @@ settings:
 - {id: ANALOG_CONTROL_FRO192M_CTRL_ENDI_FRO_96M_CFG, value: Enable}
 - {id: SYSCON.CTIMERCLKSEL0.sel, value: SYSCON.fro_1m}
 - {id: SYSCON.CTIMERCLKSEL1.sel, value: SYSCON.fro_1m}
+- {id: SYSCON.CTIMERCLKSEL2.sel, value: SYSCON.fro_1m}
 - {id: SYSCON.FCCLKSEL0.sel, value: ANACTRL.fro_12m_clk}
 - {id: SYSCON.FCCLKSEL2.sel, value: ANACTRL.fro_12m_clk}
 - {id: SYSCON.FCCLKSEL4.sel, value: ANACTRL.fro_12m_clk}
@@ -469,6 +471,7 @@ void BOARD_Boot_Clock_ROBOT(void)
     CLOCK_AttachClk(kFRO12M_to_FLEXCOMM4);                 /*!< Switch FLEXCOMM4 to FRO12M */
     CLOCK_AttachClk(kFRO1M_to_CTIMER0);                 /*!< Switch CTIMER0 to FRO1M */
     CLOCK_AttachClk(kFRO1M_to_CTIMER1);                 /*!< Switch CTIMER1 to FRO1M */
+    CLOCK_AttachClk(kFRO1M_to_CTIMER2);                 /*!< Switch CTIMER2 to FRO1M */
 
     /*!< Set SystemCoreClock variable. */
     SystemCoreClock = BOARD_BOOT_CLOCK_ROBOT_CORE_CLOCK;

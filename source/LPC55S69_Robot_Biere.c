@@ -49,7 +49,8 @@
 
 #include "fsl_shell.h"
 #include "device_motor.h"
-#include "driver_tm1637.h"
+#include "driver_ultrason.h"
+#include "device_interrupt.h"
 
 
 /* TODO: insert other definitions and declarations here. */
@@ -62,8 +63,6 @@
  ******************************************************************************/
 SDK_ALIGN(uint8_t s_shellHandleBuffer[SHELL_HANDLE_SIZE], 4);
 shell_handle_t s_shellHandle;
-
-TaskHandle_t xHandleHello = NULL;
 
 //SDK_ALIGN(static uint8_t s_shellHandleBuffer[SHELL_HANDLE_SIZE], 4);
 //static shell_handle_t s_shellHandle;
@@ -104,14 +103,16 @@ int main(void) {
 #endif
 
 	MOTEUR_TIMER_init();
-	TM1637_brightness(3);
+
 
 	UTICK_Init(UTICK0); //Initialise Utick
 
 	SHELL_Printf("\r\nINFO >> Initialisation ...\r\n");
 
 	init_shell(); // Initialise les tasks et fonction du shell
+	init_ultrason(); // initialise la tache qui gère les ultrasons
 	fc2_uart_init(); // Initialise l'Uart
+	init_interrupt(); // Initialise toutes les interruptions PIO
 
 	SHELL_Printf("INFO >> OS FreeRTOS Starting ... V1.0\r\n");
 	SHELL_Printf("SYSTEM >> Robot Biere\r\n");
@@ -119,10 +120,6 @@ int main(void) {
 
 	// Initialisation I2C
 
-
-
-	// Task hello initialisation
-	vTaskResume(xHandleHello); // active une task Hello
 	//  Rappel des fonctions disponibles :
 	//	vTaskResume
 	//	vTaskSuspend

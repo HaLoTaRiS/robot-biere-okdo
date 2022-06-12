@@ -112,7 +112,7 @@ void uart_read_xl320(uint8_t *RxData, uint8_t size){
 // Documentation :
 //    - https://emanual.robotis.com/docs/en/dxl/protocol2/
 // 	  - https://emanual.robotis.com/docs/en/dxl/x/xl320/#control-table
-void uart_write_xl320(uint8_t id, uint8_t xl320_addr, uint8_t xl320_data, uint8_t size){
+void uart_write_xl320(uint8_t id, uint8_t xl320_addr, uint8_t *xl320_data, uint8_t size){
 	uint16_t crc;
 	uint8_t g_txXL320[13] = {0};
 
@@ -127,11 +127,10 @@ void uart_write_xl320(uint8_t id, uint8_t xl320_addr, uint8_t xl320_data, uint8_
 	g_txXL320[8] = xl320_addr;  	// Adresse
 	g_txXL320[9] = 0x00;
 
-//	for(int i=0;i<size;i++)
-//	{
-//		g_txXL320[10+i] = xl320_data[i];
-//	}
-	g_txXL320[10] = xl320_data;
+	for(int i=0;i<size;i++)
+	{
+		g_txXL320[10+i] = xl320_data[i];
+	}
 
 	crc = update_crc(0,g_txXL320,10+size);
 

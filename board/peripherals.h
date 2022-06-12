@@ -10,32 +10,10 @@
  * Included files
  **********************************************************************************************************************/
 #include "fsl_common.h"
-#include "fsl_gint.h"
 
 #if defined(__cplusplus)
 extern "C" {
 #endif /* __cplusplus */
-
-/***********************************************************************************************************************
- * Definitions
- **********************************************************************************************************************/
-/* Definitions for BOARD_InitPeripherals_cm33_core0 functional group */
-/* Definition of peripheral ID */
-#define GINT0_PERIPHERAL GINT0
-/* Definition of enabled pins of the PIO0 */
-#define GINT0_PIO0_ENABLED_PINS_MASK 0x0UL
-/* Definition of polarity pins of the PIO0 */
-#define GINT0_PIO0_POLARITY_MASK 0x0UL
-/* Definition of enabled pins of the PIO1 */
-#define GINT0_PIO1_ENABLED_PINS_MASK 0x0UL
-/* Definition of polarity pins of the PIO1 */
-#define GINT0_PIO1_POLARITY_MASK 0x0UL
-
-/***********************************************************************************************************************
- * Callback functions
- **********************************************************************************************************************/
-/* GINT callback function for the GINT0 component (init. function BOARD_InitPeripherals_cm33_core0)*/
-extern void gint0_callback(void);
 
 /***********************************************************************************************************************
  * Initialization functions

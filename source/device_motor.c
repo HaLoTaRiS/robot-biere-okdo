@@ -30,7 +30,7 @@
 #include "fsl_clock.h"
 #include "fsl_power.h"
 
-#include "driver_tm1637.h"
+
 
 /*******************************************************************************/
 /* definitions & declarations */
@@ -160,7 +160,7 @@ void MOTOR_A_B_stop(void){
 	MOTOR_ENABLE_OFF();
 	CTIMER_StopTimer(CTIMER1_MOTOR_A_PERIPHERAL);
 	CTIMER_StopTimer(CTIMER0_MOTOR_B_PERIPHERAL);
-	TM1637_clearDisplay();
+//	TM1637_clearDisplay();
 }
 
 void MOTOR_A_stop(void){
@@ -186,7 +186,6 @@ int MOTOR_CALCUL_match_value_motor (int Motor_Frequence){
 	//	Clk_match_0 = (step / Clk_enable_timer1 ) -1 ;
 	//
 	////	CTIMER1_MOTOR_A_Match_0_config.matchValue = Clk_match_0;
-	TM1637_display_all(Motor_Frequence);
 	Motor_Frequence = Motor_Frequence * 2;
 	int match_value =0;
 	match_value = (1000000 / Motor_Frequence )-1;

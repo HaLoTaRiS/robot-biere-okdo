@@ -47,8 +47,18 @@ void BOARD_InitBootPins(void);
  * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
 #define PIO0_13_DIGIMODE_DIGITAL 0x01u
 /*!
+ * @brief Switch between GPIO mode and I2C mode.: GPIO mode. */
+#define PIO0_13_EGP_GPIO_MODE 0x01u
+/*!
  * @brief Selects pin function.: Alternative connection 0. */
 #define PIO0_13_FUNC_ALT0 0x00u
+/*!
+ * @brief
+ * Selects function mode (on-chip pull-up/pull-down resistor control).
+ * : Pull-down.
+ * Pull-down resistor enabled.
+ */
+#define PIO0_13_MODE_PULL_DOWN 0x01u
 /*!
  * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
 #define PIO0_14_DIGIMODE_DIGITAL 0x01u
@@ -69,10 +79,25 @@ void BOARD_InitBootPins(void);
 #define PIO0_16_FUNC_ALT0 0x00u
 /*!
  * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
+#define PIO0_1_DIGIMODE_DIGITAL 0x01u
+/*!
+ * @brief Selects pin function.: Alternative connection 3. */
+#define PIO0_1_FUNC_ALT3 0x03u
+/*!
+ * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
 #define PIO0_23_DIGIMODE_DIGITAL 0x01u
 /*!
  * @brief Selects pin function.: Alternative connection 2. */
 #define PIO0_23_FUNC_ALT2 0x02u
+/*!
+ * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
+#define PIO0_26_DIGIMODE_DIGITAL 0x01u
+/*!
+ * @brief Selects pin function.: Alternative connection 0. */
+#define PIO0_26_FUNC_ALT0 0x00u
+/*!
+ * @brief Selects function mode (on-chip pull-up/pull-down resistor control).: Pull-up. Pull-up resistor enabled. */
+#define PIO0_26_MODE_PULL_UP 0x02u
 /*!
  * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
 #define PIO0_27_DIGIMODE_DIGITAL 0x01u
@@ -103,6 +128,22 @@ void BOARD_InitBootPins(void);
 /*!
  * @brief Selects pin function.: Alternative connection 0. */
 #define PIO1_0_FUNC_ALT0 0x00u
+/*!
+ * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
+#define PIO1_10_DIGIMODE_DIGITAL 0x01u
+/*!
+ * @brief Selects pin function.: Alternative connection 0. */
+#define PIO1_10_FUNC_ALT0 0x00u
+/*!
+ * @brief Input polarity.: Disabled. Input function is not inverted. */
+#define PIO1_10_INVERT_DISABLED 0x00u
+/*!
+ * @brief
+ * Selects function mode (on-chip pull-up/pull-down resistor control).
+ * : Pull-down.
+ * Pull-down resistor enabled.
+ */
+#define PIO1_10_MODE_PULL_DOWN 0x01u
 /*!
  * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
 #define PIO1_1_DIGIMODE_DIGITAL 0x01u
@@ -202,6 +243,13 @@ void BOARD_InitBootPins(void);
 /*!
  * @brief Selects pin function.: Alternative connection 0. */
 #define PIO1_9_FUNC_ALT0 0x00u
+/*!
+ * @brief
+ * Selects function mode (on-chip pull-up/pull-down resistor control).
+ * : Inactive.
+ * Inactive (no pull-down/pull-up resistor enabled).
+ */
+#define PIO1_9_MODE_INACTIVE 0x00u
 
 /*! @name PIO0_29 (number 92), P8[2]/U6[13]/FC0_USART_RXD
   @{ */
@@ -357,19 +405,19 @@ void BOARD_InitBootPins(void);
 /* Symbols to be used with GPIO driver */
 /*!
  * @brief GPIO peripheral base pointer */
-#define BOARD_INITDEBUG_UARTPINS_SWITCH_BOARD_2_GPIO GPIO
+#define BOARD_INITDEBUG_UARTPINS_ULTRASON_1_TRIG_GPIO GPIO
 /*!
  * @brief GPIO pin mask */
-#define BOARD_INITDEBUG_UARTPINS_SWITCH_BOARD_2_GPIO_PIN_MASK (1U << 9U)
+#define BOARD_INITDEBUG_UARTPINS_ULTRASON_1_TRIG_GPIO_PIN_MASK (1U << 9U)
 /*!
  * @brief PORT peripheral base pointer */
-#define BOARD_INITDEBUG_UARTPINS_SWITCH_BOARD_2_PORT 1U
+#define BOARD_INITDEBUG_UARTPINS_ULTRASON_1_TRIG_PORT 1U
 /*!
  * @brief PORT pin number */
-#define BOARD_INITDEBUG_UARTPINS_SWITCH_BOARD_2_PIN 9U
+#define BOARD_INITDEBUG_UARTPINS_ULTRASON_1_TRIG_PIN 9U
 /*!
  * @brief PORT pin mask */
-#define BOARD_INITDEBUG_UARTPINS_SWITCH_BOARD_2_PIN_MASK (1U << 9U)
+#define BOARD_INITDEBUG_UARTPINS_ULTRASON_1_TRIG_PIN_MASK (1U << 9U)
 /* @} */
 
 /*! @name PIO0_7 (number 6), U20[4]/SD0_CLK
@@ -546,23 +594,43 @@ void BOARD_InitBootPins(void);
   @{ */
 
 /* Symbols to be used with GPIO driver */
-#define BOARD_INITDEBUG_UARTPINS_AFF_SCL_GPIO GPIO                 /*!<@brief GPIO peripheral base pointer */
-#define BOARD_INITDEBUG_UARTPINS_AFF_SCL_GPIO_PIN_MASK (1U << 14U) /*!<@brief GPIO pin mask */
-#define BOARD_INITDEBUG_UARTPINS_AFF_SCL_PORT 0U                   /*!<@brief PORT peripheral base pointer */
-#define BOARD_INITDEBUG_UARTPINS_AFF_SCL_PIN 14U                   /*!<@brief PORT pin number */
-#define BOARD_INITDEBUG_UARTPINS_AFF_SCL_PIN_MASK (1U << 14U)      /*!<@brief PORT pin mask */
-                                                                   /* @} */
+/*!
+ * @brief GPIO peripheral base pointer */
+#define BOARD_INITDEBUG_UARTPINS_ULTRASON_2_TRIG_GPIO GPIO
+/*!
+ * @brief GPIO pin mask */
+#define BOARD_INITDEBUG_UARTPINS_ULTRASON_2_TRIG_GPIO_PIN_MASK (1U << 14U)
+/*!
+ * @brief PORT peripheral base pointer */
+#define BOARD_INITDEBUG_UARTPINS_ULTRASON_2_TRIG_PORT 0U
+/*!
+ * @brief PORT pin number */
+#define BOARD_INITDEBUG_UARTPINS_ULTRASON_2_TRIG_PIN 14U
+/*!
+ * @brief PORT pin mask */
+#define BOARD_INITDEBUG_UARTPINS_ULTRASON_2_TRIG_PIN_MASK (1U << 14U)
+/* @} */
 
 /*! @name PIO0_13 (number 71), P19[9]/P19[10]/U2[E6]/P20[8]/FC1_I2C_SDA
   @{ */
 
 /* Symbols to be used with GPIO driver */
-#define BOARD_INITDEBUG_UARTPINS_AFF_DIO_GPIO GPIO                 /*!<@brief GPIO peripheral base pointer */
-#define BOARD_INITDEBUG_UARTPINS_AFF_DIO_GPIO_PIN_MASK (1U << 13U) /*!<@brief GPIO pin mask */
-#define BOARD_INITDEBUG_UARTPINS_AFF_DIO_PORT 0U                   /*!<@brief PORT peripheral base pointer */
-#define BOARD_INITDEBUG_UARTPINS_AFF_DIO_PIN 13U                   /*!<@brief PORT pin number */
-#define BOARD_INITDEBUG_UARTPINS_AFF_DIO_PIN_MASK (1U << 13U)      /*!<@brief PORT pin mask */
-                                                                   /* @} */
+/*!
+ * @brief GPIO peripheral base pointer */
+#define BOARD_INITDEBUG_UARTPINS_ULTRASON_2_ECHO_GPIO GPIO
+/*!
+ * @brief GPIO pin mask */
+#define BOARD_INITDEBUG_UARTPINS_ULTRASON_2_ECHO_GPIO_PIN_MASK (1U << 13U)
+/*!
+ * @brief PORT peripheral base pointer */
+#define BOARD_INITDEBUG_UARTPINS_ULTRASON_2_ECHO_PORT 0U
+/*!
+ * @brief PORT pin number */
+#define BOARD_INITDEBUG_UARTPINS_ULTRASON_2_ECHO_PIN 13U
+/*!
+ * @brief PORT pin mask */
+#define BOARD_INITDEBUG_UARTPINS_ULTRASON_2_ECHO_PIN_MASK (1U << 13U)
+/* @} */
 
 /*! @name PIO0_27 (number 27), P18[13]/P24[4]/FC2_USART_TXD_ARD
   @{ */
@@ -591,6 +659,48 @@ void BOARD_InitBootPins(void);
 #define BOARD_INITDEBUG_UARTPINS_FC4_I2C_SDA_PIN 21U                   /*!<@brief PORT pin number */
 #define BOARD_INITDEBUG_UARTPINS_FC4_I2C_SDA_PIN_MASK (1U << 21U)      /*!<@brief PORT pin mask */
                                                                        /* @} */
+
+/*! @name PIO0_26 (number 60), P17[13]/P23[6]/LSPI_HS_MOSI
+  @{ */
+
+/* Symbols to be used with GPIO driver */
+/*!
+ * @brief GPIO peripheral base pointer */
+#define BOARD_INITDEBUG_UARTPINS_SWITCH_BIERE_GPIO GPIO
+/*!
+ * @brief GPIO pin mask */
+#define BOARD_INITDEBUG_UARTPINS_SWITCH_BIERE_GPIO_PIN_MASK (1U << 26U)
+/*!
+ * @brief PORT peripheral base pointer */
+#define BOARD_INITDEBUG_UARTPINS_SWITCH_BIERE_PORT 0U
+/*!
+ * @brief PORT pin number */
+#define BOARD_INITDEBUG_UARTPINS_SWITCH_BIERE_PIN 26U
+/*!
+ * @brief PORT pin mask */
+#define BOARD_INITDEBUG_UARTPINS_SWITCH_BIERE_PIN_MASK (1U << 26U)
+/* @} */
+
+/*! @name PIO1_10 (number 40), P18[3]/PIO1_10_GPIO_ARD
+  @{ */
+
+/* Symbols to be used with GPIO driver */
+/*!
+ * @brief GPIO peripheral base pointer */
+#define BOARD_INITDEBUG_UARTPINS_ULTRASON_1_ECHO_GPIO GPIO
+/*!
+ * @brief GPIO pin mask */
+#define BOARD_INITDEBUG_UARTPINS_ULTRASON_1_ECHO_GPIO_PIN_MASK (1U << 10U)
+/*!
+ * @brief PORT peripheral base pointer */
+#define BOARD_INITDEBUG_UARTPINS_ULTRASON_1_ECHO_PORT 1U
+/*!
+ * @brief PORT pin number */
+#define BOARD_INITDEBUG_UARTPINS_ULTRASON_1_ECHO_PIN 10U
+/*!
+ * @brief PORT pin mask */
+#define BOARD_INITDEBUG_UARTPINS_ULTRASON_1_ECHO_PIN_MASK (1U << 10U)
+/* @} */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

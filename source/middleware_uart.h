@@ -53,7 +53,7 @@ void fc2_uart_transmit(uint8_t *TxData, uint8_t size);
 
 void uart_read_xl320(uint8_t *RxData, uint8_t size);
 
-void uart_write_xl320(uint8_t id, uint8_t xl320_addr, uint8_t xl320_data, uint8_t size);
+void uart_write_xl320(uint8_t id, uint8_t xl320_addr, uint8_t *xl320_data, uint8_t size);
 
 unsigned short update_crc(unsigned short crc_accum, unsigned char *data_blk_ptr, unsigned short data_blk_size);
 void USART_UserCallback(USART_Type *base, usart_handle_t *handle, status_t status, void *userData);

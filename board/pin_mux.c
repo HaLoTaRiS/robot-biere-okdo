@@ -14,16 +14,19 @@ mcu_data: ksdk2_0
 processor_version: 11.0.1
 board: LPCXpresso55S69
 pin_labels:
+- {pin_num: '54', pin_signal: PIO0_0/FC3_SCK/CTIMER0_MAT0/SCT_GPI0/SD1_CARD_INT_N/SECURE_GPIO0_0/ACMP0_A, label: 'P19[6]/COMPARATOR', identifier: AFF_DIO}
 - {pin_num: '88', pin_signal: PIO0_5/FC4_RXD_SDA_MOSI_DATA/CTIMER3_MAT0/SCT_GPI5/FC3_RTS_SCL_SSEL1/MCLK/SECURE_GPIO0_5, label: 'S1/J10[1]/U3[12]/P17[8]/P7[7]/U11[4]/P0_5-ISP1',
   identifier: SWITCH_BOARD_1}
 - {pin_num: '6', pin_signal: PIO0_7/FC3_RTS_SCL_SSEL1/SD0_CLK/FC5_SCK/FC1_SCK/SECURE_GPIO0_7, label: 'U20[4]/SD0_CLK', identifier: SENSOR_1_XSHUT}
 - {pin_num: '71', pin_signal: PIO0_13/FC1_CTS_SDA_SSEL0/UTICK_CAP0/CT_INP0/SCT_GPI0/FC1_RXD_SDA_MOSI_DATA/PLU_IN0/SECURE_GPIO0_13, label: 'P19[9]/P19[10]/U2[E6]/P20[8]/FC1_I2C_SDA',
-  identifier: AFF_SDA;AFF_DIO}
+  identifier: AFF_SDA;AFF_DIO;ULTRASON_2_ECHO}
 - {pin_num: '72', pin_signal: PIO0_14/FC1_RTS_SCL_SSEL1/UTICK_CAP1/CT_INP1/SCT_GPI1/FC1_TXD_SCL_MISO_WS/PLU_IN1/SECURE_GPIO0_14, label: 'P19[11]/P19[12]/U2[D6]/P20[6]/FC1_I2C_SCL',
-  identifier: AFF_SCL}
+  identifier: AFF_SCL;ULTRASON_2_TRIG}
 - {pin_num: '22', pin_signal: PIO0_15/FC6_CTS_SDA_SSEL0/UTICK_CAP2/CT_INP16/SCT0_OUT2/SD0_WR_PRT/SECURE_GPIO0_15/ADC0_2, label: 'P18[11]/PIO0_15_GPIO_ARD', identifier: MOTOR_A_DIRECTION}
 - {pin_num: '14', pin_signal: PIO0_16/FC4_TXD_SCL_MISO_WS/CLKOUT/CT_INP4/SECURE_GPIO0_16/ADC0_8, label: 'P19[2]/P23[1]/ADC0_N', identifier: MOTOR_ENABLE}
 - {pin_num: '20', pin_signal: PIO0_23/MCLK/CTIMER1_MAT2/CTIMER3_MAT3/SCT0_OUT4/FC0_CTS_SDA_SSEL0/SD1_D1/SECURE_GPIO0_23/ADC0_0, label: 'P19[4]/ADC0_P', identifier: MOTOR_A_STEP}
+- {pin_num: '60', pin_signal: PIO0_26/FC2_RXD_SDA_MOSI_DATA/CLKOUT/CT_INP14/SCT0_OUT5/USB0_IDVALUE/FC0_SCK/HS_SPI_MOSI/SECURE_GPIO0_26, label: 'P17[13]/P23[6]/LSPI_HS_MOSI',
+  identifier: SWITCH_BIERE}
 - {pin_num: '27', pin_signal: PIO0_27/FC2_TXD_SCL_MISO_WS/CTIMER3_MAT2/SCT0_OUT6/FC7_RXD_SDA_MOSI_DATA/PLU_OUT0/SECURE_GPIO0_27, label: 'P18[13]/P24[4]/FC2_USART_TXD_ARD',
   identifier: PINCE_TX}
 - {pin_num: '23', pin_signal: PIO0_31/FC0_CTS_SDA_SSEL0/SD0_D2/CTIMER0_MAT1/SCT0_OUT3/SECURE_GPIO0_31/ADC0_3, label: 'U20[1]/SD0_D2', identifier: SENSOR_2_XSHUT}
@@ -35,7 +38,8 @@ pin_labels:
 - {pin_num: '31', pin_signal: PIO1_5/FC0_RXD_SDA_MOSI_DATA/SD0_D2/CTIMER2_MAT0/SCT_GPI0, label: 'P17[17]/P24[1]/PIO1_5_GPIO_ARD', identifier: SENSOR_4_XSHUT}
 - {pin_num: '5', pin_signal: PIO1_6/FC0_TXD_SCL_MISO_WS/SD0_D3/CTIMER2_MAT1/SCT_GPI3, label: 'R80/P18[9]/LEDB/PWM_ARD', identifier: LED_BLUE}
 - {pin_num: '24', pin_signal: PIO1_8/FC0_CTS_SDA_SSEL0/SD0_CLK/SCT0_OUT1/FC4_SSEL2/ADC0_4, label: 'P17[19]/PIO1_8_GPIO_ARD', identifier: SENSOR_4_INT}
-- {pin_num: '10', pin_signal: PIO1_9/FC1_SCK/CT_INP4/SCT0_OUT2/FC4_CTS_SDA_SSEL0/ADC0_12, label: 'S3/P18[1]/PIO1_9_GPIO_ARD', identifier: SWITCH_BOARD_2}
+- {pin_num: '10', pin_signal: PIO1_9/FC1_SCK/CT_INP4/SCT0_OUT2/FC4_CTS_SDA_SSEL0/ADC0_12, label: 'S3/P18[1]/PIO1_9_GPIO_ARD', identifier: SWITCH_BOARD_2;ULTRASON_1_TRIG}
+- {pin_num: '40', pin_signal: PIO1_10/FC1_RXD_SDA_MOSI_DATA/CTIMER1_MAT0/SCT0_OUT3, label: 'P18[3]/PIO1_10_GPIO_ARD', identifier: ULTRA_2_ECHO;ULTRASON_2_ECHO;ULTRASON_1_ECHO}
 - {pin_num: '3', pin_signal: PIO1_24/FC2_RXD_SDA_MOSI_DATA/SCT0_OUT1/SD1_D1/FC3_SSEL3/PLU_OUT6, label: 'P18[15]/P18[10]/P24[3]/PLU_OUT6/GPIO/FC2_USART_RXD_ARD/SD1_D1',
   identifier: PINCE_RX}
 - {pin_num: '68', pin_signal: PIO1_26/FC2_CTS_SDA_SSEL0/SCT0_OUT3/CT_INP3/UTICK_CAP1/HS_SPI_SSEL3/PLU_IN5, label: 'P18[18]/PLU_IN5/GPIO/SD1_WP', identifier: MOTOR_B_DIRECTION}
@@ -48,6 +52,7 @@ pin_labels:
 #include "fsl_common.h"
 #include "fsl_gpio.h"
 #include "fsl_iocon.h"
+#include "fsl_inputmux.h"
 #include "pin_mux.h"
 
 /* FUNCTION ************************************************************************************************************
@@ -82,7 +87,8 @@ BOARD_InitDEBUG_UARTPins:
   - {pin_num: '22', peripheral: GPIO, signal: 'PIO0, 15', pin_signal: PIO0_15/FC6_CTS_SDA_SSEL0/UTICK_CAP2/CT_INP16/SCT0_OUT2/SD0_WR_PRT/SECURE_GPIO0_15/ADC0_2, direction: OUTPUT}
   - {pin_num: '85', peripheral: CTIMER0, signal: 'MATCH, 3', pin_signal: PIO1_27/FC2_RTS_SCL_SSEL1/SD0_D4/CTIMER0_MAT3/CLKOUT/PLU_IN4}
   - {pin_num: '68', peripheral: GPIO, signal: 'PIO1, 26', pin_signal: PIO1_26/FC2_CTS_SDA_SSEL0/SCT0_OUT3/CT_INP3/UTICK_CAP1/HS_SPI_SSEL3/PLU_IN5, direction: OUTPUT}
-  - {pin_num: '10', peripheral: GPIO, signal: 'PIO1, 9', pin_signal: PIO1_9/FC1_SCK/CT_INP4/SCT0_OUT2/FC4_CTS_SDA_SSEL0/ADC0_12, direction: INPUT}
+  - {pin_num: '10', peripheral: GPIO, signal: 'PIO1, 9', pin_signal: PIO1_9/FC1_SCK/CT_INP4/SCT0_OUT2/FC4_CTS_SDA_SSEL0/ADC0_12, identifier: ULTRASON_1_TRIG, direction: OUTPUT,
+    gpio_init_state: 'false', mode: inactive}
   - {pin_num: '6', peripheral: GPIO, signal: 'PIO0, 7', pin_signal: PIO0_7/FC3_RTS_SCL_SSEL1/SD0_CLK/FC5_SCK/FC1_SCK/SECURE_GPIO0_7, direction: OUTPUT}
   - {pin_num: '11', peripheral: GPIO, signal: 'PIO1, 0', pin_signal: PIO1_0/FC0_RTS_SCL_SSEL1/SD0_D3/CT_INP2/SCT_GPI4/PLU_OUT3/ADC0_11, direction: INPUT}
   - {pin_num: '23', peripheral: GPIO, signal: 'PIO0, 31', pin_signal: PIO0_31/FC0_CTS_SDA_SSEL0/SD0_D2/CTIMER0_MAT1/SCT0_OUT3/SECURE_GPIO0_31/ADC0_3, direction: OUTPUT}
@@ -94,13 +100,18 @@ BOARD_InitDEBUG_UARTPins:
   - {pin_num: '88', peripheral: GPIO, signal: 'PIO0, 5', pin_signal: PIO0_5/FC4_RXD_SDA_MOSI_DATA/CTIMER3_MAT0/SCT_GPI5/FC3_RTS_SCL_SSEL1/MCLK/SECURE_GPIO0_5}
   - {pin_num: '91', peripheral: GPIO, signal: 'PIO1, 31', pin_signal: PIO1_31/MCLK/SD1_CLK/CTIMER0_MAT2/SCT0_OUT6/PLU_IN0, identifier: PINCE_TX_Enable}
   - {pin_num: '72', peripheral: GPIO, signal: 'PIO0, 14', pin_signal: PIO0_14/FC1_RTS_SCL_SSEL1/UTICK_CAP1/CT_INP1/SCT_GPI1/FC1_TXD_SCL_MISO_WS/PLU_IN1/SECURE_GPIO0_14,
-    direction: OUTPUT}
+    identifier: ULTRASON_2_TRIG, direction: OUTPUT, ssel: no_init}
   - {pin_num: '71', peripheral: GPIO, signal: 'PIO0, 13', pin_signal: PIO0_13/FC1_CTS_SDA_SSEL0/UTICK_CAP0/CT_INP0/SCT_GPI0/FC1_RXD_SDA_MOSI_DATA/PLU_IN0/SECURE_GPIO0_13,
-    identifier: AFF_DIO, direction: OUTPUT}
+    identifier: ULTRASON_2_ECHO, direction: INPUT, mode: pullDown, ssel: no_init, egp: gpio}
   - {pin_num: '27', peripheral: FLEXCOMM2, signal: TXD_SCL_MISO_WS, pin_signal: PIO0_27/FC2_TXD_SCL_MISO_WS/CTIMER3_MAT2/SCT0_OUT6/FC7_RXD_SDA_MOSI_DATA/PLU_OUT0/SECURE_GPIO0_27}
   - {pin_num: '3', peripheral: FLEXCOMM2, signal: RXD_SDA_MOSI_DATA, pin_signal: PIO1_24/FC2_RXD_SDA_MOSI_DATA/SCT0_OUT1/SD1_D1/FC3_SSEL3/PLU_OUT6}
   - {pin_num: '4', peripheral: FLEXCOMM4, signal: TXD_SCL_MISO_WS, pin_signal: PIO1_20/FC7_RTS_SCL_SSEL1/CT_INP14/FC4_TXD_SCL_MISO_WS/PLU_OUT2}
   - {pin_num: '30', peripheral: FLEXCOMM4, signal: RXD_SDA_MOSI_DATA, pin_signal: PIO1_21/FC7_CTS_SDA_SSEL0/CTIMER3_MAT2/FC4_RXD_SDA_MOSI_DATA/PLU_OUT3}
+  - {pin_num: '60', peripheral: GPIO, signal: 'PIO0, 26', pin_signal: PIO0_26/FC2_RXD_SDA_MOSI_DATA/CLKOUT/CT_INP14/SCT0_OUT5/USB0_IDVALUE/FC0_SCK/HS_SPI_MOSI/SECURE_GPIO0_26,
+    direction: INPUT, mode: pullUp}
+  - {pin_num: '40', peripheral: GPIO, signal: 'PIO1, 10', pin_signal: PIO1_10/FC1_RXD_SDA_MOSI_DATA/CTIMER1_MAT0/SCT0_OUT3, identifier: ULTRASON_1_ECHO, direction: INPUT,
+    mode: pullDown, invert: disabled}
+  - {pin_num: '7', peripheral: CTIMER2, signal: 'CAPTURE, 0', pin_signal: PIO0_1/FC3_CTS_SDA_SSEL0/CT_INP0/SCT_GPI1/SD1_CLK/CMP0_OUT/SECURE_GPIO0_1}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -114,6 +125,8 @@ BOARD_InitDEBUG_UARTPins:
 /* Function assigned for the Cortex-M33 (Core #0) */
 void BOARD_InitDEBUG_UARTPins(void)
 {
+    /* Enables the clock for the Input Mux.: Enable Clock. */
+    CLOCK_EnableClock(kCLOCK_InputMux);
     /* Enables the clock for the I/O controller.: Enable Clock. */
     CLOCK_EnableClock(kCLOCK_Iocon);
 
@@ -130,19 +143,19 @@ void BOARD_InitDEBUG_UARTPins(void)
     /* Initialize GPIO functionality on pin PIO0_7 (pin 6)  */
     GPIO_PinInit(BOARD_INITDEBUG_UARTPINS_SENSOR_1_XSHUT_GPIO, BOARD_INITDEBUG_UARTPINS_SENSOR_1_XSHUT_PORT, BOARD_INITDEBUG_UARTPINS_SENSOR_1_XSHUT_PIN, &SENSOR_1_XSHUT_config);
 
-    gpio_pin_config_t AFF_DIO_config = {
-        .pinDirection = kGPIO_DigitalOutput,
+    gpio_pin_config_t ULTRASON_2_ECHO_config = {
+        .pinDirection = kGPIO_DigitalInput,
         .outputLogic = 0U
     };
     /* Initialize GPIO functionality on pin PIO0_13 (pin 71)  */
-    GPIO_PinInit(BOARD_INITDEBUG_UARTPINS_AFF_DIO_GPIO, BOARD_INITDEBUG_UARTPINS_AFF_DIO_PORT, BOARD_INITDEBUG_UARTPINS_AFF_DIO_PIN, &AFF_DIO_config);
+    GPIO_PinInit(BOARD_INITDEBUG_UARTPINS_ULTRASON_2_ECHO_GPIO, BOARD_INITDEBUG_UARTPINS_ULTRASON_2_ECHO_PORT, BOARD_INITDEBUG_UARTPINS_ULTRASON_2_ECHO_PIN, &ULTRASON_2_ECHO_config);
 
-    gpio_pin_config_t AFF_SCL_config = {
+    gpio_pin_config_t ULTRASON_2_TRIG_config = {
         .pinDirection = kGPIO_DigitalOutput,
         .outputLogic = 0U
     };
     /* Initialize GPIO functionality on pin PIO0_14 (pin 72)  */
-    GPIO_PinInit(BOARD_INITDEBUG_UARTPINS_AFF_SCL_GPIO, BOARD_INITDEBUG_UARTPINS_AFF_SCL_PORT, BOARD_INITDEBUG_UARTPINS_AFF_SCL_PIN, &AFF_SCL_config);
+    GPIO_PinInit(BOARD_INITDEBUG_UARTPINS_ULTRASON_2_TRIG_GPIO, BOARD_INITDEBUG_UARTPINS_ULTRASON_2_TRIG_PORT, BOARD_INITDEBUG_UARTPINS_ULTRASON_2_TRIG_PIN, &ULTRASON_2_TRIG_config);
 
     gpio_pin_config_t MOTOR_A_DIRECTION_config = {
         .pinDirection = kGPIO_DigitalOutput,
@@ -157,6 +170,13 @@ void BOARD_InitDEBUG_UARTPins(void)
     };
     /* Initialize GPIO functionality on pin PIO0_16 (pin 14)  */
     GPIO_PinInit(BOARD_INITDEBUG_UARTPINS_MOTOR_ENABLE_GPIO, BOARD_INITDEBUG_UARTPINS_MOTOR_ENABLE_PORT, BOARD_INITDEBUG_UARTPINS_MOTOR_ENABLE_PIN, &MOTOR_ENABLE_config);
+
+    gpio_pin_config_t SWITCH_BIERE_config = {
+        .pinDirection = kGPIO_DigitalInput,
+        .outputLogic = 0U
+    };
+    /* Initialize GPIO functionality on pin PIO0_26 (pin 60)  */
+    GPIO_PinInit(BOARD_INITDEBUG_UARTPINS_SWITCH_BIERE_GPIO, BOARD_INITDEBUG_UARTPINS_SWITCH_BIERE_PORT, BOARD_INITDEBUG_UARTPINS_SWITCH_BIERE_PIN, &SWITCH_BIERE_config);
 
     gpio_pin_config_t SENSOR_2_XSHUT_config = {
         .pinDirection = kGPIO_DigitalOutput,
@@ -207,12 +227,19 @@ void BOARD_InitDEBUG_UARTPins(void)
     /* Initialize GPIO functionality on pin PIO1_7 (pin 9)  */
     GPIO_PinInit(BOARD_INITDEBUG_UARTPINS_LED_GREEN_GPIO, BOARD_INITDEBUG_UARTPINS_LED_GREEN_PORT, BOARD_INITDEBUG_UARTPINS_LED_GREEN_PIN, &LED_GREEN_config);
 
-    gpio_pin_config_t SWITCH_BOARD_2_config = {
-        .pinDirection = kGPIO_DigitalInput,
+    gpio_pin_config_t ULTRASON_1_TRIG_config = {
+        .pinDirection = kGPIO_DigitalOutput,
         .outputLogic = 0U
     };
     /* Initialize GPIO functionality on pin PIO1_9 (pin 10)  */
-    GPIO_PinInit(BOARD_INITDEBUG_UARTPINS_SWITCH_BOARD_2_GPIO, BOARD_INITDEBUG_UARTPINS_SWITCH_BOARD_2_PORT, BOARD_INITDEBUG_UARTPINS_SWITCH_BOARD_2_PIN, &SWITCH_BOARD_2_config);
+    GPIO_PinInit(BOARD_INITDEBUG_UARTPINS_ULTRASON_1_TRIG_GPIO, BOARD_INITDEBUG_UARTPINS_ULTRASON_1_TRIG_PORT, BOARD_INITDEBUG_UARTPINS_ULTRASON_1_TRIG_PIN, &ULTRASON_1_TRIG_config);
+
+    gpio_pin_config_t ULTRASON_1_ECHO_config = {
+        .pinDirection = kGPIO_DigitalInput,
+        .outputLogic = 0U
+    };
+    /* Initialize GPIO functionality on pin PIO1_10 (pin 40)  */
+    GPIO_PinInit(BOARD_INITDEBUG_UARTPINS_ULTRASON_1_ECHO_GPIO, BOARD_INITDEBUG_UARTPINS_ULTRASON_1_ECHO_PORT, BOARD_INITDEBUG_UARTPINS_ULTRASON_1_ECHO_PIN, &ULTRASON_1_ECHO_config);
 
     gpio_pin_config_t MOTOR_B_DIRECTION_config = {
         .pinDirection = kGPIO_DigitalOutput,
@@ -220,19 +247,43 @@ void BOARD_InitDEBUG_UARTPins(void)
     };
     /* Initialize GPIO functionality on pin PIO1_26 (pin 68)  */
     GPIO_PinInit(BOARD_INITDEBUG_UARTPINS_MOTOR_B_DIRECTION_GPIO, BOARD_INITDEBUG_UARTPINS_MOTOR_B_DIRECTION_PORT, BOARD_INITDEBUG_UARTPINS_MOTOR_B_DIRECTION_PIN, &MOTOR_B_DIRECTION_config);
+    /* Ctimer input 0 is selected for Secure TIMER2 CAPTSEL 0 */
+    INPUTMUX_AttachSignal(INPUTMUX, 0U, kINPUTMUX_CtimerInp0ToTimer2Captsel);
+
+    IOCON->PIO[0][1] = ((IOCON->PIO[0][1] &
+                         /* Mask bits to zero which are setting */
+                         (~(IOCON_PIO_FUNC_MASK | IOCON_PIO_DIGIMODE_MASK)))
+
+                        /* Selects pin function.
+                         * : PORT01 (pin 7) is configured as CT_INP0. */
+                        | IOCON_PIO_FUNC(PIO0_1_FUNC_ALT3)
+
+                        /* Select Digital mode.
+                         * : Enable Digital mode.
+                         * Digital input is enabled. */
+                        | IOCON_PIO_DIGIMODE(PIO0_1_DIGIMODE_DIGITAL));
 
     IOCON->PIO[0][13] = ((IOCON->PIO[0][13] &
                           /* Mask bits to zero which are setting */
-                          (~(IOCON_PIO_FUNC_MASK | IOCON_PIO_DIGIMODE_MASK)))
+                          (~(IOCON_PIO_FUNC_MASK | IOCON_PIO_MODE_MASK | IOCON_PIO_DIGIMODE_MASK | IOCON_PIO_EGP_MASK)))
 
                          /* Selects pin function.
                           * : PORT013 (pin 71) is configured as PIO0_13. */
                          | IOCON_PIO_FUNC(PIO0_13_FUNC_ALT0)
 
+                         /* Selects function mode (on-chip pull-up/pull-down resistor control).
+                          * : Pull-down.
+                          * Pull-down resistor enabled. */
+                         | IOCON_PIO_MODE(PIO0_13_MODE_PULL_DOWN)
+
                          /* Select Digital mode.
                           * : Enable Digital mode.
                           * Digital input is enabled. */
-                         | IOCON_PIO_DIGIMODE(PIO0_13_DIGIMODE_DIGITAL));
+                         | IOCON_PIO_DIGIMODE(PIO0_13_DIGIMODE_DIGITAL)
+
+                         /* Switch between GPIO mode and I2C mode.
+                          * : GPIO mode. */
+                         | IOCON_PIO_EGP(PIO0_13_EGP_GPIO_MODE));
 
     IOCON->PIO[0][14] = ((IOCON->PIO[0][14] &
                           /* Mask bits to zero which are setting */
@@ -303,6 +354,24 @@ void BOARD_InitDEBUG_UARTPins(void)
                           * : Enable Digital mode.
                           * Digital input is enabled. */
                          | IOCON_PIO_DIGIMODE(PIO0_23_DIGIMODE_DIGITAL));
+
+    IOCON->PIO[0][26] = ((IOCON->PIO[0][26] &
+                          /* Mask bits to zero which are setting */
+                          (~(IOCON_PIO_FUNC_MASK | IOCON_PIO_MODE_MASK | IOCON_PIO_DIGIMODE_MASK)))
+
+                         /* Selects pin function.
+                          * : PORT026 (pin 60) is configured as PIO0_26. */
+                         | IOCON_PIO_FUNC(PIO0_26_FUNC_ALT0)
+
+                         /* Selects function mode (on-chip pull-up/pull-down resistor control).
+                          * : Pull-up.
+                          * Pull-up resistor enabled. */
+                         | IOCON_PIO_MODE(PIO0_26_MODE_PULL_UP)
+
+                         /* Select Digital mode.
+                          * : Enable Digital mode.
+                          * Digital input is enabled. */
+                         | IOCON_PIO_DIGIMODE(PIO0_26_DIGIMODE_DIGITAL));
 
     IOCON->PIO[0][27] = ((IOCON->PIO[0][27] &
                           /* Mask bits to zero which are setting */
@@ -447,6 +516,30 @@ void BOARD_InitDEBUG_UARTPins(void)
                          * : Enable Digital mode.
                          * Digital input is enabled. */
                         | IOCON_PIO_DIGIMODE(PIO1_1_DIGIMODE_DIGITAL));
+
+    IOCON->PIO[1][10] =
+        ((IOCON->PIO[1][10] &
+          /* Mask bits to zero which are setting */
+          (~(IOCON_PIO_FUNC_MASK | IOCON_PIO_MODE_MASK | IOCON_PIO_INVERT_MASK | IOCON_PIO_DIGIMODE_MASK)))
+
+         /* Selects pin function.
+          * : PORT110 (pin 40) is configured as PIO1_10. */
+         | IOCON_PIO_FUNC(PIO1_10_FUNC_ALT0)
+
+         /* Selects function mode (on-chip pull-up/pull-down resistor control).
+          * : Pull-down.
+          * Pull-down resistor enabled. */
+         | IOCON_PIO_MODE(PIO1_10_MODE_PULL_DOWN)
+
+         /* Input polarity.
+          * : Disabled.
+          * Input function is not inverted. */
+         | IOCON_PIO_INVERT(PIO1_10_INVERT_DISABLED)
+
+         /* Select Digital mode.
+          * : Enable Digital mode.
+          * Digital input is enabled. */
+         | IOCON_PIO_DIGIMODE(PIO1_10_DIGIMODE_DIGITAL));
 
     IOCON->PIO[1][2] = ((IOCON->PIO[1][2] &
                          /* Mask bits to zero which are setting */
@@ -636,11 +729,16 @@ void BOARD_InitDEBUG_UARTPins(void)
     {
         IOCON->PIO[1][9] = ((IOCON->PIO[1][9] &
                          /* Mask bits to zero which are setting */
-                         (~(IOCON_PIO_FUNC_MASK | IOCON_PIO_DIGIMODE_MASK)))
+                         (~(IOCON_PIO_FUNC_MASK | IOCON_PIO_MODE_MASK | IOCON_PIO_DIGIMODE_MASK)))
 
                         /* Selects pin function.
                          * : PORT19 (pin 10) is configured as PIO1_9. */
                         | IOCON_PIO_FUNC(PIO1_9_FUNC_ALT0)
+
+                        /* Selects function mode (on-chip pull-up/pull-down resistor control).
+                         * : Inactive.
+                         * Inactive (no pull-down/pull-up resistor enabled). */
+                        | IOCON_PIO_MODE(PIO1_9_MODE_INACTIVE)
 
                         /* Select Digital mode.
                          * : Enable Digital mode.
@@ -651,11 +749,16 @@ void BOARD_InitDEBUG_UARTPins(void)
     {
         IOCON->PIO[1][9] = ((IOCON->PIO[1][9] &
                          /* Mask bits to zero which are setting */
-                         (~(IOCON_PIO_FUNC_MASK | IOCON_PIO_DIGIMODE_MASK)))
+                         (~(IOCON_PIO_FUNC_MASK | IOCON_PIO_MODE_MASK | IOCON_PIO_DIGIMODE_MASK)))
 
                         /* Selects pin function.
                          * : PORT19 (pin 10) is configured as PIO1_9. */
                         | IOCON_PIO_FUNC(PIO1_9_FUNC_ALT0)
+
+                        /* Selects function mode (on-chip pull-up/pull-down resistor control).
+                         * : Inactive.
+                         * Inactive (no pull-down/pull-up resistor enabled). */
+                        | IOCON_PIO_MODE(PIO1_9_MODE_INACTIVE)
 
                         /* Select Digital mode.
                          * : Enable Digital mode.
@@ -1009,8 +1112,8 @@ BOARD_InitBUTTONsPins:
     mode: pullUp, slew_rate: standard, invert: disabled, open_drain: disabled}
   - {pin_num: '64', peripheral: GPIO, signal: 'PIO1, 18', pin_signal: PIO1_18/SD1_POW_EN/SCT0_OUT5/PLU_OUT0, direction: INPUT, mode: pullUp, slew_rate: standard,
     invert: disabled, open_drain: disabled}
-  - {pin_num: '10', peripheral: GPIO, signal: 'PIO1, 9', pin_signal: PIO1_9/FC1_SCK/CT_INP4/SCT0_OUT2/FC4_CTS_SDA_SSEL0/ADC0_12, direction: INPUT, mode: pullUp, slew_rate: standard,
-    invert: disabled, open_drain: disabled, asw: enabled}
+  - {pin_num: '10', peripheral: GPIO, signal: 'PIO1, 9', pin_signal: PIO1_9/FC1_SCK/CT_INP4/SCT0_OUT2/FC4_CTS_SDA_SSEL0/ADC0_12, identifier: SWITCH_BOARD_2, direction: INPUT,
+    mode: pullUp, slew_rate: standard, invert: disabled, open_drain: disabled, asw: enabled}
   - {pin_num: '32', peripheral: SYSCON, signal: RESET, pin_signal: RESETN}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
