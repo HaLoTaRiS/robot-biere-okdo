@@ -33,20 +33,17 @@
 
 extern SDK_ALIGN(uint8_t s_shellHandleBuffer[SHELL_HANDLE_SIZE], 4);
 extern shell_handle_t s_shellHandle;
+extern TaskHandle_t xHandleVL53L0X;
 TaskHandle_t xHandleMotorRun = NULL;
 TaskHandle_t xHandleMotorLeft = NULL;
 TaskHandle_t xHandleMotorRight = NULL;
 TaskHandle_t xHandleMotorStop = NULL;
-TaskHandle_t xHandleVL53L0X = NULL;
+
 TaskHandle_t xHandleXL320 = NULL;
 
 int32_t angle;
 int32_t vitesse;
 uint8_t flag_run_stop = 0;
-
-extern i2c_master_handle_t i2c_fc4_handle;
-
-
 
 shell_status_t MotorRun(shell_handle_t shellHandle, int32_t argc, char **argv) {
 
@@ -105,7 +102,7 @@ shell_status_t MotorStop(shell_handle_t shellHandle, int32_t argc, char **argv) 
 	return kStatus_SHELL_Success;
 }
 
-shell_status_t VL53L0X(shell_handle_t shellHandle, int32_t argc, char **argv){
+shell_status_t sensor(shell_handle_t shellHandle, int32_t argc, char **argv){
 	static int on=0;
 	if (on) {
 		vTaskSuspend (xHandleVL53L0X);
@@ -114,10 +111,15 @@ shell_status_t VL53L0X(shell_handle_t shellHandle, int32_t argc, char **argv){
 		vTaskResume (xHandleVL53L0X);
 	}
 	on = !on;
+
+	SHELL_Printf("Ultrason 1 : Distance %d cm\r\n", ultrason1.countCycleFinal);
+	SHELL_Printf("Ultrason 2 : Distance %d cm\r\n", ultrason2.countCycleFinal);
+
+
 	return kStatus_SHELL_Success;
 }
 
-shell_status_t XL320(shell_handle_t shellHandle, int32_t argc, char **argv){
+shell_status_t xl320(shell_handle_t shellHandle, int32_t argc, char **argv){
 
 	//	uart_write_xl320(XL320_ADDR_LED, 1);
 	//	uart_write_xl320(XL320_DATA_LED_BLUE, 1);
@@ -165,13 +167,6 @@ shell_status_t XL320(shell_handle_t shellHandle, int32_t argc, char **argv){
 	return kStatus_SHELL_Success;
 }
 
-shell_status_t ultrason(shell_handle_t shellHandle, int32_t argc, char **argv){
-	SHELL_Printf("Ultrason 1 : Distance %d cm\r\n", ultrason1.countCycleFinal);
-	SHELL_Printf("Ultrason 2 : Distance %d cm\r\n", ultrason2.countCycleFinal);
-	return kStatus_SHELL_Success;
-}
-
-
 /*******************************************************************************
  * Variables SHELL
  ******************************************************************************/
@@ -196,26 +191,18 @@ SHELL_COMMAND_DEFINE(stop,
 		0);
 
 SHELL_COMMAND_DEFINE(sensor,
-		" \"sensor\"| nothing                             | Read Value I2C VL53L0X\r\n",
-		VL53L0X,
+		" \"sensor\"| nothing                             | Read VL53L0X & ultrason\r\n",
+		sensor,
 		0);
 
 SHELL_COMMAND_DEFINE(bras,
 		" \"bras\"  | arg1 : degree (value 15 to 270 )    | Communication Uart XL320\r\n",
-		XL320,
+		xl320,
 		1);
-
-SHELL_COMMAND_DEFINE(ultrason,
-		" \"ultrason\"  | nothing                        | Lecture ultrason 1 & 2\r\n",
-		ultrason,
-		0);
-
-
 
 /*******************************************************************************
  * Variables SHELL
  ******************************************************************************/
-
 
 void init_shell(void) {
 
@@ -280,22 +267,6 @@ void init_shell(void) {
 		SHELL_Printf("ERROR >> Task MotorRight creation : Could not allocate required memory\r\n");
 	}
 	vTaskSuspend(xHandleMotorRight);
-
-	/**************** Task VL53L0X ****************/
-	xReturned = xTaskCreate(
-			vTaskVL53L0X,
-			"Task I2C VL53L0X",
-			STACK_SIZE_VL53L0X,
-			(void *) NULL,
-			task_VL53L0X_PRIORITY,
-			&xHandleVL53L0X);
-
-	if( xReturned == errCOULD_NOT_ALLOCATE_REQUIRED_MEMORY ) {
-		LED_RED_ON();
-		SHELL_Printf("ERROR >> Task VL53L0X creation : Could not allocate required memory\r\n");
-	}
-	vTaskSuspend(xHandleVL53L0X);
-
 }
 
 
@@ -317,7 +288,6 @@ void vTaskShell(void * p) {
 
 	//Commande dans le shell : I2C
 	SHELL_RegisterCommand(s_shellHandle, SHELL_COMMAND(sensor));
-	SHELL_RegisterCommand(s_shellHandle, SHELL_COMMAND(ultrason));
 
 #if !(defined(SHELL_NON_BLOCKING_MODE) && (SHELL_NON_BLOCKING_MODE > 0U))
 	SHELL_Task(s_shellHandle);
@@ -418,47 +388,3 @@ void vTaskMotorRight(void *pvParameters)
 		vTaskSuspend(xHandleMotorRight);
 	}
 }
-
-
-/******************************************************************************/
-/* Task VL53L0X	                                                          */
-/******************************************************************************/
-void vTaskVL53L0X(void *pvParameters)
-{
-
-	I2C_MasterTransferCreateHandle(I2C_FC4_PERIPHERAL, &i2c_fc4_handle,
-			i2c_master_callback, NULL);
-
-	SENSOR_1_XSHUT_ON();
-	vTaskDelay(10/portTICK_PERIOD_MS);
-	// Initialisation du bus I2C
-	bool success = vl53l0x_init();
-
-	uint16_t range = 0;
-	while (success) {
-		success = vl53l0x_read_range_single(&range);
-		SHELL_Printf("range : %d\r",range);
-	}
-
-
-
-
-}
-
-//static void FLEXCOMM2_init(void) {
-//USART_Init(FLEXCOMM2_PERIPHERAL, &FLEXCOMM2_config, FLEXCOMM2_CLOCK_SOURCE);
-//USART_TransferCreateHandle(FLEXCOMM2_PERIPHERAL, &FLEXCOMM2_handle, NULL, NULL);
-//}
-/*
- *
- * Problème de mémoire HEAP a analyser
- * Memory :
- * vPortFree()
- * The vPortGetHeapStats() API function provides additional information on the heap status.
- *
- * Exemple Bouton GPIO :
- *		if (GPIO_PinRead(GPIO, BOARD_SW1_PORT,BOARD_SW1_PIN ) == 0x0){
- *		Fontion();
- *		}
- *
- */

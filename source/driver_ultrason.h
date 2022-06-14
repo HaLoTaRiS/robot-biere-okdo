@@ -108,7 +108,6 @@ struct Ultrason {
 	bool flag;
 	uint32_t countCycleFinal;
 	uint32_t countCycleTemp;
-	uint32_t distanceValue;
 };
 
 extern struct Ultrason ultrason1;

@@ -11,6 +11,15 @@
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
+#include "usb_device_config.h"
+#include "usb.h"
+#include "usb_device.h"
+
+#include "usb_device_class.h"
+#include "usb_device_cdc_acm.h"
+#include "usb_device_ch9.h"
+#include "usb_device_descriptor.h"
+#include "usb_phy.h"
 
 /* @TEST_ANCHOR */
 
@@ -80,5 +89,6 @@ void BOARD_DbgConsole_Deinit(void);
 void BOARD_DbgConsole_Init(void);
 usb_status_t USB_DeviceCdcVcomCallback(class_handle_t handle, uint32_t event, void *param);
 usb_status_t USB_DeviceCallback(usb_device_handle handle, uint32_t event, void *param);
+void USB_Transmit_Uart(uint8_t id, uint16_t data);
 
 #endif /* _USB_CDC_VCOM_H_ */

@@ -56,13 +56,10 @@ void init_ultrason(void){
 	ultrason1.flag = false;
 	ultrason1.countCycleFinal= 0;
 	ultrason1.countCycleTemp= 0;
-	ultrason1.distanceValue= 0;
-
 
 	ultrason2.flag = false;
 	ultrason2.countCycleFinal= 0;
 	ultrason2.countCycleTemp= 0;
-	ultrason2.distanceValue= 0;
 
 	ctimer_config_t CTIMER2_ULTRASON_config;
 	BaseType_t xReturned;
@@ -120,7 +117,7 @@ void vTaskUltrasonTrig(void *pvParameters)
 		ULTRASON_1_TRIG_ENABLE();
 		vTaskDelay(1/portTICK_PERIOD_MS);
 		ULTRASON_1_TRIG_DISABLED();
-		vTaskDelay(30);
+		vTaskDelay(30/portTICK_PERIOD_MS);
 		CTIMER_StopTimer(CTIMER2_ULTRASON_PERIPHERAL);
 		ultrason1.countCycleFinal = ultrason1.countCycleTemp;
 
@@ -128,7 +125,7 @@ void vTaskUltrasonTrig(void *pvParameters)
 		ULTRASON_2_TRIG_ENABLE();
 		vTaskDelay(1/portTICK_PERIOD_MS);
 		ULTRASON_2_TRIG_DISABLED();
-		vTaskDelay(30);
+		vTaskDelay(30/portTICK_PERIOD_MS);
 		CTIMER_StopTimer(CTIMER2_ULTRASON_PERIPHERAL);
 		ultrason2.countCycleFinal = ultrason2.countCycleTemp;
 

@@ -31,7 +31,6 @@ extern serial_handle_t g_serialHandle;
 #define task_MOTOR_RUN_PRIORITY (configMAX_PRIORITIES - 11)
 #define task_MOTOR_LEFT_PRIORITY (configMAX_PRIORITIES - 12)
 #define task_MOTOR_RIGHT_PRIORITY (configMAX_PRIORITIES - 12)
-#define task_VL53L0X_PRIORITY (configMAX_PRIORITIES - 10)
 #define task_XL320_PRIORITY (configMAX_PRIORITIES - 13)
 
 /*******************************************************************************/
@@ -41,7 +40,6 @@ extern serial_handle_t g_serialHandle;
 #define STACK_SIZE_MOTOR_RUN 400
 #define STACK_SIZE_MOTOR_LEFT 400
 #define STACK_SIZE_MOTOR_RIGHT 400
-#define STACK_SIZE_VL53L0X 400
 #define STACK_SIZE_XL320 400
 
 
@@ -53,8 +51,7 @@ shell_status_t MotorRun(shell_handle_t shellHandle, int32_t argc, char **argv);
 shell_status_t MotorLeft(shell_handle_t shellHandle, int32_t argc, char **argv);
 shell_status_t MotorRight(shell_handle_t shellHandle, int32_t argc, char **argv);
 shell_status_t MotorStop(shell_handle_t shellHandle, int32_t argc, char **argv);
-shell_status_t VL53L0X(shell_handle_t shellHandle, int32_t argc, char **argv);
-shell_status_t XL320(shell_handle_t shellHandle, int32_t argc, char **argv);
+shell_status_t sensor(shell_handle_t shellHandle, int32_t argc, char **argv);
 
 /*******************************************************************************
  * Fonction  SHELL
@@ -69,7 +66,6 @@ void vTaskShell(void * p);
 void vTaskMotorRun(void *pvParameters);
 void vTaskMotorLeft(void *pvParameters);
 void vTaskMotorRight(void *pvParameters);
-void vTaskVL53L0X(void *pvParameters);
 void vTaskXL320(void *pvParameters);
 
 

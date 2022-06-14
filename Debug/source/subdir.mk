@@ -14,10 +14,10 @@ C_SRCS += \
 ../source/driver_vl53l0x.c \
 ../source/middleware_ic2.c \
 ../source/middleware_uart.c \
+../source/middleware_usb_com.c \
 ../source/robot_shell.c \
 ../source/semihost_hardfault.c \
-../source/usb_device_descriptor.c \
-../source/virtual_com.c 
+../source/usb_device_descriptor.c 
 
 OBJS += \
 ./source/LPC55S69_Robot_Biere.o \
@@ -30,10 +30,10 @@ OBJS += \
 ./source/driver_vl53l0x.o \
 ./source/middleware_ic2.o \
 ./source/middleware_uart.o \
+./source/middleware_usb_com.o \
 ./source/robot_shell.o \
 ./source/semihost_hardfault.o \
-./source/usb_device_descriptor.o \
-./source/virtual_com.o 
+./source/usb_device_descriptor.o 
 
 C_DEPS += \
 ./source/LPC55S69_Robot_Biere.d \
@@ -46,10 +46,10 @@ C_DEPS += \
 ./source/driver_vl53l0x.d \
 ./source/middleware_ic2.d \
 ./source/middleware_uart.d \
+./source/middleware_usb_com.d \
 ./source/robot_shell.d \
 ./source/semihost_hardfault.d \
-./source/usb_device_descriptor.d \
-./source/virtual_com.d 
+./source/usb_device_descriptor.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

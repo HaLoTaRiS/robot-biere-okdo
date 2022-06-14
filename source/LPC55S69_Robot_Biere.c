@@ -30,6 +30,7 @@
 //#define BOARD_LED_GREEN_GPIO_PIN 7U
 
 
+#include <middleware_usb_com.h>
 #include <robot_shell.h> // Shell
 #include <stdio.h>
 #include "board.h"
@@ -52,6 +53,7 @@
 #include "driver_ultrason.h"
 #include "device_interrupt.h"
 #include "device_system.h"
+#include "device_vl53l0x.h"
 
 // Config USB
 #include "fsl_device_registers.h"
@@ -65,14 +67,10 @@
 #include "usb_device_ch9.h"
 
 #include "usb_device_descriptor.h"
-#include "virtual_com.h"
 #include "usb_phy.h"
 
 
 /* TODO: insert other definitions and declarations here. */
-
-
-
 
 /*******************************************************************************
  * Prototypes
@@ -155,8 +153,11 @@ int main(void) {
 
 	init_shell(); 		// Initialise les tasks et fonction du shell
 	init_ultrason(); 	// initialise la tache qui gère les ultrasons
-	init_system();		// initialise la tache system
 	fc2_uart_init(); 	// Initialise l'Uart
+	init_vl53l0x();		// initialise la tache qui gère les laser
+	init_system();		// initialise la tache system
+
+
 	init_interrupt(); 	// Initialise toutes les interruptions PIO
 	init_USB_UART(); 		// Initialise le port USB
 

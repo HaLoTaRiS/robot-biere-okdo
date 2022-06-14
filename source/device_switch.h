@@ -22,7 +22,7 @@
 /* definitions & declarations */
 /*******************************************************************************/
 
-bool service_beer = false ; 	// Valeur état biere
+uint8_t service_beer = 0 ; 	// etat biere
 
 /*******************************************************************************
  * Definitions

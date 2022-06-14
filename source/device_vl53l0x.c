@@ -11,53 +11,78 @@
  * All rights reserved.
  */
 
-
-#include "fsl_debug_console.h"
-#include "pin_mux.h"
+#include "robot_shell.h"
 #include "board.h"
+#include "peripherals.h"
 
-#include "fsl_gint.h"
-
-#include "fsl_common.h"
-#include "fsl_power.h"
-#include "fsl_debug_console.h"
-#include "fsl_shell.h"
-
-
-/*******************************************************************************
- * Definitions
- ******************************************************************************/
-#define DEMO_GINT0_PORT kGINT_Port0
-#define DEMO_GINT1_PORT kGINT_Port1
-
-/* Select one input, active low for GINT0 */
-#define DEMO_GINT0_POL_MASK ~(1U << BOARD_SW1_GPIO_PIN)
-#define DEMO_GINT0_ENA_MASK (1U << BOARD_SW1_GPIO_PIN)
-
-/* Select two inputs, active low for GINT1. SW2 & SW3 must be connected to the same port */
-#define DEMO_GINT1_POL_MASK ~((1U << BOARD_SW2_GPIO_PIN) | (1U << BOARD_SW3_GPIO_PIN))
-#define DEMO_GINT1_ENA_MASK ((1U << BOARD_SW2_GPIO_PIN) | (1U << BOARD_SW3_GPIO_PIN))
+#include "fsl_i2c.h"
+#include "device_vl53l0x.h"
+#include "driver_vl53l0x.h"
+#include "middleware_ic2.h"
 
 
-/*******************************************************************************
- * Fonction interruption
- ******************************************************************************/
-void gint0_callback(void)
+#define VL53L0X_SINGLE
+
+
+TaskHandle_t xHandleVL53L0X = NULL;
+
+extern i2c_master_handle_t i2c_fc4_handle;
+
+struct Laser laser1;
+struct Laser laser2;
+struct Laser laser3;
+struct Laser laser4;
+
+
+void init_vl53l0x(void) {
+
+	BaseType_t xReturned;	// Pour création des tasks
+	/**************** Task VL53L0X ****************/
+	xReturned = xTaskCreate(
+			vTaskVL53L0X,
+			"Task I2C VL53L0X",
+			STACK_SIZE_VL53L0X,
+			(void *) NULL,
+			task_VL53L0X_PRIORITY,
+			&xHandleVL53L0X);
+
+	if( xReturned == errCOULD_NOT_ALLOCATE_REQUIRED_MEMORY ) {
+		LED_RED_ON();
+		SHELL_Printf("ERROR >> Task VL53L0X creation : Could not allocate required memory\r\n");
+	}
+	vTaskSuspend(xHandleVL53L0X); // On lance la tache pour lecture du capteur
+
+}
+
+
+
+/******************************************************************************/
+/* Task VL53L0X	                                                          */
+/******************************************************************************/
+void vTaskVL53L0X(void *pvParameters)
 {
 
-//	printf("SYSTEM >> Robot Biere\r\n");
+	I2C_MasterTransferCreateHandle(I2C_FC4_PERIPHERAL, &i2c_fc4_handle,
+			i2c_master_callback, NULL);
+	bool success = vl53l0x_init();
 
+	// Initialisation du bus I2C
+	while (success) {
+//		SENSOR_1_XSHUT_ON();
+//		success = vl53l0x_read_range_single(&laser1.value);
+//		SENSOR_1_XSHUT_OFF();
+//		vTaskDelay(5/portTICK_PERIOD_MS);
+//		SENSOR_2_XSHUT_ON();
+//		success = vl53l0x_read_range_single(&laser2.value);
+//		SENSOR_2_XSHUT_OFF();
+//		vTaskDelay(5/portTICK_PERIOD_MS);
+//		SENSOR_3_XSHUT_ON();
+//		success = vl53l0x_read_range_single(&laser3.value);
+//		SENSOR_3_XSHUT_OFF();
+//		vTaskDelay(5/portTICK_PERIOD_MS);
+//		SENSOR_4_XSHUT_ON();
+//		success = vl53l0x_read_range_single(&laser4.value);
+//		SENSOR_4_XSHUT_OFF();
+		vTaskDelay(5/portTICK_PERIOD_MS);
+	}
 }
-
-void gint1_callback(void)
-{
-
-//	printf("SYSTEM >> Robot Biere\r\n");
-
-}
-
-void init_GINT_SENSOR(void){
-	GINT_Init(GINT0);
-	GINT_Init(GINT1);
-}
-

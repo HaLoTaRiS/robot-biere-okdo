@@ -11,6 +11,7 @@
  * All rights reserved.
  */
 
+#include <middleware_usb_com.h>
 #include "device_system.h"
 #include "fsl_debug_console.h"
 #include "fsl_shell.h"
@@ -35,9 +36,13 @@
 #include "usb_device_cdc_acm.h"
 #include "usb_device_ch9.h"
 #include "usb_device_descriptor.h"
-#include "virtual_com.h"
+
+#include "device_jetson.h"
 
 TaskHandle_t xHandleSystem = NULL ;
+
+extern struct Ultrason ultrason1;
+extern struct Ultrason ultrason2;
 
 /*******************************************************************************
  * Variables
@@ -111,28 +116,44 @@ void vTaskSystem(void *pvParameters)
 
 		// Détection présence bière
 		if (GPIO_PinRead(BOARD_SWITCH_BIERE_GPIO, BOARD_SWITCH_BIERE_GPIO_PORT,BOARD_SWITCH_BIERE_GPIO_PORT_PIN ) == 0x0){
-			if (service_beer == false) {
+			if (service_beer == 0) {
 				SHELL_Printf("ROBOT-BIERE>> Une bière est détectée !\r\n");
-				service_beer = true;
-				// Nota : Commande UART pour fermer la pince ?!
-				//
+				// Fermeture de la pince
+				service_beer = 1 ;
 				// Transmettre l'information à la Jetson
+				USB_Transmit_Uart(JETSON_ADDR_TX_BRAS_ETAT, JETSON_DATA_BRAS_OPEN);
 			}
 		}
 		else {
-			if (service_beer == true) {
+			if (service_beer == 1) {
 				SHELL_Printf("ROBOT-BIERE>> Je n'ai plus de bière ! Commande en chez Amazon ! \r\n");
-				service_beer = false;
-				//
-				// Transmettre l'information à la Jetson
+				service_beer = 0;
+				USB_Transmit_Uart(JETSON_ADDR_TX_BRAS_ETAT, JETSON_DATA_BRAS_OPEN);
 			}
 		}
 
+		// Switch pour ouvrir la pince
+
 		// Lecture des capteurs XL053L0X Transfert vers Jetson
 
-		vTaskDelay(1/portTICK_PERIOD_MS);
+		vTaskDelay(1000/portTICK_PERIOD_MS);
 
-		APPTaskUART();
+
+		USB_Transmit_Uart(JETSON_ADDR_TX_ULTRASON_1, ultrason1.countCycleFinal);
+		vTaskDelay(10/portTICK_PERIOD_MS);
+		USB_Transmit_Uart(JETSON_ADDR_TX_ULTRASON_2, ultrason2.countCycleFinal);
+		vTaskDelay(10/portTICK_PERIOD_MS);
+		USB_Transmit_Uart(JETSON_ADDR_TX_LASER_1, 0);
+		vTaskDelay(10/portTICK_PERIOD_MS);
+		USB_Transmit_Uart(JETSON_ADDR_TX_LASER_2, 0);
+		vTaskDelay(10/portTICK_PERIOD_MS);
+		USB_Transmit_Uart(JETSON_ADDR_TX_LASER_3, 0);
+		vTaskDelay(10/portTICK_PERIOD_MS);
+		USB_Transmit_Uart(JETSON_ADDR_TX_LASER_4, 0);
+		vTaskDelay(10/portTICK_PERIOD_MS);
+		USB_Transmit_Uart(JETSON_ADDR_TX_BRAS_ETAT, service_beer);
+		vTaskDelay(10/portTICK_PERIOD_MS);
+		USB_Transmit_Uart(JETSON_ADDR_TX_PRECENCE_BEER, 0);
 
 
 	}
