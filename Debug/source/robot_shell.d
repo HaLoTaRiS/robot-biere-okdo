@@ -44,7 +44,7 @@ source/robot_shell.o source/robot_shell.d: ../source/robot_shell.c \
  ../source/middleware_uart.h \
  C:\Users\Baptiste\Documents\ENSEA\3D\S10_011_Projet\IDE\LPC55S69_Robot_Biere\board/pin_mux.h \
  C:\Users\Baptiste\Documents\ENSEA\3D\S10_011_Projet\IDE\LPC55S69_Robot_Biere\drivers/fsl_usart.h \
- ../source/driver_ultrason.h ../source/device_switch.h
+ ../source/driver_ultrason.h
 ../source/robot_shell.h:
 C:\Users\Baptiste\Documents\ENSEA\3D\S10_011_Projet\IDE\LPC55S69_Robot_Biere\utilities/fsl_debug_console.h:
 C:\Users\Baptiste\Documents\ENSEA\3D\S10_011_Projet\IDE\LPC55S69_Robot_Biere\drivers/fsl_common.h:
@@ -92,4 +92,3 @@ C:\Users\Baptiste\Documents\ENSEA\3D\S10_011_Projet\IDE\LPC55S69_Robot_Biere\dri
 C:\Users\Baptiste\Documents\ENSEA\3D\S10_011_Projet\IDE\LPC55S69_Robot_Biere\board/pin_mux.h:
 C:\Users\Baptiste\Documents\ENSEA\3D\S10_011_Projet\IDE\LPC55S69_Robot_Biere\drivers/fsl_usart.h:
 ../source/driver_ultrason.h:
-../source/device_switch.h:

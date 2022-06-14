@@ -51,6 +51,7 @@
 #include "device_motor.h"
 #include "driver_ultrason.h"
 #include "device_interrupt.h"
+#include "device_system.h"
 
 // Config USB
 #include "fsl_device_registers.h"
@@ -154,6 +155,7 @@ int main(void) {
 
 	init_shell(); 		// Initialise les tasks et fonction du shell
 	init_ultrason(); 	// initialise la tache qui gère les ultrasons
+	init_system();		// initialise la tache system
 	fc2_uart_init(); 	// Initialise l'Uart
 	init_interrupt(); 	// Initialise toutes les interruptions PIO
 	init_USB_UART(); 		// Initialise le port USB

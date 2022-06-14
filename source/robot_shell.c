@@ -24,7 +24,7 @@
 #include "driver_ultrason.h"
 
 // Switch détection biere
-#include "device_switch.h"
+
 
 #define VL53L0X_SINGLE
 
@@ -33,7 +33,6 @@
 
 extern SDK_ALIGN(uint8_t s_shellHandleBuffer[SHELL_HANDLE_SIZE], 4);
 extern shell_handle_t s_shellHandle;
-TaskHandle_t xHandleSystem;
 TaskHandle_t xHandleMotorRun = NULL;
 TaskHandle_t xHandleMotorLeft = NULL;
 TaskHandle_t xHandleMotorRight = NULL;
@@ -237,25 +236,6 @@ void init_shell(void) {
 		SHELL_Printf("Task Shell creation error: Could not allocate required memory\r\n");
 	}
 
-	/**************** Task System ****************/
-
-	int DELAY_TASK_SYSTEM = 500;
-
-	xReturned = xTaskCreate(
-			vTaskSystem,
-			"Task System",
-			STACK_SIZE_SYSTEM,
-			(void *) DELAY_TASK_SYSTEM,
-			task_SYSTEM_PRIORITY,
-			&xHandleSystem );
-
-	if( xReturned == errCOULD_NOT_ALLOCATE_REQUIRED_MEMORY ) {
-		LED_RED_ON();
-		SHELL_Printf("ERROR >> Task System creation : Could not allocate required memory\r\n");
-	}
-	// active la task System
-	vTaskResume(xHandleSystem);
-
 	/**************** Task Motor Run ****************/
 	xReturned = xTaskCreate(
 			vTaskMotorRun,
@@ -344,77 +324,6 @@ void vTaskShell(void * p) {
 #endif
 
 }
-
-
-/******************************************************************************/
-/* Task System                                                                 */
-/* @brief : just test FreeRTOS + uart communication + Gpio LED + task         */
-/******************************************************************************/
-void vTaskSystem(void *pvParameters)
-{
-	int count =0;
-	// Phase initialisation System
-	uint8_t temp = 0;
-	SHELL_Printf("ROBOT-BIERE>> Bonjour Maitre : Veux-tu une bière ? \r\n",count);
-	LED_GREEN_ON();
-	XL320_TX_ENABLE();
-	temp = XL320_DATA_LED_GREEN;
-	uart_write_xl320(0x01, XL320_ADDR_LED, &temp, 1);
-	vTaskDelay(200/portTICK_PERIOD_MS);
-	LED_BLUE_ON();
-	temp = XL320_DATA_LED_BLUE;
-	uart_write_xl320(0x01, XL320_ADDR_LED, &temp , 1);
-	vTaskDelay(200/portTICK_PERIOD_MS);
-	LED_RED_ON();
-	temp = XL320_DATA_LED_RED;
-	uart_write_xl320(0x01, XL320_ADDR_LED, &temp , 1);
-	vTaskDelay(200/portTICK_PERIOD_MS);
-	LED_GREEN_OFF();
-	temp = XL320_DATA_LED_YELLOW;
-	uart_write_xl320(0x01, XL320_ADDR_LED, &temp , 1);
-	vTaskDelay(200/portTICK_PERIOD_MS);
-	LED_BLUE_OFF();
-	temp = XL320_DATA_LED_CYAN;
-	uart_write_xl320(0x01, XL320_ADDR_LED, &temp , 1);
-	vTaskDelay(200/portTICK_PERIOD_MS);
-	LED_RED_OFF();
-	temp = XL320_DATA_LED_PURPLE;
-	uart_write_xl320(0x01, XL320_ADDR_LED, &temp , 1);
-	vTaskDelay(200/portTICK_PERIOD_MS);
-	temp = XL320_DATA_LED_OFF;
-	uart_write_xl320(0x01, XL320_ADDR_LED, &temp, 1);
-	XL320_TX_DISABLED();
-	while(1) {
-
-		// Détection présence bière
-		if (GPIO_PinRead(BOARD_SWITCH_BIERE_GPIO, BOARD_SWITCH_BIERE_GPIO_PORT,BOARD_SWITCH_BIERE_GPIO_PORT_PIN ) == 0x0){
-			if (service_beer == false) {
-				SHELL_Printf("ROBOT-BIERE>> Une bière est détectée !\r\n");
-				service_beer = true;
-				// Nota : Commande UART pour fermer la pince ?!
-				//
-				// Transmettre l'information à la Jetson
-			}
-		}
-		else {
-			if (service_beer == true) {
-				SHELL_Printf("ROBOT-BIERE>> Je n'ai plus de bière ! Commande en chez Amazon ! \r\n");
-				service_beer = false;
-				//
-				// Transmettre l'information à la Jetson
-			}
-		}
-
-		// Lecture des capteurs XL053L0X Transfert vers Jetson
-
-		vTaskDelay(500/portTICK_PERIOD_MS);
-
-
-	}
-}
-
-
-
 
 /******************************************************************************/
 /* Task MotorRun                                                              */
