@@ -16,6 +16,7 @@ C_DEPS :=
 SUBDIRS := \
 board \
 component/lists \
+component/osa \
 component/serial_manager \
 component/uart \
 device \
@@ -25,5 +26,10 @@ freertos/freertos_kernel/portable/GCC/ARM_CM33_NTZ/non_secure \
 freertos/freertos_kernel/portable/MemMang \
 source \
 startup \
+usb/device/class/cdc \
+usb/device/class \
+usb/device/source/lpcip3511 \
+usb/device/source \
+usb/phy \
 utilities \
 

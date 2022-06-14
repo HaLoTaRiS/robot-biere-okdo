@@ -52,6 +52,21 @@
 #include "driver_ultrason.h"
 #include "device_interrupt.h"
 
+// Config USB
+#include "fsl_device_registers.h"
+#include "fsl_power.h"
+#include "usb_device_config.h"
+#include "usb.h"
+#include "usb_device.h"
+
+#include "usb_device_class.h"
+#include "usb_device_cdc_acm.h"
+#include "usb_device_ch9.h"
+
+#include "usb_device_descriptor.h"
+#include "virtual_com.h"
+#include "usb_phy.h"
+
 
 /* TODO: insert other definitions and declarations here. */
 
@@ -102,6 +117,34 @@ int main(void) {
 	BOARD_InitDebugConsole();
 #endif
 
+	/***** Start config usb0 *****/
+	NVIC_ClearPendingIRQ(USB0_IRQn);
+	NVIC_ClearPendingIRQ(USB0_NEEDCLK_IRQn);
+	NVIC_ClearPendingIRQ(USB1_IRQn);
+	NVIC_ClearPendingIRQ(USB1_NEEDCLK_IRQn);
+
+	POWER_DisablePD(kPDRUNCFG_PD_USB0_PHY); /*< Turn on USB0 Phy */
+
+	/* reset the IP to make sure it's in reset state. */
+	RESET_PeripheralReset(kUSB0D_RST_SHIFT_RSTn);
+	RESET_PeripheralReset(kUSB0HSL_RST_SHIFT_RSTn);
+	RESET_PeripheralReset(kUSB0HMR_RST_SHIFT_RSTn);
+	RESET_PeripheralReset(kUSB1H_RST_SHIFT_RSTn);
+	RESET_PeripheralReset(kUSB1D_RST_SHIFT_RSTn);
+	RESET_PeripheralReset(kUSB1_RST_SHIFT_RSTn);
+	RESET_PeripheralReset(kUSB1RAM_RST_SHIFT_RSTn);
+
+	POWER_DisablePD(kPDRUNCFG_PD_USB0_PHY); /*< Turn on USB Phy */
+	CLOCK_SetClkDiv(kCLOCK_DivUsb0Clk, 1, false);
+	CLOCK_AttachClk(kFRO_HF_to_USB0_CLK);
+	/* enable usb0 host clock */
+	CLOCK_EnableClock(kCLOCK_Usbhsl0);
+	/*According to reference mannual, device mode setting has to be set by access usb host register */
+	*((uint32_t *)(USBFSH_BASE + 0x5C)) |= USBFSH_PORTMODE_DEV_ENABLE_MASK;
+	/* disable usb0 host clock */
+	CLOCK_DisableClock(kCLOCK_Usbhsl0);
+	/***** End config usb0 *****/
+
 	MOTEUR_TIMER_init();
 
 
@@ -109,10 +152,11 @@ int main(void) {
 
 	SHELL_Printf("\r\nINFO >> Initialisation ...\r\n");
 
-	init_shell(); // Initialise les tasks et fonction du shell
-	init_ultrason(); // initialise la tache qui gère les ultrasons
-	fc2_uart_init(); // Initialise l'Uart
-	init_interrupt(); // Initialise toutes les interruptions PIO
+	init_shell(); 		// Initialise les tasks et fonction du shell
+	init_ultrason(); 	// initialise la tache qui gère les ultrasons
+	fc2_uart_init(); 	// Initialise l'Uart
+	init_interrupt(); 	// Initialise toutes les interruptions PIO
+	init_USB_UART(); 		// Initialise le port USB
 
 	SHELL_Printf("INFO >> OS FreeRTOS Starting ... V1.0\r\n");
 	SHELL_Printf("SYSTEM >> Robot Biere\r\n");

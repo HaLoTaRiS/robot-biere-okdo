@@ -85,6 +85,12 @@ void BOARD_InitBootPins(void);
 #define PIO0_1_FUNC_ALT3 0x03u
 /*!
  * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
+#define PIO0_22_DIGIMODE_DIGITAL 0x01u
+/*!
+ * @brief Selects pin function.: Alternative connection 7. */
+#define PIO0_22_FUNC_ALT7 0x07u
+/*!
+ * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
 #define PIO0_23_DIGIMODE_DIGITAL 0x01u
 /*!
  * @brief Selects pin function.: Alternative connection 2. */
@@ -701,6 +707,13 @@ void BOARD_InitBootPins(void);
  * @brief PORT pin mask */
 #define BOARD_INITDEBUG_UARTPINS_ULTRASON_1_ECHO_PIN_MASK (1U << 10U)
 /* @} */
+
+/*! @name PIO0_22 (number 78), P10[1]/USB0_VBUS
+  @{ */
+#define BOARD_INITDEBUG_UARTPINS_USB0_VBUS_PORT 0U                   /*!<@brief PORT peripheral base pointer */
+#define BOARD_INITDEBUG_UARTPINS_USB0_VBUS_PIN 22U                   /*!<@brief PORT pin number */
+#define BOARD_INITDEBUG_UARTPINS_USB0_VBUS_PIN_MASK (1U << 22U)      /*!<@brief PORT pin mask */
+                                                                     /* @} */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

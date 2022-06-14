@@ -93,6 +93,11 @@
                         <data>true</data>
                      </feature>
                   </dependency>
+                  <dependency resourceType="Peripheral" resourceId="USBFSH" description="Peripheral USBFSH is not initialized" problem_level="1" source="Pins:BOARD_InitDEBUG_UARTPins">
+                     <feature name="initialized" evaluation="equal">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
                   <dependency resourceType="SWComponent" resourceId="platform.drivers.common" description="Pins initialization requires the COMMON Driver in the project." problem_level="2" source="Pins:BOARD_InitDEBUG_UARTPins">
                      <feature name="enabled" evaluation="equal" configuration="cm33_core0">
                         <data>true</data>
@@ -247,6 +252,7 @@
                      </pin_features>
                   </pin>
                   <pin peripheral="CTIMER2" signal="CAPTURE, 0" pin_num="7" pin_signal="PIO0_1/FC3_CTS_SDA_SSEL0/CT_INP0/SCT_GPI1/SD1_CLK/CMP0_OUT/SECURE_GPIO0_1"/>
+                  <pin peripheral="USBFSH" signal="USB_VBUS" pin_num="78" pin_signal="PIO0_22/FC6_TXD_SCL_MISO_WS/UTICK_CAP1/CT_INP15/SCT0_OUT3/USB0_VBUS/SD1_D0/PLU_OUT7/SECURE_GPIO0_22"/>
                </pins>
             </function>
             <function name="BOARD_InitSWD_DEBUGPins">
@@ -987,6 +993,7 @@
                   <clock_output id="FXCOM2_clock.outFreq" value="12 MHz" locked="false" accuracy=""/>
                   <clock_output id="FXCOM4_clock.outFreq" value="12 MHz" locked="false" accuracy=""/>
                   <clock_output id="System_clock.outFreq" value="150 MHz" locked="false" accuracy=""/>
+                  <clock_output id="USB0_clock.outFreq" value="48 MHz" locked="false" accuracy=""/>
                   <clock_output id="UTICK_clock.outFreq" value="1 MHz" locked="false" accuracy=""/>
                   <clock_output id="WDT_clock.outFreq" value="1 MHz" locked="false" accuracy=""/>
                </clock_outputs>
@@ -1004,6 +1011,8 @@
                   <setting id="SYSCON.PLL0M_MULT.scale" value="200" locked="true"/>
                   <setting id="SYSCON.PLL0N_DIV.scale" value="8" locked="true"/>
                   <setting id="SYSCON.PLL0_PDEC.scale" value="2" locked="true"/>
+                  <setting id="SYSCON.USB0CLKDIV.scale" value="2" locked="false"/>
+                  <setting id="SYSCON.USB0CLKSEL.sel" value="ANACTRL.fro_hf_clk" locked="false"/>
                   <setting id="SYSCON_CLOCK_CTRL_FRO1MHZ_CLK_ENA_CFG" value="Enabled" locked="false"/>
                   <setting id="UTICK_EN_CFG" value="Enable" locked="false"/>
                </clock_settings>

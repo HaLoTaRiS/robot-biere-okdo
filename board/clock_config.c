@@ -381,6 +381,7 @@ outputs:
 - {id: FXCOM2_clock.outFreq, value: 12 MHz}
 - {id: FXCOM4_clock.outFreq, value: 12 MHz}
 - {id: System_clock.outFreq, value: 150 MHz}
+- {id: USB0_clock.outFreq, value: 48 MHz}
 - {id: UTICK_clock.outFreq, value: 1 MHz}
 - {id: WDT_clock.outFreq, value: 1 MHz}
 settings:
@@ -397,6 +398,8 @@ settings:
 - {id: SYSCON.PLL0M_MULT.scale, value: '200', locked: true}
 - {id: SYSCON.PLL0N_DIV.scale, value: '8', locked: true}
 - {id: SYSCON.PLL0_PDEC.scale, value: '2', locked: true}
+- {id: SYSCON.USB0CLKDIV.scale, value: '2'}
+- {id: SYSCON.USB0CLKSEL.sel, value: ANACTRL.fro_hf_clk}
 - {id: SYSCON_CLOCK_CTRL_FRO1MHZ_CLK_ENA_CFG, value: Enabled}
 - {id: UTICK_EN_CFG, value: Enable}
 sources:
@@ -463,9 +466,12 @@ void BOARD_Boot_Clock_ROBOT(void)
     CLOCK_SetClkDiv(kCLOCK_DivAhbClk, 1U, false);         /*!< Set AHBCLKDIV divider to value 1 */
     CLOCK_SetClkDiv(kCLOCK_DivWdtClk, 0U, true);               /*!< Reset WDTCLKDIV divider counter and halt it */
     CLOCK_SetClkDiv(kCLOCK_DivWdtClk, 1U, false);         /*!< Set WDTCLKDIV divider to value 1 */
+    CLOCK_SetClkDiv(kCLOCK_DivUsb0Clk, 0U, true);               /*!< Reset USB0CLKDIV divider counter and halt it */
+    CLOCK_SetClkDiv(kCLOCK_DivUsb0Clk, 2U, false);         /*!< Set USB0CLKDIV divider to value 2 */
 
     /*!< Set up clock selectors - Attach clocks to the peripheries */
     CLOCK_AttachClk(kPLL0_to_MAIN_CLK);                 /*!< Switch MAIN_CLK to PLL0 */
+    CLOCK_AttachClk(kFRO_HF_to_USB0_CLK);                 /*!< Switch USB0_CLK to FRO_HF */
     CLOCK_AttachClk(kFRO12M_to_FLEXCOMM0);                 /*!< Switch FLEXCOMM0 to FRO12M */
     CLOCK_AttachClk(kFRO12M_to_FLEXCOMM2);                 /*!< Switch FLEXCOMM2 to FRO12M */
     CLOCK_AttachClk(kFRO12M_to_FLEXCOMM4);                 /*!< Switch FLEXCOMM4 to FRO12M */

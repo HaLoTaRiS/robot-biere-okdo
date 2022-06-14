@@ -112,6 +112,7 @@ BOARD_InitDEBUG_UARTPins:
   - {pin_num: '40', peripheral: GPIO, signal: 'PIO1, 10', pin_signal: PIO1_10/FC1_RXD_SDA_MOSI_DATA/CTIMER1_MAT0/SCT0_OUT3, identifier: ULTRASON_1_ECHO, direction: INPUT,
     mode: pullDown, invert: disabled}
   - {pin_num: '7', peripheral: CTIMER2, signal: 'CAPTURE, 0', pin_signal: PIO0_1/FC3_CTS_SDA_SSEL0/CT_INP0/SCT_GPI1/SD1_CLK/CMP0_OUT/SECURE_GPIO0_1}
+  - {pin_num: '78', peripheral: USBFSH, signal: USB_VBUS, pin_signal: PIO0_22/FC6_TXD_SCL_MISO_WS/UTICK_CAP1/CT_INP15/SCT0_OUT3/USB0_VBUS/SD1_D0/PLU_OUT7/SECURE_GPIO0_22}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -341,6 +342,19 @@ void BOARD_InitDEBUG_UARTPins(void)
                           * : Enable Digital mode.
                           * Digital input is enabled. */
                          | IOCON_PIO_DIGIMODE(PIO0_16_DIGIMODE_DIGITAL));
+
+    IOCON->PIO[0][22] = ((IOCON->PIO[0][22] &
+                          /* Mask bits to zero which are setting */
+                          (~(IOCON_PIO_FUNC_MASK | IOCON_PIO_DIGIMODE_MASK)))
+
+                         /* Selects pin function.
+                          * : PORT022 (pin 78) is configured as USB0_VBUS. */
+                         | IOCON_PIO_FUNC(PIO0_22_FUNC_ALT7)
+
+                         /* Select Digital mode.
+                          * : Enable Digital mode.
+                          * Digital input is enabled. */
+                         | IOCON_PIO_DIGIMODE(PIO0_22_DIGIMODE_DIGITAL));
 
     IOCON->PIO[0][23] = ((IOCON->PIO[0][23] &
                           /* Mask bits to zero which are setting */
