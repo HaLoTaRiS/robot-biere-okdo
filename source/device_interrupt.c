@@ -16,15 +16,27 @@
 #include "fsl_debug_console.h"
 #include "task.h"
 
+
 #define SHELL_Printf PRINTF
 
 extern TaskHandle_t xHandleUltrasonEcho;
 extern uint32_t count;
+extern uint8_t Switch_sw0_on;
 
 void callback_interrupt_pio0(void){
 	if (GPIO_PinRead(BOARD_ULTRASON_2_ECHO_GPIO, BOARD_ULTRASON_2_ECHO_GPIO_PORT,BOARD_ULTRASON_2_ECHO_GPIO_PORT_PIN )){
+		//	vTaskResume(xHandleUltrason2Echo);
+		PRINTF("Interrupt pio 0 ECHO ! \r\nROBOT BIERE>> ");
+		count = 0 ;
+		//	CTIMER_StartTimer(CTIMER2_ULTRASON_PERIPHERAL);
+
+
+	}
+
+	if (GPIO_PinRead(BOARD_XL320_BUTTON_MAIN_GPIO, BOARD_XL320_BUTTON_MAIN_GPIO_PORT,BOARD_XL320_BUTTON_MAIN_GPIO_PIN)== 0x00){
 		//		vTaskResume(xHandleUltrason2Echo);
-		PRINTF("Interrupt pio 0 ECHO ! \r\n");
+		PRINTF("Switch SW0 on !\r\nROBOT BIERE>> ");
+		Switch_sw0_on = 1;
 	}
 }
 
@@ -34,10 +46,7 @@ void callback_interrupt_pio1(void){
 		CTIMER_StartTimer(CTIMER2_ULTRASON_PERIPHERAL);
 	}
 
-	if (GPIO_PinRead(BOARD_ULTRASON_2_ECHO_GPIO, BOARD_ULTRASON_2_ECHO_GPIO_PORT,BOARD_ULTRASON_2_ECHO_GPIO_PORT_PIN )){
-		count = 0 ;
-		CTIMER_StartTimer(CTIMER2_ULTRASON_PERIPHERAL);
-	}
+
 
 }
 
@@ -62,6 +71,9 @@ void init_interrupt(void){
 	GINT_ConfigPins(GINT0, BOARD_PORT_GPIO_0, ULTRASON_2_ECHO_POL_MASK, ULTRASON_2_ECHO_ENA_MASK);
 	// Ultrason 2 Echo
 	GINT_ConfigPins(GINT1, BOARD_PORT_GPIO_1, ULTRASON_1_ECHO_POL_MASK, ULTRASON_1_ECHO_ENA_MASK);
+
+	// Switch Main
+	GINT_ConfigPins(GINT0, BOARD_PORT_GPIO_0, BUTTON_MAIN_POL_MASK, BUTTON_MAIN_ENA_MASK);
 
 	/* Enable callbacks for INT_SW203 & GINT1 */
 	GINT_EnableCallback(GINT0);

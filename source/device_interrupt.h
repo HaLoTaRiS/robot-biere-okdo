@@ -17,7 +17,8 @@
 
 #include "fsl_gint.h" 			// Library interrupt
 #include "driver_ultrason.h"	// Gpio ultrason
-								// Gpio laser
+#include "device_xl320.h"		// Gpio button main
+								// Gpio Laser
 
 /*******************************************************************************
  * Definitions

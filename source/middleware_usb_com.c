@@ -518,51 +518,6 @@ void init_USB_UART(void)
 	USB_DeviceRun(s_cdcVcom.deviceHandle);
 }
 
-/*!
- * @brief Application task function.
- *
- * This function runs the task for application.
- *
- * @return None.
- */
-void APPTaskUART(void)
-{
-	usb_status_t error = kStatus_USB_Error;
-	//    if ((1 == s_cdcVcom.attach) && (1 == s_cdcVcom.startTransactions))
-	//    {
-	//        /* User Code */
-	//        /* endpoint callback length is USB_CANCELLED_TRANSFER_LENGTH (0xFFFFFFFFU) when transfer is canceled */
-	//        if ((0 != s_recvSize) && (USB_CANCELLED_TRANSFER_LENGTH != s_recvSize))
-	//        {
-	//            int32_t i;
-	//
-	//            /* Copy Buffer to Send Buff */
-	//            for (i = 0; i < s_recvSize; i++)
-	//            {
-	//                s_currSendBuf[s_sendSize++] = s_currRecvBuf[i];
-	//            }
-	//            s_recvSize = 0;
-	//        }
-	//
-	//        if (s_sendSize)
-	//        {
-	//            uint32_t size = s_sendSize;
-	//            s_sendSize    = 0;
-	//
-	//            error = USB_DeviceCdcAcmSend(s_cdcVcom.cdcAcmHandle, USB_CDC_VCOM_BULK_IN_ENDPOINT, s_currSendBuf, size);
-	//
-	//
-	//            usb_echo("Reception : %c\r\n", s_currSendBuf[0]);
-	//
-	//
-	//            if (error != kStatus_USB_Success)
-	//            {
-	//                /* Failure to send Data Handling code here */
-	//            }
-	//        }
-	//    }
-}
-
 // Fonction qui transmet un identifiant et Data
 void USB_Transmit_Uart(uint8_t id, uint16_t data){
 	usb_status_t error = kStatus_USB_Error;
@@ -584,3 +539,27 @@ void USB_Transmit_Uart(uint8_t id, uint16_t data){
 		}
 	}
 }
+
+
+// Réception des données de la Jetson
+void USB_Receive_UART(uint8_t id, uint16_t data){
+	usb_status_t error = kStatus_USB_Error;
+	if ((1 == s_cdcVcom.attach) && (1 == s_cdcVcom.startTransactions))
+	{
+
+		if ((0 != s_recvSize) && (USB_CANCELLED_TRANSFER_LENGTH != s_recvSize))
+		{
+
+			id = s_currRecvBuf[0];
+			data = s_currRecvBuf[1];
+			data = data + (8 << s_currRecvBuf[2]);
+
+		}
+		if (error != kStatus_USB_Success)
+		{
+			/* Failure to send Data Handling code here */
+		}
+	}
+}
+
+

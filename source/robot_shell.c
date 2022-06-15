@@ -148,7 +148,7 @@ shell_status_t xl320(shell_handle_t shellHandle, int32_t argc, char **argv){
 
 	SHELL_Printf("  Angle : %d \r\n", angle);
 
-	uint8_t temp_valeur[2];
+	uint8_t temp_valeur[2] = {0};
 
 	// convert
 	uint32_t temp;
@@ -307,8 +307,8 @@ void vTaskMotorRun(void *pvParameters)
 	if (vitesse < 200){
 		vitesse = 200;
 	}
-	else if (vitesse > 1500 ){
-		vitesse = 1500;
+	else if (vitesse > max_speed ){
+		vitesse = max_speed;
 	}
 
 	while(1){

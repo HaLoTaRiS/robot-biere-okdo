@@ -11,6 +11,9 @@
  * All rights reserved.
  */
 
+/*******************************************************************************/
+/* Task priorities. */
+/*******************************************************************************/
 
 // PINCE_TX_ENABLE : >> GPIO1_31
 
@@ -34,6 +37,18 @@
 				1U << BOARD_XL320_TX_ENABLE_GPIO_PIN)
 
 
+// Ouverture du bras => Switch
+#ifndef BOARD_XL320_BUTTON_MAIN_GPIO
+#define BOARD_XL320_BUTTON_MAIN_GPIO GPIO
+#endif
+#define BOARD_XL320_BUTTON_MAIN_GPIO_PORT 0U
+#ifndef BOARD_XL320_BUTTON_MAIN_GPIO_PIN
+#define BOARD_XL320_BUTTON_MAIN_GPIO_PIN 5U
+#endif
+
+// For interrupt witch
+#define BUTTON_MAIN_POL_MASK ~(1U << BOARD_XL320_BUTTON_MAIN_GPIO_PIN)
+#define BUTTON_MAIN_ENA_MASK (1U << BOARD_XL320_BUTTON_MAIN_GPIO_PIN)
 
 // XL320 ADDRESS
 #define XL320_ADDR_MODEL_NUMBER			0		// Sur deux bits
@@ -84,5 +99,17 @@
 #define XL320_DATA_LED_PURPLE	5
 #define XL320_DATA_LED_CYAN		6
 #define XL320_DATA_LED_WHITE	7
+
+// XL320 Value_Moteur
+#define XL320_DATA_MOTOR_OPEN	20
+#define XL320_DATA_MOTOR_CLOSE	250
+
+
+/*******************************************************************************
+ * Prototypes
+ ******************************************************************************/
+void main_open(void);
+void main_close(void);
+
 
 #endif

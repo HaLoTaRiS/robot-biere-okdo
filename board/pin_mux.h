@@ -558,22 +558,12 @@ void BOARD_InitBootPins(void);
   @{ */
 
 /* Symbols to be used with GPIO driver */
-/*!
- * @brief GPIO peripheral base pointer */
-#define BOARD_INITDEBUG_UARTPINS_SWITCH_BOARD_1_GPIO GPIO
-/*!
- * @brief GPIO pin mask */
-#define BOARD_INITDEBUG_UARTPINS_SWITCH_BOARD_1_GPIO_PIN_MASK (1U << 5U)
-/*!
- * @brief PORT peripheral base pointer */
-#define BOARD_INITDEBUG_UARTPINS_SWITCH_BOARD_1_PORT 0U
-/*!
- * @brief PORT pin number */
-#define BOARD_INITDEBUG_UARTPINS_SWITCH_BOARD_1_PIN 5U
-/*!
- * @brief PORT pin mask */
-#define BOARD_INITDEBUG_UARTPINS_SWITCH_BOARD_1_PIN_MASK (1U << 5U)
-/* @} */
+#define BOARD_INITDEBUG_UARTPINS_BUTTON_MAIN_GPIO GPIO                /*!<@brief GPIO peripheral base pointer */
+#define BOARD_INITDEBUG_UARTPINS_BUTTON_MAIN_GPIO_PIN_MASK (1U << 5U) /*!<@brief GPIO pin mask */
+#define BOARD_INITDEBUG_UARTPINS_BUTTON_MAIN_PORT 0U                  /*!<@brief PORT peripheral base pointer */
+#define BOARD_INITDEBUG_UARTPINS_BUTTON_MAIN_PIN 5U                   /*!<@brief PORT pin number */
+#define BOARD_INITDEBUG_UARTPINS_BUTTON_MAIN_PIN_MASK (1U << 5U)      /*!<@brief PORT pin mask */
+                                                                      /* @} */
 
 /*! @name PIO1_31 (number 91), P19[7]/P19[8]/PLU_IN0/GPIO
   @{ */

@@ -16,7 +16,7 @@ board: LPCXpresso55S69
 pin_labels:
 - {pin_num: '54', pin_signal: PIO0_0/FC3_SCK/CTIMER0_MAT0/SCT_GPI0/SD1_CARD_INT_N/SECURE_GPIO0_0/ACMP0_A, label: 'P19[6]/COMPARATOR', identifier: AFF_DIO}
 - {pin_num: '88', pin_signal: PIO0_5/FC4_RXD_SDA_MOSI_DATA/CTIMER3_MAT0/SCT_GPI5/FC3_RTS_SCL_SSEL1/MCLK/SECURE_GPIO0_5, label: 'S1/J10[1]/U3[12]/P17[8]/P7[7]/U11[4]/P0_5-ISP1',
-  identifier: SWITCH_BOARD_1}
+  identifier: SWITCH_BOARD_1;BUTTON_MAIN}
 - {pin_num: '6', pin_signal: PIO0_7/FC3_RTS_SCL_SSEL1/SD0_CLK/FC5_SCK/FC1_SCK/SECURE_GPIO0_7, label: 'U20[4]/SD0_CLK', identifier: SENSOR_1_XSHUT}
 - {pin_num: '71', pin_signal: PIO0_13/FC1_CTS_SDA_SSEL0/UTICK_CAP0/CT_INP0/SCT_GPI0/FC1_RXD_SDA_MOSI_DATA/PLU_IN0/SECURE_GPIO0_13, label: 'P19[9]/P19[10]/U2[E6]/P20[8]/FC1_I2C_SDA',
   identifier: AFF_SDA;AFF_DIO;ULTRASON_2_ECHO}
@@ -97,7 +97,7 @@ BOARD_InitDEBUG_UARTPins:
   - {pin_num: '62', peripheral: GPIO, signal: 'PIO1, 3', pin_signal: PIO1_3/SCT0_OUT4/HS_SPI_MISO/USB0_PORTPWRN/PLU_OUT6}
   - {pin_num: '31', peripheral: GPIO, signal: 'PIO1, 5', pin_signal: PIO1_5/FC0_RXD_SDA_MOSI_DATA/SD0_D2/CTIMER2_MAT0/SCT_GPI0, direction: OUTPUT}
   - {pin_num: '24', peripheral: GPIO, signal: 'PIO1, 8', pin_signal: PIO1_8/FC0_CTS_SDA_SSEL0/SD0_CLK/SCT0_OUT1/FC4_SSEL2/ADC0_4}
-  - {pin_num: '88', peripheral: GPIO, signal: 'PIO0, 5', pin_signal: PIO0_5/FC4_RXD_SDA_MOSI_DATA/CTIMER3_MAT0/SCT_GPI5/FC3_RTS_SCL_SSEL1/MCLK/SECURE_GPIO0_5}
+  - {pin_num: '88', peripheral: GPIO, signal: 'PIO0, 5', pin_signal: PIO0_5/FC4_RXD_SDA_MOSI_DATA/CTIMER3_MAT0/SCT_GPI5/FC3_RTS_SCL_SSEL1/MCLK/SECURE_GPIO0_5, identifier: BUTTON_MAIN}
   - {pin_num: '91', peripheral: GPIO, signal: 'PIO1, 31', pin_signal: PIO1_31/MCLK/SD1_CLK/CTIMER0_MAT2/SCT0_OUT6/PLU_IN0, identifier: PINCE_TX_Enable}
   - {pin_num: '72', peripheral: GPIO, signal: 'PIO0, 14', pin_signal: PIO0_14/FC1_RTS_SCL_SSEL1/UTICK_CAP1/CT_INP1/SCT_GPI1/FC1_TXD_SCL_MISO_WS/PLU_IN1/SECURE_GPIO0_14,
     identifier: ULTRASON_2_TRIG, direction: OUTPUT, ssel: no_init}
@@ -1122,8 +1122,8 @@ void BOARD_InitLEDsPins(void)
 BOARD_InitBUTTONsPins:
 - options: {callFromInitBoot: 'false', coreID: cm33_core0, enableClock: 'true'}
 - pin_list:
-  - {pin_num: '88', peripheral: GPIO, signal: 'PIO0, 5', pin_signal: PIO0_5/FC4_RXD_SDA_MOSI_DATA/CTIMER3_MAT0/SCT_GPI5/FC3_RTS_SCL_SSEL1/MCLK/SECURE_GPIO0_5, direction: INPUT,
-    mode: pullUp, slew_rate: standard, invert: disabled, open_drain: disabled}
+  - {pin_num: '88', peripheral: GPIO, signal: 'PIO0, 5', pin_signal: PIO0_5/FC4_RXD_SDA_MOSI_DATA/CTIMER3_MAT0/SCT_GPI5/FC3_RTS_SCL_SSEL1/MCLK/SECURE_GPIO0_5, identifier: SWITCH_BOARD_1,
+    direction: INPUT, mode: pullUp, slew_rate: standard, invert: disabled, open_drain: disabled}
   - {pin_num: '64', peripheral: GPIO, signal: 'PIO1, 18', pin_signal: PIO1_18/SD1_POW_EN/SCT0_OUT5/PLU_OUT0, direction: INPUT, mode: pullUp, slew_rate: standard,
     invert: disabled, open_drain: disabled}
   - {pin_num: '10', peripheral: GPIO, signal: 'PIO1, 9', pin_signal: PIO1_9/FC1_SCK/CT_INP4/SCT0_OUT2/FC4_CTS_SDA_SSEL0/ADC0_12, identifier: SWITCH_BOARD_2, direction: INPUT,

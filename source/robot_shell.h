@@ -31,17 +31,14 @@ extern serial_handle_t g_serialHandle;
 #define task_MOTOR_RUN_PRIORITY (configMAX_PRIORITIES - 11)
 #define task_MOTOR_LEFT_PRIORITY (configMAX_PRIORITIES - 12)
 #define task_MOTOR_RIGHT_PRIORITY (configMAX_PRIORITIES - 12)
-#define task_XL320_PRIORITY (configMAX_PRIORITIES - 13)
 
 /*******************************************************************************/
 /* Stack Size */
 /******************************************************************************/
 #define STACK_SIZE_SHELL 500
-#define STACK_SIZE_MOTOR_RUN 400
-#define STACK_SIZE_MOTOR_LEFT 400
-#define STACK_SIZE_MOTOR_RIGHT 400
-#define STACK_SIZE_XL320 400
-
+#define STACK_SIZE_MOTOR_RUN 200
+#define STACK_SIZE_MOTOR_LEFT 200
+#define STACK_SIZE_MOTOR_RIGHT 200
 
 /*******************************************************************************
  * Prototypes SHELL

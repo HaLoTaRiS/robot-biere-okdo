@@ -47,7 +47,8 @@ extern struct Ultrason ultrason2;
 /*******************************************************************************
  * Variables
  ******************************************************************************/
-
+uint8_t Switch_sw0_on = 0;
+bool flag_main = false;
 
 /*******************************************************************************
  * Code
@@ -117,27 +118,35 @@ void vTaskSystem(void *pvParameters)
 		// Détection présence bière
 		if (GPIO_PinRead(BOARD_SWITCH_BIERE_GPIO, BOARD_SWITCH_BIERE_GPIO_PORT,BOARD_SWITCH_BIERE_GPIO_PORT_PIN ) == 0x0){
 			if (service_beer == 0) {
-				SHELL_Printf("ROBOT-BIERE>> Une bière est détectée !\r\n");
-				// Fermeture de la pince
+				SHELL_Printf("Une bière est détectée !\r\nROBOT-BIERE>> ");
+				// Transmettre l'information de présence beer
 				service_beer = 1 ;
-				// Transmettre l'information à la Jetson
-				USB_Transmit_Uart(JETSON_ADDR_TX_BRAS_ETAT, JETSON_DATA_BRAS_OPEN);
+				USB_Transmit_Uart(JETSON_ADDR_TX_PRECENCE_BEER, JETSON_DATA_PRESENCE_BEER);
+				// Ordre fermeture pince
+				main_close();
+				// Transmettre l'information à la Jetson Bras fermé
+				USB_Transmit_Uart(JETSON_ADDR_TX_BRAS_ETAT, JETSON_DATA_BRAS_CLOSE);
+				flag_main = true;
 			}
 		}
 		else {
 			if (service_beer == 1) {
-				SHELL_Printf("ROBOT-BIERE>> Je n'ai plus de bière ! Commande en chez Amazon ! \r\n");
+				SHELL_Printf("Je n'ai plus de bière ! Commande en chez Amazon ! \r\nROBOT-BIERE>> ");
 				service_beer = 0;
-				USB_Transmit_Uart(JETSON_ADDR_TX_BRAS_ETAT, JETSON_DATA_BRAS_OPEN);
+				USB_Transmit_Uart(JETSON_ADDR_TX_PRECENCE_BEER, JETSON_DATA_NO_BEER);
 			}
 		}
 
-		// Switch pour ouvrir la pince
+		if (Switch_sw0_on == 1){ // Si je recois un ordre sw0 j'ouvre la main du robot
+			Switch_sw0_on = 0;
+			SHELL_Printf("Ordre manuel ouverture de la main du robot !\r\nROBOT-BIERE>> ");
+			USB_Transmit_Uart(JETSON_ADDR_TX_BRAS_ETAT, JETSON_DATA_BRAS_OPEN);
+			main_open();
+		}
 
 		// Lecture des capteurs XL053L0X Transfert vers Jetson
 
 		vTaskDelay(1000/portTICK_PERIOD_MS);
-
 
 		USB_Transmit_Uart(JETSON_ADDR_TX_ULTRASON_1, ultrason1.countCycleFinal);
 		vTaskDelay(10/portTICK_PERIOD_MS);
@@ -154,7 +163,6 @@ void vTaskSystem(void *pvParameters)
 		USB_Transmit_Uart(JETSON_ADDR_TX_BRAS_ETAT, service_beer);
 		vTaskDelay(10/portTICK_PERIOD_MS);
 		USB_Transmit_Uart(JETSON_ADDR_TX_PRECENCE_BEER, 0);
-
 
 	}
 }
