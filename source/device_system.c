@@ -38,6 +38,7 @@
 #include "usb_device_descriptor.h"
 
 #include "device_jetson.h"
+#include "device_receive.h"
 
 TaskHandle_t xHandleSystem = NULL ;
 
@@ -146,8 +147,8 @@ void vTaskSystem(void *pvParameters)
 
 		// Lecture des capteurs XL053L0X Transfert vers Jetson
 
-		vTaskDelay(1000/portTICK_PERIOD_MS);
-
+//		vTaskDelay(1000/portTICK_PERIOD_MS);
+		vTaskDelay(10/portTICK_PERIOD_MS);
 		USB_Transmit_Uart(JETSON_ADDR_TX_ULTRASON_1, ultrason1.countCycleFinal);
 		vTaskDelay(10/portTICK_PERIOD_MS);
 		USB_Transmit_Uart(JETSON_ADDR_TX_ULTRASON_2, ultrason2.countCycleFinal);
@@ -163,6 +164,10 @@ void vTaskSystem(void *pvParameters)
 		USB_Transmit_Uart(JETSON_ADDR_TX_BRAS_ETAT, service_beer);
 		vTaskDelay(10/portTICK_PERIOD_MS);
 		USB_Transmit_Uart(JETSON_ADDR_TX_PRECENCE_BEER, 0);
-
+		vTaskDelay(10/portTICK_PERIOD_MS);
+		USB_Transmit_Uart(JETSON_ADDR_RX_LEFT, jetson.memo_left);
+		vTaskDelay(10/portTICK_PERIOD_MS);
+		USB_Transmit_Uart(JETSON_ADDR_RX_RIGHT, jetson.memo_right);
+		vTaskDelay(10/portTICK_PERIOD_MS);
 	}
 }

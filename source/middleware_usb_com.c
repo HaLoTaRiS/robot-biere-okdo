@@ -520,10 +520,8 @@ void init_USB_UART(void)
 
 // Fonction qui transmet un identifiant et Data
 void USB_Transmit_Uart(uint8_t id, uint16_t data){
-	usb_status_t error = kStatus_USB_Error;
 	if ((1 == s_cdcVcom.attach) && (1 == s_cdcVcom.startTransactions))
 	{
-
 		usb_status_t error = kStatus_USB_Error;
 		uint8_t	send_data[2] = {0};
 		send_data[0] = id;

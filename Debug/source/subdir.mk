@@ -7,6 +7,7 @@ C_SRCS += \
 ../source/LPC55S69_Robot_Biere.c \
 ../source/device_interrupt.c \
 ../source/device_motor.c \
+../source/device_receive.c \
 ../source/device_system.c \
 ../source/device_vl53l0x.c \
 ../source/device_xl320.c \
@@ -23,6 +24,7 @@ OBJS += \
 ./source/LPC55S69_Robot_Biere.o \
 ./source/device_interrupt.o \
 ./source/device_motor.o \
+./source/device_receive.o \
 ./source/device_system.o \
 ./source/device_vl53l0x.o \
 ./source/device_xl320.o \
@@ -39,6 +41,7 @@ C_DEPS += \
 ./source/LPC55S69_Robot_Biere.d \
 ./source/device_interrupt.d \
 ./source/device_motor.d \
+./source/device_receive.d \
 ./source/device_system.d \
 ./source/device_vl53l0x.d \
 ./source/device_xl320.d \

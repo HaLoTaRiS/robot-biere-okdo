@@ -54,6 +54,7 @@
 #include "device_interrupt.h"
 #include "device_system.h"
 #include "device_vl53l0x.h"
+#include "device_receive.h"
 
 // Config USB
 #include "fsl_device_registers.h"
@@ -159,7 +160,8 @@ int main(void) {
 
 
 	init_interrupt(); 	// Initialise toutes les interruptions PIO
-	init_USB_UART(); 		// Initialise le port USB
+	init_USB_UART(); 	// Initialise le port USB
+	init_receive_data(); // Initialise la tache qui traite la reception Jetson
 
 	SHELL_Printf("INFO >> OS FreeRTOS Starting ... V1.0\r\n");
 	SHELL_Printf("SYSTEM >> Robot Biere\r\n");
